@@ -1,21 +1,61 @@
 <template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
+  <div class="first-page">
+    <Header />
+    <video
+      autoplay
+      muted
+      loop
+      poster="./assets/background.jpg"
+      id="bgvid"
+      v-if="store.router == 'home' || store.router == 'game'"
+    >
+      <source src="./assets/background.mp4" type="video/mp4" />
+    </video>
+    <el-main>
+      <Home v-if="store.router == 'home'" />
+      <About v-if="store.router == 'about'" />
+      <Game v-if="store.router == 'game'" />
+      <Test v-if="store.router == 'test'" />
+    </el-main>
+
+    <el-footer>Footer</el-footer>
   </div>
-  <HelloWorld msg="Vite + Vue" />
 </template>
 
 <script setup>
-import HelloWorld from "./components/HelloWorld.vue";
+import { ref, computed } from "vue";
+import Home from "./components/Home.vue";
+import Header from "./components/Header.vue";
+import About from "./components/About.vue";
+import Game from "./components/Game.vue";
+import Test from "./components/Test.vue";
+
+import { useStore } from "@/store";
+
+const store = useStore();
 </script>
 
 <style scoped>
-.logo {
+video {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+/* .first-page {
+  background-image: url("./assets/background.mp4");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+} */
+/* .logo {
   height: 6em;
   padding: 1.5em;
   will-change: filter;
@@ -26,5 +66,5 @@ import HelloWorld from "./components/HelloWorld.vue";
 }
 .logo.vue:hover {
   filter: drop-shadow(0 0 2em #42b883aa);
-}
+} */
 </style>
