@@ -34,12 +34,13 @@ import { Github, Twitter, Link } from "@vicons/fa";
 const members = ref([]);
 members.value = [
   {
-    name: "member 1",
-    avatar: "https://www.github.com/yyx990803.png",
+    name: "Hao Wu",
+    avatar:
+      "https://hcslab.cuhk.edu.cn/wp-content/uploads/2021/09/8fe9ed946eeeff83f696bdec580f7a5-300x300.jpg",
     title: "Artist",
   },
   {
-    name: "member 2",
+    name: "Lehao Lin",
     avatar: "https://avatars.githubusercontent.com/u/35103106?v=4",
     title: "Developer",
     github: "https://github.com/LehaoLin",
