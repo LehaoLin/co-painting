@@ -44,8 +44,8 @@ members.value = [
     avatar: "https://avatars.githubusercontent.com/u/35103106?v=4",
     title: "Developer",
     github: "https://github.com/LehaoLin",
-    twitter: "baidu.com",
-    link: "lehao.xyz",
+    twitter: "https://twitter.com",
+    link: "http://lehao.xyz",
   },
   {
     name: "Feng Bro",
