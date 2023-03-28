@@ -1,7 +1,7 @@
 <template>
   <div class="questions">
     <div style="padding: 20px; border-radius: 40px">
-      <el-row justify="center" style="height: 245px">
+      <el-row justify="center">
         <el-col
           :span="6"
           class="qa-div"
@@ -47,7 +47,7 @@
         </el-col>
       </el-row>
 
-      <el-row justify="center" style="height: 245px">
+      <el-row justify="center">
         <el-col
           :span="6"
           class="qa-div"
@@ -104,7 +104,7 @@
         >
       </el-row>
 
-      <el-row justify="center" style="height: 245px">
+      <el-row justify="center">
         <el-col :span="6" class="qa-div">
           <div
             class="how"

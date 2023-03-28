@@ -120,6 +120,7 @@ const store = useStore();
 <style scoped>
 .page-one {
   width: 100%;
+  padding-top: 3vh;
 }
 .bigRedButton {
   border-radius: 50px !important;

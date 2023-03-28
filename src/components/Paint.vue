@@ -214,7 +214,7 @@ const select = (payload) => {
 
 .mask {
   background: url("../assets/lock.png") no-repeat center center;
-  background-size: 30%;
+  background-size: 27%;
   mask: url("../assets/lock.png") no-repeat center center;
   mask-size: contain;
 }

@@ -12,7 +12,7 @@
     </div>
   </el-row>
   <el-row justify="center">
-    <p>Col:{{ col_clicked }}, Row:{{ row_clicked }} clicked, {{ status }}</p>
+    <!-- <p>Col:{{ col_clicked }}, Row:{{ row_clicked }} clicked, {{ status }}</p> -->
   </el-row>
   <el-row justify="center">
     <ColorCanvas :colors="colors" :paint="paint" @select="select" />

@@ -36,7 +36,7 @@
 import { ref } from "vue";
 import { Github, Twitter, Link } from "@vicons/fa";
 
-import weicai from "@/assets/nft-cw.jpeg";
+import weicai from "@/assets/nft-cw1.jpeg";
 import wuhao from "@/assets/nft-wuhao.jpeg";
 import zhouzhou from "@/assets/nft-zhouzhou.jpeg";
 import xiangyu from "@/assets/xiangyu.jpeg";
