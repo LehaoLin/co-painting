@@ -11,19 +11,11 @@
     >
       <source src="./assets/background.mp4" type="video/mp4" />
     </video>
-    <el-main>
-      <Home v-if="store.router == 'home'" />
-      <About v-if="store.router == 'about'" />
-      <Game v-if="store.router == 'game'" />
-      <Test v-if="store.router == 'test'" />
-    </el-main>
-
-    <el-footer>
-      <div>
-        Human-Crypto Society Laboratory, The Chinese University of Hong Kong,
-        Shenzhen
-      </div>
-    </el-footer>
+    <Home v-if="store.router == 'home'" />
+    <About v-if="store.router == 'about'" />
+    <Game v-if="store.router == 'game'" />
+    <Test v-if="store.router == 'test'" />
+    <Footer style="z-index: 9999" />
   </div>
 </template>
 
@@ -34,6 +26,7 @@ import Header from "./components/Header.vue";
 import About from "./components/About.vue";
 import Game from "./components/Game.vue";
 import Test from "./components/Test.vue";
+import Footer from "./components/Footer.vue";
 
 import { useStore } from "@/store";
 

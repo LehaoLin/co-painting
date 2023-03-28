@@ -1,6 +1,8 @@
 <template>
-  <div class="test">
-    <div v-if="row_clicked != 0 && col_clicked != 0">
+  <!-- <div class="test"> -->
+  <el-row justify="center" style="margin-top: 7vh">
+    <!-- <div v-if="row_clicked != 0 && col_clicked != 0"> -->
+    <div>
       <span v-for="(color, index) in prepared_colors">
         <el-button
           :style="{ 'background-color': color }"
@@ -8,10 +10,14 @@
         ></el-button>
       </span>
     </div>
-
+  </el-row>
+  <el-row justify="center">
     <p>Col:{{ col_clicked }}, Row:{{ row_clicked }} clicked, {{ status }}</p>
+  </el-row>
+  <el-row justify="center">
     <ColorCanvas :colors="colors" :paint="paint" @select="select" />
-  </div>
+  </el-row>
+  <!-- </div> -->
 </template>
 
 <script setup>
@@ -52,8 +58,13 @@ const set_color = (color, row_index, col_index, status) => {
 
 <style scoped>
 .test {
-  display: block;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  /* display: block;
   margin-left: auto;
-  margin-right: auto;
+  margin-right: auto; */
 }
 </style>

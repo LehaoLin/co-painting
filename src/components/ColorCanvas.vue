@@ -14,6 +14,8 @@ const paint = toRef(props, "paint");
 const emit = defineEmits(["select"]);
 const stage = ref();
 const layer = ref();
+const selected_cell = ref(null);
+
 const draw = () => {
   // create a stage with the specified width and height
   Konva.autoDrawEnabled = false;
@@ -55,13 +57,33 @@ const draw = () => {
         stroke: "#838181",
         strokeWidth: 1,
       });
-      rect.on("click", function () {
+      rect.on("click", async function (evt) {
         let col_index = (this.attrs.x + 20) / 20;
         let row_index = (this.attrs.y + 20) / 20;
         // console.log("Cell clicked:", col_index, row_index);
         let temp_color = colors.value[(row_index - 1) * 60 + col_index - 1];
         if (temp_color == "#ffffff") {
           emit("select", { col_index, row_index, status: "available" });
+          var box = evt.target;
+          box.fill("gray");
+          box.draw();
+          if (selected_cell.value) {
+            if (
+              colors.value[
+                (selected_cell.value.row_index - 1) * 60 +
+                  selected_cell.value.col_index -
+                  1
+              ] == "#808080"
+            ) {
+              colors.value[
+                (selected_cell.value.row_index - 1) * 60 +
+                  selected_cell.value.col_index -
+                  1
+              ] = "#ffffff";
+            }
+          }
+          selected_cell.value = { col_index, row_index };
+          colors.value[(row_index - 1) * 60 + col_index - 1] = "#808080";
         } else {
           emit("select", { col_index, row_index, status: "unavailable" });
         }
