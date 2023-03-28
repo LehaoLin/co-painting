@@ -1,20 +1,20 @@
 <template>
-  <div class="title1">
+  <!-- <div class="title1">
     <h4>How to Join</h4>
-  </div>
+  </div> -->
   <div class="background">
     <img
-      style="width: 1920px; height: 2309px; overflow: hidden"
+      style="width: 80%; height: 100%; background-color: white"
       src="../assets/about.png"
       alt=""
     />
   </div>
-  <div class="title2">
+  <!-- <div class="title2">
     <h4>Operation Interface</h4>
-  </div>
+  </div> -->
   <div class="tutorial">
     <img
-      style="max-width: 90%; overflow: hidden"
+      style="width: 80%; overflow: hidden"
       src="../assets/tutorial.png"
       alt=""
     />
@@ -25,8 +25,28 @@
 
 <style scoped>
 .background {
-  /* background-color: rgb(255, 255, 255); */
+  background-color: #e0e0e0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 70px;
 }
+.tutorial {
+  background-color: #e0e0e0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 70px;
+  padding-bottom: 70px;
+}
+/* .title1 {
+  background-color: #e0e0e0;
+}
+
+.title2 {
+  background-color: #e0e0e0;
+} */
+
 /* .title1 {
   position: absolute;
   top: 15%;

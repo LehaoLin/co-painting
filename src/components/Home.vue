@@ -1,13 +1,15 @@
 <template>
   <Wallet />
-  <Paint style="box-shadow: 0 15px 5px grey; z-index: 100" />
-  <PageThree style="box-shadow: 0 15px 5px grey; z-index: 99" />
-  <Stages
-    style="background-color: #e0e0e0; box-shadow: 0 15px 5px grey; z-index: 98"
+  <Paint style="box-shadow: inset 0px 10px 5px black" />
+  <PageThree
+    style="
+      box-shadow: 0 -20px 15px #494848;
+      z-index: 97;
+      background-color: #e0e0e0;
+    "
   />
-  <Members
-    style="background-color: #e0e0e0; box-shadow: 0 15px 5px grey; z-index: 97"
-  />
+  <Stages style="background-color: #e0e0e0" />
+  <Members style="background-color: #e0e0e0" />
 </template>
 
 <script setup>

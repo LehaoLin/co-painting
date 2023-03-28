@@ -1,18 +1,28 @@
 <template>
   <div class="questions">
-    <div style="padding: 20px">
+    <div style="padding: 20px; border-radius: 40px">
       <el-row justify="center">
         <el-col
           :span="6"
           class="qa-div"
           style="border-bottom: 0.1rem solid grey"
         >
-          <img
+          <div
+            style="
+              font-size: 120px;
+              font-weight: bold;
+              text-shadow: 10px 2px 10px black;
+            "
+          >
+            <span style="color: #ed7170">W</span
+            ><span style="color: #262727">HAT</span>
+          </div>
+          <!-- <img
             style="max-width: 100%"
             width="350"
             src="../assets/what.png"
             alt=""
-          />
+          /> -->
         </el-col>
         <el-col
           :span="12"
@@ -21,7 +31,7 @@
         >
           <div class="whatText">
             <h3>What is the "painting together or not" ?</h3>
-            <h6>
+            <div style="margin-top: -5px; font-size: 13px">
               "Painting Together or Not" is a Web3 co-painting project on a
               60x30 canvas. Our goal is to fully decentralize the creation
               process and empower all participants to paint freely. All creative
@@ -30,7 +40,7 @@
               mandatory - participants are free to pursue their own goals and
               interests. However, we believe that a great artwork is the
               foundation of both individual and collective success.
-            </h6>
+            </div>
           </div>
         </el-col>
       </el-row>
@@ -41,14 +51,22 @@
           class="qa-div"
           style="border-bottom: 0.1rem solid grey"
         >
-          <div class="And">
-            <img
+          <div
+            class="And"
+            style="
+              font-size: 120px;
+              font-weight: bold;
+              text-shadow: 10px 2px 10px black;
+            "
+          >
+            <span style="color: #262727">AND</span>
+          </div>
+          <!-- <img
               style="max-width: 100%"
               width="350"
               src="../assets/And.png"
               alt=""
-            />
-          </div>
+            /> -->
         </el-col>
         <el-col
           :span="12"
@@ -66,7 +84,7 @@
                 >Read More</el-link
               >
             </h3>
-            <h6>
+            <div style="margin-top: -5px; font-size: 13px">
               When you are transferred a color by someone (each person can only
               be transferred to once), it means that you have joined this
               project. You will receive a color from another participant and the
@@ -79,26 +97,51 @@
               current color, the smart contract will airdrop you a new color
               (current color saturation - 20%). If you have more than two pixel
               NFTs, you can exchange their colors.
-            </h6>
+            </div>
           </div></el-col
         >
       </el-row>
 
       <el-row justify="center">
         <el-col :span="6" class="qa-div">
-          <div class="how">
-            <img
-              style="max-width: 100%"
-              width="350"
-              src="../assets/how.png"
-              alt=""
-            />
+          <div
+            class="how"
+            style="
+              font-size: 120px;
+              font-weight: bold;
+
+              text-shadow: 10px 2px 10px black;
+            "
+          >
+            <span style="color: #ed7170">H</span
+            ><span style="color: #262727">OW</span>
           </div>
         </el-col>
         <el-col :span="12" class="text-div">
           <div class="howText">
-            <h3>How to gain benefits</h3>
-            <h6>
+            <h3>
+              How to gain benefits?
+              <el-link
+                href="###"
+                :underline="false"
+                style="text-decoration: underline"
+                @click="version = 'official'"
+                v-if="version === 'beta'"
+                >Switch to: Offical Version</el-link
+              >
+              <el-link
+                href="###"
+                :underline="false"
+                style="text-decoration: underline"
+                @click="version = 'beta'"
+                v-if="version === 'official'"
+                >Switch to: Beta Version</el-link
+              >
+            </h3>
+            <div
+              style="margin-top: -5px; font-size: 13px"
+              v-if="version == 'beta'"
+            >
               Please note: This version is a test version, and the currency
               involved should be Sepolia currency. The economic game will be
               reflected in the official version. Test version benefits: 1.
@@ -110,7 +153,22 @@
               Discord title, which represents their reputation in the project.
               Having this title also increases their trustworthiness and makes
               them more likely to be transferred colors.
-            </h6>
+            </div>
+            <div
+              style="margin-top: -5px; font-size: 13px"
+              v-if="version == 'official'"
+            >
+              When you paint a pixel, you will gain a fixed pixel NFT (including
+              color and coordinates) which you can sell on Opensea, and no one
+              can paint the same position again. It means that each coordinate
+              is unique, and their value has a strong relationship with their
+              position and color. When you transfer the color, the rarity of the
+              color will decrease, and the pixel that you paint with this color
+              is likely to decrease in value. You can sell your own fixed pixel
+              NFT (not color) on the secondary market whenever you want. The
+              final artwork will be sold on the auction house, and the number of
+              pixel NFTs you own will determine your dividend.
+            </div>
           </div>
         </el-col>
       </el-row>
@@ -120,6 +178,10 @@
 
 <script setup>
 import { useStore } from "@/store";
+import { ref } from "vue";
+
+const version = ref("beta"); // offical beta
+
 const store = useStore();
 </script>
 
@@ -129,6 +191,9 @@ const store = useStore();
   height: 100%;
   position: relative;
   background-color: #e0e0e0;
+
+  padding-top: 50px;
+
   /* margin-top: 5vh; */
 
   /* text-align: center;
@@ -151,9 +216,11 @@ const store = useStore();
   display: inline-block;
   vertical-align: middle;
   color: #dddddd;
-  padding: 10px;
-  padding-left: 30px;
-  padding-right: 30px;
+  /* padding: 10px; */
+  padding-top: 20px;
+  padding-bottom: 50px;
+  padding-left: 70px;
+  padding-right: 70px;
 }
 
 .qa-div {
@@ -161,86 +228,4 @@ const store = useStore();
   align-items: center;
   justify-content: center;
 }
-
-/* .what {
-  background-color: #3a3a3a;
-}
-
-.And {
-  background-color: #3a3a3a;
-}
-
-.how {
-  background-color: #3a3a3a;
-}
-
-.whatText {
-  background-color: #575958;
-}
-
-.andText {
-  background-color: #575958;
-}
-
-.howText {
-  background-color: #575958;
-} */
-
-/* .howText {
-  position: absolute;
-  left: 34.7%;
-  top: 280.2%;
-  text-align: center;
-  width: 1000px;
-  height: 275px;
-  background-color: #575958;
-}
-.andText {
-  position: absolute;
-  left: 34.7%;
-  top: 250.1%;
-  text-align: center;
-  width: 1000px;
-  height: 275px;
-  background-color: #575958;
-}
-
-.whatText {
-  position: absolute;
-  left: 34.7%;
-  top: 220%;
-  text-align: center;
-  width: 1000px;
-  height: 275px;
-  background-color: #575958;
-}
-.what {
-  position: absolute;
-  left: 5%;
-  top: 220%;
-  text-align: center;
-  width: 501px;
-  height: 275px;
-  background-color: #3a3a3a;
-}
-
-.And {
-  position: absolute;
-  left: 5%;
-  top: 250.1%;
-  text-align: center;
-  width: 501px;
-  height: 275px;
-  background-color: #3a3a3a;
-}
-
-.how {
-  position: absolute;
-  left: 5%;
-  top: 280.2%;
-  text-align: center;
-  width: 501px;
-  height: 275px;
-  background-color: #3a3a3a;
-} */
 </style>

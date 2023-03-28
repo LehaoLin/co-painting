@@ -2,7 +2,7 @@
   <div
     class="lock"
     v-if="!store.connected || store.paint_right == 0"
-    style="background-color: white; overflow: hidden"
+    style="background-color: #757575; overflow: hidden"
   >
     <div
       class="fake_canvas mask"

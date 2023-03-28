@@ -12,8 +12,8 @@
     <el-menu-item index="5">Test</el-menu-item>
     <el-menu-item index="1" @click="toDiscord">Discord</el-menu-item>
     <el-menu-item index="2">How to Paint</el-menu-item>
-    <el-menu-item index="3">Auction</el-menu-item>
-    <el-menu-item index="4">About Us</el-menu-item>
+    <el-menu-item index="3" disabled>Auction</el-menu-item>
+    <el-menu-item index="4" @click="toNotion">Notion</el-menu-item>
     <el-menu-item index="5"></el-menu-item>
     <el-menu-item index="6"></el-menu-item>
   </el-menu>
@@ -28,8 +28,16 @@ const store = useStore();
 const activeIndex = ref("0");
 
 const toDiscord = () => {
-  console.log("sdfsdfsdfdsds");
   window.open("https://discord.gg/uXcmFN7fXx", "_blank");
+  activeIndex.value = "0";
+  store.router = "home";
+};
+
+const toNotion = () => {
+  window.open(
+    "https://admitted-fibre-3dc.notion.site/Painting-Together-or-not-rules-e1c7fdd4b7804784874c7505099fa07f",
+    "_blank"
+  );
   activeIndex.value = "0";
   store.router = "home";
 };

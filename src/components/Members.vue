@@ -1,5 +1,5 @@
 <template>
-  <el-row justify="space-evenly" style="padding: 20px">
+  <el-row justify="space-evenly" style="padding: 20px; padding-top: 40px">
     <el-col :span="6" v-for="member in members" class="member-row">
       <el-card shadow="always" class="member">
         <img :src="member.avatar" alt="Avatar" />
