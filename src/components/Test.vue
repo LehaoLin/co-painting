@@ -11,6 +11,7 @@
       </span>
     </div>
   </el-row>
+  <br />
   <el-row justify="center">
     <!-- <p>Col:{{ col_clicked }}, Row:{{ row_clicked }} clicked, {{ status }}</p> -->
   </el-row>
