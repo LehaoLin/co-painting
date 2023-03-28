@@ -9,12 +9,11 @@
   >
     <div class="flex-grow" />
     <el-menu-item index="0">Home</el-menu-item>
-    <el-menu-item index="5">Test</el-menu-item>
+    <el-menu-item index="9">Pre-creation</el-menu-item>
     <el-menu-item index="1" @click="toDiscord">Discord</el-menu-item>
     <el-menu-item index="2">How to Paint</el-menu-item>
     <el-menu-item index="3" disabled>Auction</el-menu-item>
-    <el-menu-item index="4" @click="toNotion">Notion</el-menu-item>
-    <el-menu-item index="5"></el-menu-item>
+    <el-menu-item index="4" disabled>Etherscan</el-menu-item>
     <el-menu-item index="6"></el-menu-item>
   </el-menu>
 </template>
@@ -52,7 +51,7 @@ const handleSelect = (key, keyPath) => {
   if (key == "3") {
     store.router = "game";
   }
-  if (key == "5") {
+  if (key == "9") {
     store.router = "test";
   }
   // console.log(key, keyPath);

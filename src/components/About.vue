@@ -5,7 +5,7 @@
   <div class="background">
     <img
       style="width: 80%; height: 100%; background-color: white"
-      src="../assets/about.png"
+      src="../assets/about.jpeg"
       alt=""
     />
   </div>
@@ -15,7 +15,7 @@
   <div class="tutorial">
     <img
       style="width: 80%; overflow: hidden"
-      src="../assets/tutorial.png"
+      src="../assets/tutorial.jpeg"
       alt=""
     />
   </div>

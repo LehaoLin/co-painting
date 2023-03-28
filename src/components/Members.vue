@@ -6,19 +6,19 @@
         <h2>{{ member.name }}</h2>
         <h4 class="member-title">{{ member.title }}</h4>
 
-        <span v-if="member.github">
+        <span v-if="member.github" style="margin: 10px">
           <a :href="member.github" target="_blank">
             <Github class="icon" />
           </a>
         </span>
-        &nbsp;&nbsp;
-        <span v-if="member.twitter">
+
+        <span v-if="member.twitter" style="margin: 10px">
           <a :href="member.twitter" target="_blank">
             <Twitter class="icon" />
           </a>
         </span>
-        &nbsp;&nbsp;
-        <span v-if="member.link">
+
+        <span v-if="member.link" style="margin: 10px">
           <a :href="member.link" target="_blank">
             <Link class="icon" />
           </a>
@@ -31,22 +31,45 @@
 import { ref } from "vue";
 import { Github, Twitter, Link } from "@vicons/fa";
 
+import weicai from "@/assets/nft-cw.jpeg";
+import wuhao from "@/assets/nft-wuhao.jpeg";
+import zhouzhou from "@/assets/nft-zhouzhou.jpeg";
+
 const members = ref([]);
 members.value = [
   {
+    name: "0xWeiCai",
+    avatar: weicai,
+    title: "Director",
+    link: "https://mypage.cuhk.edu.cn/academics/caiwei/",
+    twitter: "https://twitter.com/0xWeiCai",
+  },
+  {
     name: "Hao Wu",
-    avatar:
-      "https://hcslab.cuhk.edu.cn/wp-content/uploads/2021/09/8fe9ed946eeeff83f696bdec580f7a5-300x300.jpg",
+    avatar: wuhao,
     title: "Artist",
+    twitter: "https://twitter.com/0xmetahao",
   },
   {
     name: "Lehao Lin",
     avatar: "https://avatars.githubusercontent.com/u/35103106?v=4",
     title: "Developer",
     github: "https://github.com/LehaoLin",
-    twitter: "https://twitter.com",
     link: "http://lehao.xyz",
   },
+  {
+    name: "Xiangyu Xu",
+    avatar:
+      "https://img0.baidu.com/it/u=1512173499,2368773931&fm=253&fmt=auto&app=138&f=JPEG?w=616&h=500",
+    title: "Developer",
+  },
+  {
+    name: "0xtovarishch",
+    avatar: zhouzhou,
+    title: "Artist",
+    twitter: "https://twitter.com/c_hongzhou",
+  },
+
   {
     name: "Feng Bro",
     avatar:

@@ -129,7 +129,7 @@ const store = useStore();
   display: block;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 55vh;
+  margin-top: 52vh;
 }
 
 .slogan {

@@ -1,9 +1,10 @@
 <template>
   <Wallet />
-  <Paint style="box-shadow: inset 0px 10px 5px black" />
+
+  <Paint />
   <PageThree
     style="
-      box-shadow: 0 -20px 15px #494848;
+      box-shadow: 0 -20px 15px #545353;
       z-index: 97;
       background-color: #e0e0e0;
     "

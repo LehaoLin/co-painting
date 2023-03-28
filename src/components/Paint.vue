@@ -2,7 +2,11 @@
   <div
     class="lock"
     v-if="!store.connected || store.paint_right == 0"
-    style="background-color: #757575; overflow: hidden"
+    style="
+      background-color: #757575;
+      overflow: hidden;
+      box-shadow: inset 0px 25px 15px black;
+    "
   >
     <div
       class="fake_canvas mask"
@@ -196,7 +200,7 @@ const select = (payload) => {
 <style scoped>
 .lock {
   width: 100%;
-  height: 100vh;
+  height: 90vh;
   position: relative;
   display: flex;
   /* margin-right: auto;
