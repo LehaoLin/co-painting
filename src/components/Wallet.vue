@@ -135,6 +135,7 @@ const store = useStore();
 .slogan {
   margin-left: auto;
   margin-right: auto;
+  padding-top: 2vh;
   text-align: center;
   font-size: 25px;
 }

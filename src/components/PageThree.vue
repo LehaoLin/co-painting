@@ -1,7 +1,7 @@
 <template>
   <div class="questions">
     <div style="padding: 20px; border-radius: 40px">
-      <el-row justify="center">
+      <el-row justify="center" style="height: 245px">
         <el-col
           :span="6"
           class="qa-div"
@@ -37,16 +37,17 @@
               60x30 canvas. Our goal is to fully decentralize the creation
               process and empower all participants to paint freely. All creative
               activities are executed on the smart contract, ensuring complete
-              transparency and immutability. Additionally, cooperation is not
-              mandatory - participants are free to pursue their own goals and
-              interests. However, we believe that a great artwork is the
-              foundation of both individual and collective success.
+              transparency and immutability. <br /><br />Additionally,
+              cooperation is not mandatory - participants are free to pursue
+              their own goals and interests. However, we believe that a great
+              artwork is the foundation of both individual and collective
+              success.
             </div>
           </div>
         </el-col>
       </el-row>
 
-      <el-row justify="center">
+      <el-row justify="center" style="height: 245px">
         <el-col
           :span="6"
           class="qa-div"
@@ -103,7 +104,7 @@
         >
       </el-row>
 
-      <el-row justify="center">
+      <el-row justify="center" style="height: 245px">
         <el-col :span="6" class="qa-div">
           <div
             class="how"
@@ -229,6 +230,7 @@ const readmore = () => {
   padding-bottom: 50px;
   padding-left: 70px;
   padding-right: 70px;
+  line-height: 120%;
 }
 
 .qa-div {

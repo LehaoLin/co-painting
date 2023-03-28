@@ -18,7 +18,12 @@
       <Test v-if="store.router == 'test'" />
     </el-main>
 
-    <el-footer>Footer</el-footer>
+    <el-footer>
+      <div>
+        Human-Crypto Society Laboratory, The Chinese University of Hong Kong,
+        Shenzhen
+      </div>
+    </el-footer>
   </div>
 </template>
 

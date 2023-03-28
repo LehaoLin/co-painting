@@ -1,6 +1,10 @@
 <template>
-  <el-row justify="space-evenly" style="padding: 20px; padding-top: 40px">
-    <el-col :span="6" v-for="member in members" class="member-row">
+  <el-row
+    justify="space-around"
+    style="padding: 20px; padding-top: 1vh; padding-bottom: 10vh"
+  >
+    <el-col :span="2"></el-col>
+    <el-col :span="3" v-for="member in members" class="member-row">
       <el-card shadow="always" class="member">
         <img :src="member.avatar" alt="Avatar" />
         <h2>{{ member.name }}</h2>
@@ -25,6 +29,7 @@
         </span>
       </el-card>
     </el-col>
+    <el-col :span="2"></el-col>
   </el-row>
 </template>
 <script setup>
@@ -34,6 +39,7 @@ import { Github, Twitter, Link } from "@vicons/fa";
 import weicai from "@/assets/nft-cw.jpeg";
 import wuhao from "@/assets/nft-wuhao.jpeg";
 import zhouzhou from "@/assets/nft-zhouzhou.jpeg";
+import xiangyu from "@/assets/xiangyu.jpeg";
 
 const members = ref([]);
 members.value = [
@@ -45,7 +51,7 @@ members.value = [
     twitter: "https://twitter.com/0xWeiCai",
   },
   {
-    name: "Hao Wu",
+    name: "0xMetahao",
     avatar: wuhao,
     title: "Artist",
     twitter: "https://twitter.com/0xmetahao",
@@ -59,9 +65,9 @@ members.value = [
   },
   {
     name: "Xiangyu Xu",
-    avatar:
-      "https://img0.baidu.com/it/u=1512173499,2368773931&fm=253&fmt=auto&app=138&f=JPEG?w=616&h=500",
+    avatar: xiangyu,
     title: "Developer",
+    github: "https://github.com/AlannnXu/Collective-NFT-website",
   },
   {
     name: "0xtovarishch",
@@ -70,18 +76,12 @@ members.value = [
     twitter: "https://twitter.com/c_hongzhou",
   },
 
-  {
-    name: "Feng Bro",
-    avatar:
-      "https://img0.baidu.com/it/u=1512173499,2368773931&fm=253&fmt=auto&app=138&f=JPEG?w=616&h=500",
-    title: "This is a short bio for member 3.",
-  },
-  {
-    name: "Yao Bro",
-    avatar:
-      "https://img2.baidu.com/it/u=2269309494,1842580863&fm=253&fmt=auto&app=138&f=JPG?w=500&h=409",
-    title: "This is a short bio for member 4.",
-  },
+  // {
+  //   name: "Feng Bro",
+  //   avatar:
+  //     "https://img0.baidu.com/it/u=1512173499,2368773931&fm=253&fmt=auto&app=138&f=JPEG?w=616&h=500",
+  //   title: "This is a short bio for member 3.",
+  // },
 ];
 </script>
 
@@ -89,14 +89,16 @@ members.value = [
 .member {
   border-radius: 25px;
   position: relative;
-  height: 30vh;
-  width: 20vw;
+  height: 40vh;
+  width: 18vw;
   text-align: center;
-  background-color: #252528;
+  /* background-color: #252528; */
+  background-color: #434343;
+
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 5vh;
+  margin-top: 9vh;
 }
 .member-row {
   display: flex;
