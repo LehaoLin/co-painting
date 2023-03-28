@@ -6,6 +6,7 @@
       round
       @click="store.connectWallet()"
       v-if="!store.connected"
+      disabled
       >Connect Wallet</el-button
     >
     <div class="slogan" v-if="!store.connected">
