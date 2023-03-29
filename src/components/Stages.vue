@@ -6,7 +6,7 @@
         <div class="stage-title" style="color: #ff736b">Now</div>
         <el-divider class="divider" style="border-color: #ff736b"></el-divider>
         <div class="stage-text">
-          Test version: <br />Collaborative painting <br />
+          Beta version: <br />Co-painting <br />
           on Sepolia testnet.
         </div>
       </div>
