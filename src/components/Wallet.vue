@@ -12,8 +12,8 @@
     <div class="slogan" v-if="!store.connected">
       <h5>
         <p>
-          Slogan: The first web 3.0 co-painting project which you can compete
-          with others.
+          The full-chain Web 3.0 co-painting project in which you can
+          collaborate and compete with others.
         </p>
         However, a great artwork is the basis of everything!
       </h5>
