@@ -22,14 +22,14 @@
 </template>
 
 <script setup>
-import ColorCanvas from "./ColorCanvas.vue";
+import ColorCanvas from "./ColorCanvas_new.vue";
 import { ref } from "vue";
 const row_clicked = ref(0);
 const col_clicked = ref(0);
 // available or unavailable
 const status = ref("");
 // from left to right, colors from smart contract, if no color please fill #ffffff(white)
-const colors = ref([]);
+const colors = ref({});
 const prepared_colors = [
   "#d24430",
   "#da6959",
@@ -51,9 +51,9 @@ const select = (payload) => {
   status.value = payload.status;
 };
 const set_color = (color, row_index, col_index, status) => {
-  if (status == "available") {
-    paint.value = { color, row_index, col_index };
-  }
+  // if (status == "available") {
+  paint.value = { color, row_index, col_index };
+  // }
 };
 </script>
 

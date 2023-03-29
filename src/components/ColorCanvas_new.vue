@@ -6,7 +6,7 @@
 import { ref, onMounted, onUnmounted, computed, watch, toRef } from "vue";
 import Konva from "konva";
 const props = defineProps({
-  colors: Array,
+  colors: Object,
   paint: Object,
 });
 
@@ -19,6 +19,10 @@ const stage = ref();
 const layer = ref();
 const selected_cell = ref(null);
 
+const to_index = (row_index, col_index) => {
+  return (row_index - 1) * 60 + col_index - 1;
+};
+
 const draw = () => {
   // create a stage with the specified width and height
   Konva.autoDrawEnabled = false;
@@ -28,12 +32,12 @@ const draw = () => {
     height: 600,
   });
   var uu = 0;
-  while (uu < 1800) {
-    if (!colors.value[uu]) {
-      colors.value.push("#ffffff");
-    }
-    uu += 1;
-  }
+  //   while (uu < 1800) {
+  //     if (!colors.value[uu]) {
+  //       colors.value.push("#ffffff");
+  //     }
+  //     uu += 1;
+  //   }
   // create a layer to hold the grid
   layer.value = new Konva.Layer();
   // calculate the size of each cell
@@ -44,12 +48,14 @@ const draw = () => {
     for (var col = 0; col < 60; col++) {
       // calculate the color index based on the row and column
       var colorIndex = row * 60 + col;
+      colors.value[colorIndex] ??= "#ffffff";
       var color = "";
-      try {
-        color = colors.value[colorIndex];
-      } catch {
-        color = "#ffffff";
-      }
+      var color = colors.value[colorIndex];
+      //   try {
+      //     color = colors.value[colorIndex];
+      //   } catch {
+      //     color = "#ffffff";
+      //   }
       // create a rectangle shape for each cell with the specified color
       var rect = new Konva.Rect({
         x: col * cellWidth,
@@ -64,29 +70,22 @@ const draw = () => {
         let col_index = (this.attrs.x + 20) / 20;
         let row_index = (this.attrs.y + 20) / 20;
         // console.log("Cell clicked:", col_index, row_index);
-        let temp_color = colors.value[(row_index - 1) * 60 + col_index - 1];
+        let temp_color = colors.value[to_index(row_index, col_index)];
         if (temp_color == "#ffffff") {
           emit("select", { col_index, row_index, status: "available" });
           var box = evt.target;
           box.fill("gray");
           box.draw();
           if (selected_cell.value) {
-            if (
-              colors.value[
-                (selected_cell.value.row_index - 1) * 60 +
-                  selected_cell.value.col_index -
-                  1
-              ] == "#808080"
-            ) {
-              colors.value[
-                (selected_cell.value.row_index - 1) * 60 +
-                  selected_cell.value.col_index -
-                  1
-              ] = "#ffffff";
+            console.log(selected_cell.value);
+            if (colors.value[selected_cell.value] == "#808080") {
+              colors.value[selected_cell.value] = "#ffffff";
+              paint_cell("#ffffff", selected_cell.value);
+              paint_cell("#808080", to_index(row_index, col_index));
             }
           }
-          selected_cell.value = { col_index, row_index };
-          colors.value[(row_index - 1) * 60 + col_index - 1] = "#808080";
+          selected_cell.value = to_index(row_index, col_index);
+          colors.value[to_index(row_index, col_index)] = "#808080";
         } else {
           emit("select", { col_index, row_index, status: "unavailable" });
         }
@@ -101,7 +100,7 @@ const draw = () => {
         var box = evt.target;
         let col_index = (this.attrs.x + 20) / 20;
         let row_index = (this.attrs.y + 20) / 20;
-        let temp_color = colors.value[(row_index - 1) * 60 + col_index - 1];
+        let temp_color = colors.value[to_index(row_index, col_index)];
         box.fill(temp_color);
         document.body.style.cursor = "default";
         box.draw();
@@ -113,36 +112,40 @@ const draw = () => {
   // add the layer to the stage
   stage.value.add(layer.value);
 };
-const paint_cell = () => {
-  let color = paint.value.color;
-  let row_index = paint.value.row_index;
-  let col_index = paint.value.col_index;
-  let cell = layer.value.children[(row_index - 1) * 60 + col_index - 1];
+
+// const paint_cell = (color, row_index, col_index) => {
+const paint_cell = (color, index) => {
+  //   let color = paint.value.color;
+  //   let row_index = paint.value.row_index;
+  //   let col_index = paint.value.col_index;
+  let cell = layer.value.children[index];
   cell.fill(color);
   cell.draw();
-  colors.value.splice((row_index - 1) * 60 + col_index - 1, 1, color);
+  colors.value[index] = color;
 };
+
 onMounted(() => {
   draw();
 });
+
 watch(
   paint,
   (newVal, oldVal) => {
     if (newVal) {
-      paint_cell(newVal.color, newVal.row_index, newVal.col_index);
+      paint_cell(newVal.color, to_index(newVal.row_index, newVal.col_index));
     }
   },
   { deep: true }
 );
-watch(
-  colors,
-  (newVal, oldVal) => {
-    if (newVal) {
-      draw();
-    }
-  },
-  { deep: true }
-);
+// watch(
+//   colors,
+//   (newVal, oldVal) => {
+//     if (newVal) {
+//       draw();
+//     }
+//   },
+//   { deep: true }
+// );
 </script>
 
 <style scoped></style>
