@@ -136,7 +136,7 @@
                 :underline="false"
                 style="text-decoration: underline"
                 @click="version = 'beta'"
-                v-if="version === 'official'"
+                v-else-if="version === 'official'"
                 >Switch to: Beta Version</el-link
               >
             </h2>
@@ -158,7 +158,7 @@
             </div>
             <div
               style="margin-top: -5px; font-size: 15px"
-              v-if="version == 'official'"
+              v-else-if="version == 'official'"
             >
               When you paint a pixel, you will gain a fixed pixel NFT (including
               color and coordinates) which you can sell on Opensea, and no one

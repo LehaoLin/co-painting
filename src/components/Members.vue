@@ -44,22 +44,15 @@ import xiangyu from "@/assets/xiangyu.jpeg";
 const members = ref([]);
 members.value = [
   {
-    name: "0xWeiCai",
-    avatar: weicai,
-    title: "Director",
-    link: "https://mypage.cuhk.edu.cn/academics/caiwei/",
-    twitter: "https://twitter.com/0xWeiCai",
-  },
-  {
     name: "0xMetahao",
     avatar: wuhao,
-    title: "Artist",
+    title: "Main Artist",
     twitter: "https://twitter.com/0xmetahao",
   },
   {
-    name: "Lehao Lin",
+    name: "0xLehao",
     avatar: "https://avatars.githubusercontent.com/u/35103106?v=4",
-    title: "Developer",
+    title: "Main Developer",
     github: "https://github.com/LehaoLin",
     link: "http://lehao.xyz",
   },
@@ -74,6 +67,13 @@ members.value = [
     avatar: zhouzhou,
     title: "Artist",
     twitter: "https://twitter.com/c_hongzhou",
+  },
+  {
+    name: "0xWeiCai",
+    avatar: weicai,
+    title: "Advisor",
+    link: "https://mypage.cuhk.edu.cn/academics/caiwei/",
+    twitter: "https://twitter.com/0xWeiCai",
   },
 
   // {
