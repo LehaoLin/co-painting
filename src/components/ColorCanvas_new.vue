@@ -71,21 +71,23 @@ const draw = () => {
         let row_index = (this.attrs.y + 20) / 20;
         // console.log("Cell clicked:", col_index, row_index);
         let temp_color = colors.value[to_index(row_index, col_index)];
+        // if (temp_color == "#ffffff") {
+        //   emit("select", { col_index, row_index, status: "available" });
+        var box = evt.target;
+        box.fill("gray");
+        box.draw();
+        if (selected_cell.value) {
+          console.log(selected_cell.value);
+          if (colors.value[selected_cell.value] == "#808080") {
+            colors.value[selected_cell.value] = "#ffffff";
+            paint_cell("#ffffff", selected_cell.value);
+            paint_cell("#808080", to_index(row_index, col_index));
+          }
+        }
+        selected_cell.value = to_index(row_index, col_index);
+        colors.value[to_index(row_index, col_index)] = "#808080";
         if (temp_color == "#ffffff") {
           emit("select", { col_index, row_index, status: "available" });
-          var box = evt.target;
-          box.fill("gray");
-          box.draw();
-          if (selected_cell.value) {
-            console.log(selected_cell.value);
-            if (colors.value[selected_cell.value] == "#808080") {
-              colors.value[selected_cell.value] = "#ffffff";
-              paint_cell("#ffffff", selected_cell.value);
-              paint_cell("#808080", to_index(row_index, col_index));
-            }
-          }
-          selected_cell.value = to_index(row_index, col_index);
-          colors.value[to_index(row_index, col_index)] = "#808080";
         } else {
           emit("select", { col_index, row_index, status: "unavailable" });
         }
