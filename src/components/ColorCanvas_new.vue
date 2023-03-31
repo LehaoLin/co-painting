@@ -1,10 +1,25 @@
 <template>
-  <div id="container_canvas"></div>
+  <div id="container_canvas" ref="target"></div>
 </template>
 
 <script setup>
 import { ref, onMounted, onUnmounted, computed, watch, toRef } from "vue";
 import Konva from "konva";
+import { onClickOutside } from "@vueuse/core";
+
+const target = ref(null);
+
+onClickOutside(target, (event) => {
+  if (colors.value[selected_cell.value] == "#808080") {
+    colors.value[selected_cell.value] = "#ffffff";
+    paint_cell("#ffffff", selected_cell.value);
+  }
+  try {
+    layer_axis.value.destroy();
+  } catch {
+    console.log("no axis");
+  }
+});
 
 const props = defineProps({
   colors: Object,
