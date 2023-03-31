@@ -11,25 +11,61 @@
       </span>
     </div>
   </el-row>
-  <br /><br /><br />
+  <br />
+  <el-row justify="center">
+    <el-button @click="clear_colors"> Clear </el-button>
+  </el-row>
+  <br />
   <el-row justify="center">
     <!-- <p>Col:{{ col_clicked }}, Row:{{ row_clicked }} clicked, {{ status }}</p> -->
   </el-row>
   <el-row justify="center">
-    <ColorCanvas :colors="colors" :paint="paint" @select="select" />
+    <ColorCanvas
+      :colors="colors"
+      :paint="paint"
+      :clear="clear"
+      @select="select"
+    />
   </el-row>
   <!-- </div> -->
 </template>
 
 <script setup>
 import ColorCanvas from "./ColorCanvas_new.vue";
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
+import { useStorage } from "@vueuse/core";
+
+const colors = useStorage("colors", {});
+const clear_colors = () => {
+  colors.value = {};
+  clear.value++;
+};
+
+const index_to_row_col = (index) => {
+  let col_index = (index + 1) % 60;
+  let row_index = (index + 1 - col_index) / 60 + 1;
+  return { col_index, row_index };
+};
+
+onMounted(() => {
+  for (let [key, cell] of Object.entries(colors.value)) {
+    if (cell == "#808080") {
+      paint.value = {
+        color: "#ffffff",
+        row_index: index_to_row_col(parseInt(key)).row_index,
+        col_index: index_to_row_col(parseInt(key)).col_index,
+      };
+    }
+  }
+});
+
+const clear = ref(0);
 const row_clicked = ref(0);
 const col_clicked = ref(0);
 // available or unavailable
 const status = ref("");
 // from left to right, colors from smart contract, if no color please fill #ffffff(white)
-const colors = ref({});
+// const colors = ref({});
 const prepared_colors = [
   "#d24430",
   "#da6959",

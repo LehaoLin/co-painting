@@ -5,15 +5,18 @@
 <script setup>
 import { ref, onMounted, onUnmounted, computed, watch, toRef } from "vue";
 import Konva from "konva";
+
 const props = defineProps({
   colors: Object,
   paint: Object,
+  clear: Number,
 });
 
 // colors {0-1799: color}
 
 const colors = toRef(props, "colors");
 const paint = toRef(props, "paint");
+const clear = toRef(props, "clear");
 const emit = defineEmits(["select"]);
 const stage = ref();
 const layer = ref();
@@ -139,6 +142,13 @@ watch(
   },
   { deep: true }
 );
+
+watch(clear, (newVal, oldVal) => {
+  console.log("clear", newVal, oldVal);
+  if (newVal > 0) {
+    draw();
+  }
+});
 // watch(
 //   colors,
 //   (newVal, oldVal) => {
