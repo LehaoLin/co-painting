@@ -31,8 +31,8 @@ const draw = () => {
   Konva.autoDrawEnabled = false;
   stage.value = new Konva.Stage({
     container: "container_canvas",
-    width: 1200,
-    height: 600,
+    width: 1300,
+    height: 700,
   });
   var uu = 0;
   //   while (uu < 1800) {
@@ -44,8 +44,11 @@ const draw = () => {
   // create a layer to hold the grid
   layer.value = new Konva.Layer();
   // calculate the size of each cell
-  var cellWidth = stage.value.width() / 60;
-  var cellHeight = stage.value.height() / 30;
+  // var cellWidth = stage.value.width() / 60;
+  // var cellHeight = stage.value.height() / 30;
+  var cellWidth = 20;
+  var cellHeight = 20;
+
   // loop through each row and column to create the cells
   for (var row = 0; row < 30; row++) {
     for (var col = 0; col < 60; col++) {
@@ -94,6 +97,7 @@ const draw = () => {
         } else {
           emit("select", { col_index, row_index, status: "unavailable" });
         }
+        add_axis(row_index, col_index);
       });
       rect.on("mouseover", function (evt) {
         var box = evt.target;
@@ -116,6 +120,44 @@ const draw = () => {
   }
   // add the layer to the stage
   stage.value.add(layer.value);
+};
+
+const layer_axis = ref(null);
+
+const add_axis = (row_index, col_index) => {
+  let fake_row_index = 30 - row_index + 1;
+  let fake_col_index = col_index;
+  // index all from 1
+  // add row axis
+  // var cellWidth = stage.value.width() / 60;
+  // var cellHeight = stage.value.height() / 30;
+  var cellWidth = 20;
+  var cellHeight = 20;
+  var colText = new Konva.Text({
+    x: (fake_col_index - 1) * cellWidth + 5,
+    y: 30 * cellHeight + 5,
+    text: fake_col_index.toString(),
+    fontSize: 10,
+    fill: "#ffffff",
+  });
+
+  var rowText = new Konva.Text({
+    x: 60 * cellWidth + 5,
+    y: (row_index - 1) * cellHeight + 5,
+    text: fake_row_index.toString(),
+    fontSize: 10,
+    fill: "#ffffff",
+  });
+  try {
+    layer_axis.value.destroy();
+  } catch {
+    console.log("no axis");
+  }
+  layer_axis.value = new Konva.Layer();
+  layer_axis.value.add(rowText);
+  layer_axis.value.add(colText);
+
+  stage.value.add(layer_axis.value);
 };
 
 // const paint_cell = (color, row_index, col_index) => {
