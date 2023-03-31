@@ -34,6 +34,7 @@
 import ColorCanvas from "./ColorCanvas_new.vue";
 import { ref, onMounted } from "vue";
 import { useStorage } from "@vueuse/core";
+import { ElMessage } from "element-plus";
 
 const colors = useStorage("colors", {});
 const clear_colors = () => {
@@ -87,7 +88,13 @@ const select = (payload) => {
   status.value = payload.status;
 };
 const set_color = (color, row_index, col_index, status) => {
-  // if (status == "available") {
+  if (row_index < 1 || col_index < 1) {
+    ElMessage({
+      message: "Please select a cell first",
+      type: "warning",
+    });
+    return;
+  }
   paint.value = { color, row_index, col_index };
   // }
 };

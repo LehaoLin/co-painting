@@ -13,6 +13,7 @@ onClickOutside(target, (event) => {
   if (colors.value[selected_cell.value] == "#808080") {
     colors.value[selected_cell.value] = "#ffffff";
     paint_cell("#ffffff", selected_cell.value);
+    selected_cell.value = null;
   }
   try {
     layer_axis.value.destroy();
@@ -46,8 +47,8 @@ const draw = () => {
   Konva.autoDrawEnabled = false;
   stage.value = new Konva.Stage({
     container: "container_canvas",
-    width: 1300,
-    height: 700,
+    width: 1220,
+    height: 620,
   });
   var uu = 0;
   //   while (uu < 1800) {
