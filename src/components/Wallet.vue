@@ -15,7 +15,8 @@
           This is a fully decentralized Web 3.0 co-painting project where you
           can collaborate and compete with others.
         </p>
-        Moreover, a great artwork is the basis of everything!
+        <!-- Moreover, a great artwork is the basis of everything! -->
+        Please join our Discord for more details.
       </h5>
     </div>
   </div>
