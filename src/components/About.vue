@@ -5,7 +5,7 @@
   <div class="background">
     <img
       style="width: 80%; height: 100%; background-color: white"
-      src="../assets/about.jpeg"
+      src="../assets/about.png"
       alt=""
     />
   </div>
