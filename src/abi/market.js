@@ -1,27 +1,6 @@
 export var abi = JSON.parse(`[
 	{
 		"inputs": [],
-		"name": "benefit",
-		"outputs": [],
-		"stateMutability": "payable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "buyItem",
-		"outputs": [],
-		"stateMutability": "payable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "cancelListing",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
 		"stateMutability": "nonpayable",
 		"type": "constructor"
 	},
@@ -41,23 +20,7 @@ export var abi = JSON.parse(`[
 		"type": "error"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "nftAddress",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "tokenId",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "price",
-				"type": "uint256"
-			}
-		],
+		"inputs": [],
 		"name": "PriceNotMet",
 		"type": "error"
 	},
@@ -93,40 +56,61 @@ export var abi = JSON.parse(`[
 		"type": "event"
 	},
 	{
+		"anonymous": false,
 		"inputs": [
 			{
+				"indexed": false,
 				"internalType": "address",
-				"name": "copaint_Address",
+				"name": "address_",
 				"type": "address"
 			}
 		],
-		"name": "set_mainaddress",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
+		"name": "record_address",
+		"type": "event"
 	},
 	{
+		"anonymous": false,
 		"inputs": [
 			{
-				"internalType": "address",
-				"name": "nftcontract_Address",
-				"type": "address"
+				"indexed": false,
+				"internalType": "string",
+				"name": "state1",
+				"type": "string"
 			}
 		],
-		"name": "set_nftAddress",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
+		"name": "record_event",
+		"type": "event"
 	},
 	{
+		"anonymous": false,
 		"inputs": [
 			{
+				"indexed": false,
 				"internalType": "uint256",
-				"name": "price",
+				"name": "num_",
 				"type": "uint256"
 			}
 		],
-		"name": "upload_price",
+		"name": "record_num",
+		"type": "event"
+	},
+	{
+		"inputs": [],
+		"name": "benefit",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "buyItem",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "cancelListing",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -145,6 +129,47 @@ export var abi = JSON.parse(`[
 		"type": "function"
 	},
 	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "num",
+				"type": "uint256"
+			}
+		],
+		"name": "check_selllist",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "address",
+						"name": "from",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "to",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "time",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "price",
+						"type": "uint256"
+					}
+				],
+				"internalType": "struct NftMarketplace.sell_history",
+				"name": "",
+				"type": "tuple"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
 		"inputs": [],
 		"name": "checkdividen",
 		"outputs": [
@@ -152,6 +177,19 @@ export var abi = JSON.parse(`[
 				"internalType": "bool",
 				"name": "",
 				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "checknum_sell",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
 			}
 		],
 		"stateMutability": "view",
@@ -242,6 +280,40 @@ export var abi = JSON.parse(`[
 		"type": "function"
 	},
 	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "history_list",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "from",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "to",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "time",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "price",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
 		"inputs": [],
 		"name": "mainAddress",
 		"outputs": [
@@ -307,6 +379,32 @@ export var abi = JSON.parse(`[
 		"type": "function"
 	},
 	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "copaint_Address",
+				"type": "address"
+			}
+		],
+		"name": "set_mainaddress",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "nftcontract_Address",
+				"type": "address"
+			}
+		],
+		"name": "set_nftAddress",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"inputs": [],
 		"name": "state_sale",
 		"outputs": [
@@ -317,6 +415,19 @@ export var abi = JSON.parse(`[
 			}
 		],
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "price",
+				"type": "uint256"
+			}
+		],
+		"name": "upload_price",
+		"outputs": [],
+		"stateMutability": "nonpayable",
 		"type": "function"
 	}
 ]`);

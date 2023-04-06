@@ -1,11 +1,17 @@
 import { defineStore } from "pinia";
-import { abi as abi_painting } from "../abi/0x1CE795F1abA316D51Bb09E10470186c7F52FCe2A.js";
-// import { abi as abi_market } from "../abi/0x0B4a0ce14E4efe231d4CbC61c3c7f1adcC4a29c0.js";
-import { abi as abi_market } from "../abi/0xff454A4eD8AC80F97F044422D8E1606d6Bb3441C.js";
+import { abi as abi_painting } from "../abi/paint.js";
+import { abi as abi_market } from "../abi/market.js";
 import Web3 from "web3";
 
-const contractAddress_painting = "0xcC1f506eF82BeF6B6A75422b5614dfE5EA205709";
-const contractAddress_market = "0xa27215a1e367484ABC5Ab6A216C9e016A9524Fed";
+import { ElLoading } from "element-plus";
+
+//real
+const contractAddress_painting = "0x3cf00e16DC4039D2c1Daa295E326524fe9D8650C";
+const contractAddress_market = "0x409E500D725601Ff5402317443C66343F3E6Bf6B";
+
+//test
+// const contractAddress_painting = "0xbe790Eb8761ac3CDF59CDEB64039d49750CC7675";
+// const contractAddress_market = "0x9B63B3231963D38c74d85B717e2eFf71a7aC26c5";
 
 export const useStore = defineStore("store", {
   state: () => ({
@@ -13,7 +19,7 @@ export const useStore = defineStore("store", {
     first_exchange_color: " ",
     second_exchange_color: " ",
     connected: false,
-    paint_right: 0,
+    paint_right: 0, // 2: paint, not transfer; 3: transfer, not paint
     contractResult: "0",
     tokenid: "0",
     exchange_color_1: 0,
@@ -41,14 +47,21 @@ export const useStore = defineStore("store", {
     paint_color: "0",
     can_vote: false,
     can_divide: false,
-    friend_addr: " ",
+    friend_addr: "",
     have_click_canvas: false,
 
+    transfer_address_name: "",
+    clear: 0,
+
     router: "home", // home, about, game
+
+    uploadPrice: 0,
+    loadingInstance: null,
   }),
   getters: {},
   actions: {
     async connectWallet() {
+      this.loadingInstance = ElLoading.service({ fullscreen: true });
       this.own_colors = [];
       this.own_coordinates = [];
       let ethereum = window.ethereum;
@@ -59,11 +72,6 @@ export const useStore = defineStore("store", {
         });
       }
       let web3 = new Web3(window.ethereum);
-      // let contractAddress_painting =
-      //   "0x1CE795F1abA316D51Bb09E10470186c7F52FCe2A";
-
-      // let contractAddress_market = "0xff454A4eD8AC80F97F044422D8E1606d6Bb3441C";
-
       let contract = new web3.eth.Contract(
         abi_painting,
         contractAddress_painting
@@ -113,7 +121,8 @@ export const useStore = defineStore("store", {
       this.tokenid = result;
       console.log("tokenid: ", this.tokenid);
       result = await contract.methods.checkdividen().call();
-      if (result >= 2) {
+      // if (result >= 2) {
+      if (result > 1199) {
         //1279
         this.can_vote = true;
         console.log("can_vote: ", this.can_vote);
@@ -126,7 +135,11 @@ export const useStore = defineStore("store", {
         let result_color = await contract.methods.getcolor(i).call();
         let result_coor = await contract.methods.getcoordinate(i).call();
         let mes = result_coor.split("_");
-        if (result_color.substr(2, 1).localeCompare("1") == 0) {
+        console.log("mes", mes);
+        console.log("result_color", result_color);
+        console.log("result_coor", result_coor);
+        console.log("result_color.substr(1, 4)", result_color.substr(1, 4));
+        if (result_color.substr(2, 1) == "1") {
           this.colors[(30 - parseInt(mes[1])) * 60 + parseInt(mes[0]) - 1] =
             color_convert.get(result_color.substr(1, 4)); // R100 B100
         } else {
@@ -135,7 +148,8 @@ export const useStore = defineStore("store", {
         }
         console.log("colors: ", this.colors);
 
-        if (result.toLowerCase().localeCompare(player_addr) == 0) {
+        if (result.toLowerCase() == player_addr.toLowerCase()) {
+          // if (result.toLowerCase().localeCompare(player_addr) == 0) {
           console.log("sds:", result);
           console.log("sse:", player_addr);
           if (result_color.substr(2, 1).localeCompare("1") == 0) {
@@ -149,8 +163,13 @@ export const useStore = defineStore("store", {
           console.log("own_coordinates: ", this.own_coordinates);
         }
       }
+      this.clear++;
+
+      await this.loadingInstance.close();
     },
     async exchangeColor() {
+      this.loadingInstance = ElLoading.service({ fullscreen: true });
+
       const color_convert = new Map();
       color_convert.set("R100", "#d24430");
       color_convert.set("R80", "#da6959");
@@ -163,10 +182,6 @@ export const useStore = defineStore("store", {
       color_convert.set("B40", "#b3c3f4");
       color_convert.set("B20", "#d4ddfa");
       let web3 = new Web3(window.ethereum);
-      // let contractAddress_painting =
-      //   "0x1CE795F1abA316D51Bb09E10470186c7F52FCe2A";
-      // const chainId = await ethereum.request({ method: 'eth_chainId' });
-      // console.log(chainId);
 
       let contract = new web3.eth.Contract(
         abi_painting,
@@ -188,7 +203,7 @@ export const useStore = defineStore("store", {
         this.exchange_color_2 = result;
 
         await contract.methods
-          .exchange_color(this.exchange_color_1, this.exchange_color_2)
+          .swap_color(this.exchange_color_1, this.exchange_color_2)
           .send({ from: player_addr });
 
         this.own_colors = [];
@@ -223,19 +238,23 @@ export const useStore = defineStore("store", {
             console.log("own_coordinates: ", this.own_coordinates);
           }
         }
+        this.clear++;
+        this.throwAwayColor1();
+        this.throwAwayColor2();
       }
+      await this.loadingInstance.close();
     },
 
     async transferColor() {
       let web3 = new Web3(window.ethereum);
-      // let contractAddress_painting =
-      //   "0x1CE795F1abA316D51Bb09E10470186c7F52FCe2A";
 
       let contract = new web3.eth.Contract(
         abi_painting,
         contractAddress_painting
       );
-      this.friend_addr = document.getElementById("addr").value;
+
+      // this.friend_addr = document.getElementById("addr").value;
+
       console.log("addr: ", this.friend_addr);
       var player_addr = await web3.currentProvider.selectedAddress; //目前网页链接的钱包地址，返回的是string
       console.log(player_addr);
@@ -247,8 +266,6 @@ export const useStore = defineStore("store", {
 
     divideForFinal() {
       let web3 = new Web3(window.ethereum);
-      // let contractAddress_painting =
-      //   "0x1CE795F1abA316D51Bb09E10470186c7F52FCe2A";
 
       let contract = new web3.eth.Contract(
         abi_painting,
@@ -260,8 +277,6 @@ export const useStore = defineStore("store", {
 
     async PaintColor() {
       let web3 = new Web3(window.ethereum);
-      // let contractAddress_painting =
-      //   "0x1CE795F1abA316D51Bb09E10470186c7F52FCe2A";
 
       let contract = new web3.eth.Contract(
         abi_painting,
@@ -276,8 +291,6 @@ export const useStore = defineStore("store", {
 
     async VoteForFinal() {
       let web3 = new Web3(window.ethereum);
-      // let contractAddress_painting =
-      //   "0x1CE795F1abA316D51Bb09E10470186c7F52FCe2A";
 
       let contract = new web3.eth.Contract(
         abi_painting,
@@ -285,12 +298,39 @@ export const useStore = defineStore("store", {
       );
 
       var player_addr = web3.currentProvider.selectedAddress; //目前网页链接的钱包地址，返回的是string
-      // await contract.methods.votetomintfinal().send({from: player_addr});
-      // await contract.methods.finalSVG().send({from: player_addr});
-      // await contract.methods.mint_uri_final().send({from: player_addr});
-      await contract.methods.approve_market().send({ from: player_addr });
-      let result = await contract.methods.checkowner(1).call();
+      // await contract.methods.approve_market().send({ from: player_addr });
+      // let result = await contract.methods.checkowner(1).call();
+
+      let result = await contract.methods
+        .votetomintfinal()
+        .send({ from: player_addr });
       console.log("111:", result);
+    },
+
+    async test_vote1() {
+      let web3 = new Web3(window.ethereum);
+      let contract = new web3.eth.Contract(
+        abi_painting,
+        contractAddress_painting
+      );
+      var player_addr = web3.currentProvider.selectedAddress; //目前网页链接的钱包地址，返回的是string
+      let result1 = await contract.methods
+        .mint_uri_final()
+        .send({ from: player_addr });
+      console.log(result1);
+    },
+    async test_vote2() {
+      let web3 = new Web3(window.ethereum);
+      let contract = new web3.eth.Contract(
+        abi_painting,
+        contractAddress_painting
+      );
+      var player_addr = web3.currentProvider.selectedAddress; //目前网页链接的钱包地址，返回的是string
+
+      let result2 = await contract.methods
+        .approve_market()
+        .send({ from: player_addr });
+      console.log(result2);
     },
 
     chooseExchangeColor(event) {
@@ -301,7 +341,7 @@ export const useStore = defineStore("store", {
         this.second_exchange_color != buttonText
       ) {
         this.first_exchange_color = buttonText;
-        if (this.second_exchange_color.localeCompare(" ") == 0) {
+        if (this.second_exchange_color == " ") {
           this.first_exchange = 1;
         } else {
           this.first_exchange = 2;
@@ -327,6 +367,139 @@ export const useStore = defineStore("store", {
       } else {
         this.first_exchange = 1;
       }
+    },
+
+    // game auction
+    async identity() {
+      let web3 = new Web3(window.ethereum);
+      let contract_paint = new web3.eth.Contract(
+        abi_painting,
+        contractAddress_painting
+      );
+      let player_addr = await web3.currentProvider.selectedAddress;
+      let ntf_holder = await contract_paint.methods.checkowner(1).call();
+
+      let contract_market = new web3.eth.Contract(
+        abi_market,
+        contractAddress_market
+      );
+      let ex_holder = await contract_market.methods
+        .checkpreseller()
+        .call({ from: player_addr });
+
+      if (
+        player_addr.toLowerCase() != ntf_holder.toLowerCase() &&
+        ex_holder == 0
+      ) {
+        return "buyer";
+      }
+      if (player_addr.toLowerCase() == ntf_holder.toLowerCase()) {
+        return "holder";
+      }
+      if (ex_holder > 0) {
+        return "preseller";
+      }
+    },
+    async shangjia() {
+      let web3 = new Web3(window.ethereum);
+      let contract = new web3.eth.Contract(abi_market, contractAddress_market);
+      // let player_addr = await web3.currentProvider.selectedAddress;
+      let nft_state = await contract.methods.checkstate().call();
+      if (nft_state) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+    async nft_price() {
+      let web3 = new Web3(window.ethereum);
+      let contract = new web3.eth.Contract(abi_market, contractAddress_market);
+      let price = await contract.methods.checkprice().call();
+      price = web3.utils.fromWei(price, "ether");
+      return price;
+    },
+    async nft_auth() {
+      let web3 = new Web3(window.ethereum);
+      let contract = new web3.eth.Contract(abi_market, contractAddress_market);
+      let auth = await contract.methods.check_approve_market().call();
+      return auth;
+    },
+    async benefit() {
+      let web3 = new Web3(window.ethereum);
+      var player_addr = web3.currentProvider.selectedAddress; //目前网页链接的钱包地址，返回的是string
+      let contract = new web3.eth.Contract(abi_market, contractAddress_market);
+      await contract.methods.benefit().send({ from: player_addr });
+    },
+    async cancelList() {
+      let web3 = new Web3(window.ethereum);
+      var player_addr = web3.currentProvider.selectedAddress; //目前网页链接的钱包地址，返回的是string
+      let contract = new web3.eth.Contract(abi_market, contractAddress_market);
+      await contract.methods.cancelListing().send({ from: player_addr });
+    },
+    async upload_price() {
+      let web3 = new Web3(window.ethereum);
+      var player_addr = web3.currentProvider.selectedAddress; //目前网页链接的钱包地址，返回的是string
+      let contract = new web3.eth.Contract(abi_market, contractAddress_market);
+      await contract.methods
+        .upload_price(parseFloat(this.uploadPrice) * 10 ** 18)
+        .send({ from: player_addr });
+    },
+    async check_svg() {
+      let web3 = new Web3(window.ethereum);
+      // let player_addr = web3.currentProvider.selectedAddress;
+      let contract = new web3.eth.Contract(
+        abi_painting,
+        contractAddress_painting
+      );
+      let svg = await contract.methods.checksvg().call();
+      return svg;
+    },
+    async buy(price) {
+      let web3 = new Web3(window.ethereum);
+      var player_addr = web3.currentProvider.selectedAddress; //目前网页链接的钱包地址，返回的是string
+      let contract = new web3.eth.Contract(abi_market, contractAddress_market);
+      await contract.methods.buyItem().send({
+        from: player_addr,
+        value: web3.utils.toWei(price, "ether"),
+      });
+    },
+    async check_recent_seller() {
+      let web3 = new Web3(window.ethereum);
+      var player_addr = web3.currentProvider.selectedAddress; //目前网页链接的钱包地址，返回的是string
+      let contract = new web3.eth.Contract(abi_market, contractAddress_market);
+      let address = await contract.methods.checkrecentseller().call();
+      return address;
+    },
+
+    async auction_open() {
+      let web3 = new Web3(window.ethereum);
+      let contract = new web3.eth.Contract(
+        abi_painting,
+        contractAddress_painting
+      );
+      let result = await contract.methods.checkmarketopen().call();
+      return result;
+    },
+
+    async get_sell_history() {
+      let web3 = new Web3(window.ethereum);
+      let contract = new web3.eth.Contract(abi_market, contractAddress_market);
+      let num = await contract.methods.checknum_sell().call();
+      let all_history = [];
+      for (let i = 1; i <= num; i++) {
+        let history = await contract.methods.check_selllist(num).call();
+        all_history.push(history);
+      }
+      return all_history;
+    },
+    async approve_market() {
+      let web3 = new Web3(window.ethereum);
+      let contract = new web3.eth.Contract(
+        abi_painting,
+        contractAddress_painting
+      );
+      let player_addr = web3.currentProvider.selectedAddress; //目前网页链接的钱包地址，返回的是string
+      await contract.methods.approve_market().send({ from: player_addr });
     },
   },
 });

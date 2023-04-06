@@ -9,4 +9,8 @@ import ElementPlus from "element-plus";
 import { createPinia } from "pinia";
 const pinia = createPinia();
 
-createApp(App).use(ElementPlus).use(pinia).mount("#app");
+const app = createApp(App);
+app.use(ElementPlus);
+app.use(pinia);
+
+app.mount("#app");

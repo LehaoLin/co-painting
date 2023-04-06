@@ -6,17 +6,17 @@
       round
       @click="store.connectWallet()"
       v-if="!store.connected"
-      disabled
       >Connect Wallet</el-button
     >
     <div class="slogan" v-if="!store.connected">
       <h5>
         <p>
-          This is a fully decentralized Web 3.0 co-painting project where you
-          can collaborate and compete with others.
+          Please change your wallet to Sepolia test chain.
+          <!-- This is a fully decentralized Web 3.0 co-painting project where you
+          can collaborate and compete with others. -->
         </p>
         <!-- Moreover, a great artwork is the basis of everything! -->
-        Please join our Discord for more details.
+        Join our Discord for more details.
       </h5>
     </div>
   </div>
@@ -24,45 +24,45 @@
   <div class="pixelPick" v-if="store.connected">
     <h7 class="account_title">Your Account</h7>
     <hr
-      style="
-        width: 855px;
-        border-color: #3f3e3e;
-        position: absolute;
-        left: 39.75px;
-        top: 60px;
-      "
+      style="width: 855px; border-color: rgb(219 219 219); position: relative"
     />
+    <br />
     <div class="container2">
-      <p
+      <div
         class="color_cube"
+        ref="cube"
         :style="{
-          width: '600px',
-          height: '100px',
-          'overflow-x': 'auto',
-          display: 'flex',
-          'justify-content': 'center',
+          width: '100%',
+          height: '86px',
+          display: 'inline-flex',
+          overflow: 'auto',
+          position: 'relative',
+          'align-items': 'center',
+          'justify-content': overflow,
         }"
       >
-        <span
+        <button
           v-for="n in store.own_coordinates.length"
           :key="n"
-          style="margin-right: 23px"
+          :style="{
+            width: '86px',
+            height: '86px',
+            flex: '0 0 auto',
+            'background-color': store.own_colors[n - 1],
+            'flex-direction': 'row',
+            'align-items': 'center',
+            'overflow-x': 'auto',
+            display: 'flex',
+            'justify-content': 'center',
+            // margin: 'auto',
+            'margin-right': '10px',
+          }"
+          @click="store.chooseExchangeColor"
         >
-          <button
-            :style="{
-              width: '86px',
-              height: '80px',
-              'background-color': own_colors[n - 1],
-            }"
-            @click="store.chooseExchangeColor"
-          >
-            {{ store.own_coordinates[n - 1] }}
-          </button>
-        </span>
-      </p>
+          {{ store.own_coordinates[n - 1] }}
+        </button>
+      </div>
     </div>
-
-    <el-row> </el-row>
 
     <el-row class="wallet-operation">
       <el-col :span="8"></el-col>
@@ -74,13 +74,20 @@
             width: '300px',
             height: '30px',
             'background-color': store.paint_color,
+            'text-align': 'center',
+            'line-height': '30px',
           }"
         >
           you have a pixel to paint
         </p>
-        <p v-if="store.paint_right == 0 && store.own_colors.length == 0">
-          You haven't enter our project!
+        <p
+          v-if="store.paint_right == 0 && store.own_colors.length == 0"
+          style="color: red"
+        >
+          You haven't entered our project!<br />
+          Join our discord to gain access.
         </p>
+
         <p
           v-if="store.paint_right == 3"
           style="
@@ -96,15 +103,24 @@
           pixel!
         </p>
       </el-col>
-      <el-col :span="8">
+      <el-col
+        :span="8"
+        style="
+          position: relative;
+          vertical-align: middle;
+          align-items: center;
+          align-self: center;
+          justify-content: center;
+        "
+      >
         <el-button
           class="divide-button"
-          :disabled="!can_divide"
+          :disabled="!store.can_divide"
           type="success"
           size="large"
           round
           @click="store.divideForFinal"
-          >Divide</el-button
+          >Dividen</el-button
         >
       </el-col>
     </el-row>
@@ -112,11 +128,41 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
-import Web3 from "web3";
+import { ref, computed, onMounted, watch } from "vue";
 
 import { useStore } from "@/store";
 const store = useStore();
+
+const cube = ref(null);
+
+const coordinate = computed(() => {
+  return store.own_coordinates.length;
+});
+
+watch(coordinate, (newVal) => {
+  rule();
+});
+
+onMounted(() => {
+  rule();
+});
+
+const overflow = ref("");
+const rule = () => {
+  try {
+    // get scrollWidth of the cube
+    let scrollWidth = cube.value.scrollWidth;
+    // get the clientWidth of the cube
+    let clientWidth = cube.value.clientWidth;
+    if (scrollWidth > clientWidth) {
+      overflow.value = "none";
+    } else {
+      overflow.value = "center";
+    }
+  } catch {
+    console.log("error");
+  }
+};
 </script>
 
 <style scoped>
@@ -152,7 +198,7 @@ const store = useStore();
   height: 280px;
   width: 940px;
   position: relative;
-  margin-top: 30vh;
+  margin-top: 60vh;
   left: 50%;
   transform: translate(-50%, -50%);
 }
@@ -169,22 +215,29 @@ const store = useStore();
 
 .container2 {
   position: relative;
+  width: 100%;
+  height: 86px;
 }
 
-.color_cube {
-  position: absolute;
+/* .color_cube {
+  position: relative;
   top: 0px;
   transform: translateX(-50%);
-}
+} */
 
 .wallet-operation {
+  margin-top: 10px;
   text-align: center;
   position: relative;
 }
 .divide-button {
   /* display: inline-block; */
   position: relative;
-  vertical-align: middle;
+  width: 150px;
+  /* vertical-align: middle;
+  align-items: center;
+  align-self: center;
+  justify-content: center; */
 }
 
 .msg-info {

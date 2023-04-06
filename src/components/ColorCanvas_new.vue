@@ -26,6 +26,7 @@ const props = defineProps({
   colors: Object,
   paint: Object,
   clear: Number,
+  // fresh: Number,
 });
 
 // colors {0-1799: color}
@@ -37,6 +38,7 @@ const emit = defineEmits(["select"]);
 const stage = ref();
 const layer = ref();
 const selected_cell = ref(null);
+const selected_cell_color = ref(null);
 
 const to_index = (row_index, col_index) => {
   return (row_index - 1) * 60 + col_index - 1;
@@ -93,8 +95,16 @@ const draw = () => {
         let row_index = (this.attrs.y + 20) / 20;
         // console.log("Cell clicked:", col_index, row_index);
         let temp_color = colors.value[to_index(row_index, col_index)];
-        // if (temp_color == "#ffffff") {
-        //   emit("select", { col_index, row_index, status: "available" });
+
+        if (
+          selected_cell_color.value ||
+          selected_cell_color.value == "#ffffff"
+        ) {
+          if (selected_cell.value) {
+            colors.value[selected_cell.value] = selected_cell_color.value;
+            paint_cell(selected_cell_color.value, selected_cell.value);
+          }
+        }
         var box = evt.target;
         box.fill("gray");
         box.draw();
@@ -110,7 +120,9 @@ const draw = () => {
         colors.value[to_index(row_index, col_index)] = "#808080";
         if (temp_color == "#ffffff") {
           emit("select", { col_index, row_index, status: "available" });
+          selected_cell_color.value = "#ffffff";
         } else {
+          selected_cell_color.value = temp_color;
           emit("select", { col_index, row_index, status: "unavailable" });
         }
         add_axis(row_index, col_index);
@@ -153,16 +165,16 @@ const add_axis = (row_index, col_index) => {
     x: (fake_col_index - 1) * cellWidth + 5,
     y: 30 * cellHeight + 5,
     text: fake_col_index.toString(),
-    fontSize: 10,
-    fill: "#ffffff",
+    fontSize: 14,
+    fill: "#000000",
   });
 
   var rowText = new Konva.Text({
     x: 60 * cellWidth + 5,
     y: (row_index - 1) * cellHeight + 5,
     text: fake_row_index.toString(),
-    fontSize: 10,
-    fill: "#ffffff",
+    fontSize: 14,
+    fill: "#000000",
   });
   try {
     layer_axis.value.destroy();
@@ -207,6 +219,13 @@ watch(clear, (newVal, oldVal) => {
     draw();
   }
 });
+
+// watch(fresh, (newVal, oldVal) => {
+//   if (newVal > 0) {
+//     draw();
+//   }
+// });
+
 // watch(
 //   colors,
 //   (newVal, oldVal) => {

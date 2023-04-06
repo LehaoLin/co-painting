@@ -1,102 +1,6 @@
 export var abi = JSON.parse(`[
 	{
 		"inputs": [],
-		"name": "approve_market",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "changeuri_final",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "dividefinalart",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "payable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "tokenId_first",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "tokenId_second",
-				"type": "uint256"
-			}
-		],
-		"name": "exchange_color",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "finalSVG",
-		"outputs": [
-			{
-				"internalType": "string",
-				"name": "",
-				"type": "string"
-			}
-		],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "startpaint",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "color_state",
-				"type": "uint256"
-			}
-		],
-		"name": "initial_paint",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "market_",
-				"type": "address"
-			}
-		],
-		"name": "marketaddress",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "mint_uri_final",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
 		"stateMutability": "nonpayable",
 		"type": "constructor"
 	},
@@ -130,24 +34,6 @@ export var abi = JSON.parse(`[
 		],
 		"name": "newpainter_condition",
 		"type": "event"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint32",
-				"name": "x",
-				"type": "uint32"
-			},
-			{
-				"internalType": "uint32",
-				"name": "y",
-				"type": "uint32"
-			}
-		],
-		"name": "paint",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
 	},
 	{
 		"anonymous": false,
@@ -186,43 +72,6 @@ export var abi = JSON.parse(`[
 			{
 				"indexed": false,
 				"internalType": "string",
-				"name": "coordinate_",
-				"type": "string"
-			},
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "color_blue",
-				"type": "uint256"
-			},
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "color_red",
-				"type": "uint256"
-			},
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "token_id",
-				"type": "uint256"
-			},
-			{
-				"indexed": false,
-				"internalType": "string",
-				"name": "token_uri",
-				"type": "string"
-			}
-		],
-		"name": "position_condition",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"internalType": "string",
 				"name": "mes",
 				"type": "string"
 			}
@@ -231,30 +80,62 @@ export var abi = JSON.parse(`[
 		"type": "event"
 	},
 	{
-		"inputs": [],
-		"name": "sellbenefit",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "payable",
-		"type": "function"
-	},
-	{
+		"anonymous": false,
 		"inputs": [
 			{
+				"indexed": false,
 				"internalType": "address",
-				"name": "newpainter",
+				"name": "contract_",
 				"type": "address"
 			}
 		],
-		"name": "transfer_painter",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
+		"name": "record_address",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "state1",
+				"type": "string"
+			}
+		],
+		"name": "record_event",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "tokenid_1",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "tokenid_2",
+				"type": "uint256"
+			}
+		],
+		"name": "record_swap",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "situation1",
+				"type": "string"
+			}
+		],
+		"name": "vote_1",
+		"type": "event"
 	},
 	{
 		"stateMutability": "payable",
@@ -262,20 +143,10 @@ export var abi = JSON.parse(`[
 	},
 	{
 		"inputs": [],
-		"name": "votetomintfinal",
-		"outputs": [
-			{
-				"internalType": "string",
-				"name": "",
-				"type": "string"
-			}
-		],
+		"name": "approve_market",
+		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
-	},
-	{
-		"stateMutability": "payable",
-		"type": "receive"
 	},
 	{
 		"inputs": [
@@ -304,6 +175,32 @@ export var abi = JSON.parse(`[
 				"internalType": "bool",
 				"name": "",
 				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "changeuri_final",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "coordinate",
+				"type": "string"
+			}
+		],
+		"name": "checkCoodinatexy",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
 			}
 		],
 		"stateMutability": "view",
@@ -349,25 +246,6 @@ export var abi = JSON.parse(`[
 				"internalType": "string",
 				"name": "",
 				"type": "string"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "coordinate",
-				"type": "string"
-			}
-		],
-		"name": "checkCoodinatexy",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
 			}
 		],
 		"stateMutability": "view",
@@ -453,6 +331,38 @@ export var abi = JSON.parse(`[
 	{
 		"inputs": [],
 		"name": "checkownerfirst",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "num",
+				"type": "uint256"
+			}
+		],
+		"name": "checkpainter",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "checkpainter_length",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -561,6 +471,19 @@ export var abi = JSON.parse(`[
 	},
 	{
 		"inputs": [],
+		"name": "checkvotestate",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
 		"name": "color_map",
 		"outputs": [
 			{
@@ -596,6 +519,19 @@ export var abi = JSON.parse(`[
 			}
 		],
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "dividefinalart",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "payable",
 		"type": "function"
 	},
 	{
@@ -654,6 +590,19 @@ export var abi = JSON.parse(`[
 			}
 		],
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "finalSVG",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -734,6 +683,24 @@ export var abi = JSON.parse(`[
 		"type": "function"
 	},
 	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "startpaint",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "color_state",
+				"type": "uint256"
+			}
+		],
+		"name": "initial_paint",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"inputs": [],
 		"name": "initial_painter",
 		"outputs": [
@@ -757,6 +724,26 @@ export var abi = JSON.parse(`[
 			}
 		],
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "market_",
+				"type": "address"
+			}
+		],
+		"name": "marketaddress",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "mint_uri_final",
+		"outputs": [],
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -786,6 +773,43 @@ export var abi = JSON.parse(`[
 				"internalType": "uint256",
 				"name": "",
 				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint32",
+				"name": "x",
+				"type": "uint32"
+			},
+			{
+				"internalType": "uint32",
+				"name": "y",
+				"type": "uint32"
+			}
+		],
+		"name": "paint",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "painter_record",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
 			}
 		],
 		"stateMutability": "view",
@@ -914,6 +938,24 @@ export var abi = JSON.parse(`[
 		"type": "function"
 	},
 	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "tokenId_first",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "tokenId_second",
+				"type": "uint256"
+			}
+		],
+		"name": "swap_color",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"inputs": [],
 		"name": "tokenId",
 		"outputs": [
@@ -924,6 +966,19 @@ export var abi = JSON.parse(`[
 			}
 		],
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "newpainter",
+				"type": "address"
+			}
+		],
+		"name": "transfer_painter",
+		"outputs": [],
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -977,5 +1032,16 @@ export var abi = JSON.parse(`[
 		],
 		"stateMutability": "view",
 		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "votetomintfinal",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"stateMutability": "payable",
+		"type": "receive"
 	}
 ]`);

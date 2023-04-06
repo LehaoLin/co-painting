@@ -12,8 +12,10 @@
     <el-menu-item index="9">Pre-creation</el-menu-item>
     <el-menu-item index="1" @click="toDiscord">Discord</el-menu-item>
     <el-menu-item index="2">How to Paint</el-menu-item>
-    <el-menu-item index="3" disabled>Auction</el-menu-item>
-    <el-menu-item index="4" disabled>Etherscan</el-menu-item>
+    <el-menu-item index="3" :disabled="store.auction_open() ?? false"
+      >Auction</el-menu-item
+    >
+    <el-menu-item index="4" @click="toScan">Etherscan</el-menu-item>
     <el-menu-item index="6"></el-menu-item>
   </el-menu>
 </template>
@@ -28,6 +30,15 @@ const activeIndex = ref("0");
 
 const toDiscord = () => {
   window.open("https://discord.gg/uXcmFN7fXx", "_blank");
+  activeIndex.value = "0";
+  store.router = "home";
+};
+
+const toScan = () => {
+  window.open(
+    "https://sepolia.etherscan.io/address/0x3cf00e16dc4039d2c1daa295e326524fe9d8650c",
+    "_blank"
+  );
   activeIndex.value = "0";
   store.router = "home";
 };
