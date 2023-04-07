@@ -6,12 +6,12 @@ import Web3 from "web3";
 import { ElLoading } from "element-plus";
 
 //real
-// const contractAddress_painting = "0x3cf00e16DC4039D2c1Daa295E326524fe9D8650C";
-// const contractAddress_market = "0x409E500D725601Ff5402317443C66343F3E6Bf6B";
+const contractAddress_painting = "0x3cf00e16DC4039D2c1Daa295E326524fe9D8650C";
+const contractAddress_market = "0x409E500D725601Ff5402317443C66343F3E6Bf6B";
 
 //test
-const contractAddress_painting = "0xbe790Eb8761ac3CDF59CDEB64039d49750CC7675";
-const contractAddress_market = "0x9B63B3231963D38c74d85B717e2eFf71a7aC26c5";
+// const contractAddress_painting = "0xbe790Eb8761ac3CDF59CDEB64039d49750CC7675";
+// const contractAddress_market = "0x9B63B3231963D38c74d85B717e2eFf71a7aC26c5";
 
 export const useStore = defineStore("store", {
   state: () => ({
