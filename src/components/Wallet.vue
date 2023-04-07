@@ -99,8 +99,8 @@
             height: 56px;
           "
         >
-          Please transfer color to others, in order to gain a new undefined
-          pixel!
+          Please transfer color to others, in order to gain the new drawing
+          permission!
         </p>
       </el-col>
       <el-col
