@@ -129,7 +129,11 @@
           >
           <br />
           <el-row>
-            <el-button type="info" round v-if="store.first_exchange != 2"
+            <el-button
+              type="info"
+              round
+              v-if="store.first_exchange != 2"
+              disabled
               >Swap Color</el-button
             >
 
@@ -178,7 +182,7 @@
               @click="transferColor"
               >Transfer Color</el-button
             >
-            <el-button type="info" round v-if="store.paint_right != 3"
+            <el-button type="info" round v-if="store.paint_right != 3" disabled
               >Transfer Color</el-button
             >&nbsp;&nbsp;&nbsp;&nbsp;
             <br />
@@ -237,7 +241,7 @@
                 justify-content: center;
                 font-size: 14px;
                 color: black;
-                width: 40%;
+                width: 10vw;
               "
             ></button>
           </el-row>
@@ -251,7 +255,7 @@
               >Paint</el-button
             >
 
-            <el-button type="info" round v-if="store.paint_right != 2"
+            <el-button type="info" round v-if="store.paint_right != 2" disabled
               >Paint</el-button
             >
             &nbsp;&nbsp;&nbsp;&nbsp;
@@ -301,7 +305,9 @@
               @click="store.VoteForFinal"
               >Vote</el-button
             >
-            <el-button type="info" round v-if="!store.can_vote">Vote</el-button>
+            <el-button type="info" round v-if="!store.can_vote" disabled
+              >Vote</el-button
+            >
 
             <!-- <el-text class="mx-1" type="danger" v-if="!store.can_vote"
               >Warning: you still need 10 pixels owner to vote
