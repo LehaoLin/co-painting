@@ -1,5 +1,14 @@
 <template>
-  <div id="container_canvas" ref="target"></div>
+  <div
+    id="container_canvas"
+    ref="target"
+    :style="{
+      width: '100%',
+      height: '100%',
+      transform: `scale(${scale})`,
+      'transform-origin': 'left',
+    }"
+  ></div>
 </template>
 
 <script setup>
@@ -7,7 +16,36 @@ import { ref, onMounted, onUnmounted, computed, watch, toRef } from "vue";
 import Konva from "konva";
 import { onClickOutside } from "@vueuse/core";
 
+import { useWindowSize, useElementSize } from "@vueuse/core";
+const { width, height } = useWindowSize();
+
+console.log(width.value);
+
 const target = ref(null);
+// 1220
+
+const scale = computed(() => {
+  return width.value / 2048;
+  // if (width.value > 1600) {
+  //   return 1;
+  // } else {
+  //   return 1;
+  // }
+});
+
+watch(width, () => {
+  draw();
+});
+
+// const scale = () => {
+//   console.log(width.value / 2048);
+//   // stage.value.scale({
+//   //   x: width.value / 2048,
+//   //   y: width.value / 2048,
+//   // });
+//   draw(width.value / 2048);
+//   // width_.value /
+// };
 
 onClickOutside(target, (event) => {
   if (colors.value[selected_cell.value] == "#808080") {

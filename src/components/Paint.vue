@@ -89,20 +89,20 @@
                 'font-size': '16px',
                 color: 'black',
                 'justify-content': 'center',
-                width: '40%',
+                width: '5vw',
               }"
               @click="store.throwAwayColor1"
             >
               {{ store.first_exchange_color }}
             </button>
-            &nbsp;&nbsp;
+
             <img
               class="exchange_sign"
               style="max-width: 50px; max-height: 32px"
               src="../assets/exchange.png"
               alt=""
             />
-            &nbsp;&nbsp;
+
             <button
               class="color2"
               :style="{
@@ -119,7 +119,7 @@
                 'font-size': '16px',
                 color: 'black',
                 'justify-content': 'center',
-                width: '40%',
+                width: '5vw',
               }"
               @click="store.throwAwayColor2"
             >
@@ -180,9 +180,10 @@
             <el-button type="info" round v-if="store.paint_right != 3"
               >Transfer Color</el-button
             >&nbsp;&nbsp;&nbsp;&nbsp;
+            <br />
+            <br /><br />
             <el-text class="mx-1" type="danger" v-if="store.paint_right != 3"
-              >Warning: you should <br />
-              paint a pixel firstly
+              >Warning: you should paint a pixel firstly
             </el-text>
           </el-row>
           <br />
@@ -213,7 +214,7 @@
                 justify-content: center;
                 font-size: 14px;
                 color: black;
-                width: 40%;
+                width: 10vw;
               "
             >
               ({{ store.col_clicked }}.{{ 31 - store.row_clicked }})
@@ -253,8 +254,10 @@
               >Paint</el-button
             >
             &nbsp;&nbsp;&nbsp;&nbsp;
+            <br />
+            <br /><br />
             <el-text class="mx-1" type="danger" v-if="store.paint_right != 2"
-              >Warning: you don't have an <br />undefined pixel to paint
+              >Warning: you don't have an undefined pixel to paint
             </el-text>
           </el-row>
 
@@ -279,7 +282,7 @@
                 justify-content: center;
                 font-size: 14px;
                 color: black;
-                width: 40%;
+                width: 10vw;
               "
             >
               Mint Final
@@ -393,6 +396,6 @@ const select = (payload) => {
   box-shadow: inset 0px 25px 15px #545353;
 }
 .el-button {
-  width: 40%;
+  width: 10vw;
 }
 </style>
