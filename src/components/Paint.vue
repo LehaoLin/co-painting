@@ -24,6 +24,7 @@
           opacity: 0.2;
           transform: scale(1.8);
           position: relative;
+          transform-origin: center;
           /* z-index: -3; */
         "
       />
