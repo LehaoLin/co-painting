@@ -250,14 +250,15 @@
             <el-button
               type="success"
               round
-              v-if="store.paint_right == 2"
+              v-if="store.paint_right == 2 && paint_able == true"
               @click="store.PaintColor"
               >Paint</el-button
             >
 
-            <el-button type="info" round v-if="store.paint_right != 2" disabled
+            <!-- <el-button type="info" round v-if="store.paint_right != 2" disabled
               >Paint</el-button
-            >
+            > -->
+            <el-button type="info" round v-else disabled>Paint</el-button>
             &nbsp;&nbsp;&nbsp;&nbsp;
             <br />
             <br /><br />
@@ -331,7 +332,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, computed } from "vue";
 import ColorCanvas from "./ColorCanvas_new.vue";
 import { useStore } from "@/store";
 import { ElMessage } from "element-plus";
@@ -348,6 +349,14 @@ const transferColor = () => {
     store.transferColor();
   }
 };
+
+const paint_able = computed(() => {
+  if (store.status == "available") {
+    return true;
+  } else {
+    return false;
+  }
+});
 
 const select = (payload) => {
   store.have_click_canvas = true;
