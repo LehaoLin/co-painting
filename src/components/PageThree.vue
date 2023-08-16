@@ -3,174 +3,52 @@
     <div style="padding: 20px; border-radius: 40px">
       <el-row justify="center">
         <el-col
-          :span="6"
-          class="qa-div"
-          style="border-bottom: 0.1rem solid grey"
-        >
-          <div
-            style="
-              font-size: 120px;
-              font-weight: bold;
-              text-shadow: 10px 2px 10px black;
-              font-stretch: 30%;
-            "
-          >
-            <span style="color: #ed7170">W</span
-            ><span style="color: #262727">HAT</span>
-          </div>
-          <!-- <img
-            style="max-width: 100%"
-            width="350"
-            src="../assets/what.png"
-            alt=""
-          /> -->
-        </el-col>
-        <el-col
           :span="12"
           class="text-div"
           style="border-bottom: 0.1rem solid grey"
         >
           <div class="whatText">
-            <h2>What is the "painting together or not" ?</h2>
-            <div style="margin-top: -5px; font-size: 15px">
-              "Painting Together or Not" is a Web3 co-painting project on a
-              60x30 canvas. Our goal is to fully decentralize the creation
-              process and empower all participants to paint freely. All creative
-              activities are executed on the smart contract, ensuring complete
-              transparency and immutability. <br /><br />Additionally,
-              cooperation is not mandatory - participants are free to pursue
-              their own goals and interests. However, we believe that a great
-              artwork is the foundation of both individual and collective
-              success.
-            </div>
-          </div>
-        </el-col>
-      </el-row>
-
-      <el-row justify="center">
-        <el-col
-          :span="6"
-          class="qa-div"
-          style="border-bottom: 0.1rem solid grey"
-        >
-          <div
-            class="And"
-            style="
-              font-size: 120px;
-              font-weight: bold;
-              text-shadow: 10px 2px 10px black;
-            "
-          >
-            <span style="color: #262727">AND</span>
-          </div>
-          <!-- <img
-              style="max-width: 100%"
-              width="350"
-              src="../assets/And.png"
-              alt=""
-            /> -->
-        </el-col>
-        <el-col
-          :span="12"
-          class="text-div"
-          style="border-bottom: 0.1rem solid grey"
-        >
-          <div class="andText">
-            <h2>
-              How to paint ?
-              <el-link
-                href="#"
-                :underline="false"
-                style="text-decoration: underline"
-                @click="readmore"
-                >Read More</el-link
-              >
-            </h2>
-            <div style="margin-top: -5px; font-size: 15px">
-              When you are transferred a color by someone (each person can only
-              be transferred to once), it means that you have joined this
-              project. You will receive a color from another participant and the
-              painting permission from the smart contract, allowing you to
-              choose any blank pixel to start painting. Once you have completed
-              your painting, you will lose the painting permission and receive a
-              pixel NFT. To gain a new painting permission, you need to transfer
-              your current color to someone else; otherwise, you will not be
-              able to continue painting. Additionally, when you transfer your
-              current color, the smart contract will airdrop you a new color
-              (current color saturation - 20%). If you have more than two pixel
-              NFTs, you can exchange their colors.
-            </div>
-          </div></el-col
-        >
-      </el-row>
-
-      <el-row justify="center">
-        <el-col :span="6" class="qa-div">
-          <div
-            class="how"
-            style="
-              font-size: 120px;
-              font-weight: bold;
-
-              text-shadow: 10px 2px 10px black;
-            "
-          >
-            <span style="color: #ed7170">H</span
-            ><span style="color: #262727">OW</span>
-          </div>
-        </el-col>
-        <el-col :span="12" class="text-div">
-          <div class="howText">
-            <h2>
-              How to gain benefits?
-              <el-link
-                href="###"
-                :underline="false"
-                style="text-decoration: underline"
-                @click="version = 'official'"
-                v-if="version === 'beta'"
-                >Switch to: Offical Version</el-link
-              >
-              <el-link
-                href="###"
-                :underline="false"
-                style="text-decoration: underline"
-                @click="version = 'beta'"
-                v-else-if="version === 'official'"
-                >Switch to: Beta Version</el-link
-              >
-            </h2>
-            <div
-              style="margin-top: -5px; font-size: 15px"
-              v-if="version == 'beta'"
-            >
-              Please note: This version is a beta version, and the currency
-              involved should be Sepolia currency. The economic game will be
-              reflected in the official version. Beta version benefits: 1.
-              Before the official version begins, the address with the most
-              pixel NFTs in the beta version and the pre-creation author with
-              the most votes in the Discord will be selected as the two initial
-              addresses of the official project, and they will receive 100% pure
-              color. 2.The participants in the beta version will receive a
-              Discord title, which represents their reputation in the project.
-              Having this title also increases their trustworthiness and makes
-              them more likely to be transferred colors.
-            </div>
-            <div
-              style="margin-top: -5px; font-size: 15px"
-              v-else-if="version == 'official'"
-            >
-              When you paint a pixel, you will gain a fixed pixel NFT (including
-              color and coordinates) which you can sell on Opensea, and no one
-              can paint the same position again. It means that each coordinate
-              is unique, and their value has a strong relationship with their
-              position and color. When you transfer the color, the rarity of the
-              color will decrease, and the pixel that you paint with this color
-              is likely to decrease in value. You can sell your own fixed pixel
-              NFT (not color) on the secondary market whenever you want. The
-              final artwork will be sold on the auction house, and the number of
-              pixel NFTs you own will determine your dividend.
-            </div>
+            <!-- <h2>What is the "painting together or not" ?</h2> -->
+            <center>
+              <div style="margin-top: -5px; font-size: 12px">
+                共画与非是一个研究向、纯链上 (polygon) 的红蓝双色共绘项目。<br />
+                该项目将作为SeeDao常驻公共设施存在，期望为大家提供新的社群团建渠道，同时拉入新的小伙伴们。<br />
+                <br />
+                共绘由两个初始绘画者为起点，不断拉入新的绘画者，共同进行绘画。<br />
+                参与者们需要共同合作，在一块30*16的画布上完成像素画。<br />
+                每块像素都是一个ERC721的NFT。整体画布是一个动态NFT，每名像素NFT持有者都可以按比例获得画布NFT的售卖分红。<br />
+                在这个过程中，大家既可以齐心协力，一心创作来获得整体画布的分红，也可以在二级市场单独售卖像素获取短期利益。<br />
+                <br />
+                <span style="color: #ff6151">颜色：</span>
+                <span style="color: #789dff"
+                  >同一参与者在同一时间下只能拥有一种颜色</span
+                >。<br />
+                颜色共有十种：100%纯度红/蓝，80%纯度红/蓝，60%纯度红/蓝，40%纯度红/蓝，20%纯度红/蓝。<br />
+                <br />
+                <span style="color: #ff6151">绘画权限：</span
+                >参与者可以选择画布上的任意一个<span style="color: #789dff"
+                  >空白像素</span
+                >用其所<span style="color: #789dff"
+                  >拥有的颜色填充（铸造像素NFT）</span
+                >。<br />
+                <br />
+                <span style="color: #ff6151">失去与获得绘画权限：</span
+                >每当一名参与者绘画两次像素后，其将<span style="color: #789dff"
+                  >失去绘画权限</span
+                >，并开放将手中的颜色转移给其他人的功能，<br />
+                <span style="color: #ff6151">被转移者</span>将<span
+                  style="color: #789dff"
+                  >获得绘画权限</span
+                >以及<span style="color: #789dff">分享者手中的颜色</span
+                >。<br />
+                <span style="color: #ff6151">转移者</span>将<span
+                  style="color: #789dff"
+                  >失去手中的颜色</span
+                >，<span style="color: #789dff"
+                  >获得新的颜色(原颜色-20%纯度)</span
+                >以及<span style="color: #789dff">新的绘画权限</span>。<br />
+              </div>
+            </center>
           </div>
         </el-col>
       </el-row>

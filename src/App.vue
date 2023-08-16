@@ -1,6 +1,7 @@
 <template>
   <div class="first-page">
     <Header />
+
     <video
       autoplay
       muted
@@ -11,6 +12,7 @@
     >
       <source src="./assets/background.mp4" type="video/mp4" />
     </video>
+
     <Home v-if="store.router == 'home'" />
     <About v-if="store.router == 'about'" />
     <Game v-if="store.router == 'game'" />
@@ -43,6 +45,7 @@ video {
   left: 0;
   z-index: -1;
 }
+
 /* .first-page {
   background-image: url("./assets/background.mp4");
   background-size: cover;
