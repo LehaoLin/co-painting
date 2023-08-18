@@ -77,6 +77,7 @@
   justify-content: center;
   align-items: center;
   text-align: center;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 .stage-col {
   display: flex;
@@ -96,7 +97,7 @@
 }
 
 .stage-now {
-  background-color: #434343;
+  /* background-color: #434343; */
   border-color: #434343;
   border-width: 20px;
   box-shadow: 10px 5px 10px grey;
@@ -105,22 +106,22 @@
 .stage-2 {
   border-color: #c8c8c8;
   border-width: 20px;
-  background-color: white;
+  /* background-color: white; */
   box-shadow: 10px 5px 10px grey;
 }
 
 .stage-3 {
   border-color: #c8c8c8;
   border-width: 20px;
-  background-color: white;
+  /* background-color: white; */
   box-shadow: 10px 5px 10px grey;
 }
 .stages {
   /* margin-top: 5vh; */
   /* background-color: rgb(0, 0, 0, 0.5); */
-  background-color: #e0e0e0;
+  /* background-color: #e0e0e0; */
   padding: 30px;
-  padding-top: 8vh;
+  padding-top: 160px;
 }
 
 .stage-text {

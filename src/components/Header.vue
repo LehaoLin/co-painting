@@ -15,7 +15,7 @@
     <el-menu-item index="3" :disabled="store.auction_open() ?? false"
       >Auction</el-menu-item
     >
-    <el-menu-item index="4" @click="toScan">Etherscan</el-menu-item>
+    <el-menu-item index="4" @click="toScan">PolygonScan</el-menu-item>
     <el-menu-item index="6"></el-menu-item>
   </el-menu>
 </template>

@@ -6,19 +6,24 @@
       round
       @click="store.connectWallet()"
       v-if="!store.connected"
-      >Connect Wallet</el-button
+      >连接钱包</el-button
     >
     <div class="slogan" v-if="!store.connected">
-      <h5>
-        <p>
-          Please change your wallet to Sepolia test chain.
-          <!-- This is a fully decentralized Web 3.0 co-painting project where you
-          can collaborate and compete with others. -->
-        </p>
-        <!-- Moreover, a great artwork is the basis of everything! -->
-        Join our Discord for more details.
-      </h5>
+      <div>
+        <p>请切换网络至Polygon</p>
+      </div>
     </div>
+    <center>
+      <p class="gradient-text">
+        共画与非是一个研究向、纯链上、红蓝双色共绘项目
+      </p>
+      <p class="gradient-text">
+        该项目由SeeDao与香港中文大学（深圳）加密社群实验室组织
+      </p>
+      <p class="gradient-text">
+        本项目不会以任何方式向参与者收费，相关参与费用仅有Polygon运行成本gas fee
+      </p>
+    </center>
   </div>
 
   <div class="pixelPick" v-if="store.connected">
@@ -172,9 +177,9 @@ const rule = () => {
 }
 .bigRedButton {
   border-radius: 50px !important;
-  font-size: 34px;
-  width: 370px;
-  height: 92px;
+  font-size: 24px;
+  width: 270px;
+  height: 62px;
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -186,7 +191,6 @@ const rule = () => {
   margin-right: auto;
   padding-top: 2vh;
   text-align: center;
-  font-size: 25px;
 }
 
 .pixelPick {
@@ -244,5 +248,11 @@ const rule = () => {
   display: inline-block;
   margin-left: auto;
   margin-right: auto;
+}
+
+.gradient-text {
+  background: linear-gradient(to right, #ff8181, #aaceff);
+  -webkit-background-clip: text;
+  color: transparent;
 }
 </style>

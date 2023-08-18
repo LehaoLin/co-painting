@@ -1,23 +1,24 @@
 <template>
   <div class="first-page">
     <Header />
-
-    <video
-      autoplay
-      muted
-      loop
-      poster="./assets/background.jpg"
-      id="bgvid"
-      v-if="store.router == 'home' || store.router == 'game'"
-    >
-      <source src="./assets/background.mp4" type="video/mp4" />
-    </video>
+    <div class="video-container">
+      <video
+        autoplay
+        muted
+        loop
+        poster="./assets/background_new.jpg"
+        id="bgvid"
+        v-if="store.router == 'home' || store.router == 'game'"
+      >
+        <source src="./assets/background 2.mp4" type="video/mp4" />
+      </video>
+    </div>
 
     <Home v-if="store.router == 'home'" />
     <About v-if="store.router == 'about'" />
     <Game v-if="store.router == 'game'" />
     <Test v-if="store.router == 'test'" />
-    <Footer style="z-index: 9999" />
+    <Footer />
   </div>
 </template>
 
@@ -46,6 +47,9 @@ video {
   z-index: -1;
 }
 
+.first-page {
+  width: 100%;
+}
 /* .first-page {
   background-image: url("./assets/background.mp4");
   background-size: cover;
