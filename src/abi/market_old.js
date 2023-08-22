@@ -430,4 +430,4 @@ export var abi = JSON.parse(`[
 		"stateMutability": "nonpayable",
 		"type": "function"
 	}
-]`)
+]`);

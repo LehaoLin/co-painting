@@ -106,16 +106,20 @@ const prepared_colors = [
 // if you want to paint one cell, please change the paint value
 const paint = ref({});
 const select = (payload) => {
-  if (liandian_color.value) {
-    set_color(
-      liandian_color.value,
-      payload.row_index,
-      payload.col_index,
-      "available"
-    );
-    console.log("!!!!!!!!!!!!");
-    // colors.value[(payload.row_index - 1) * 30 + payload.col_index - 1] =
-    //   liandian_color.value;
+  if (liandian.value) {
+    if (liandian_color.value) {
+      set_color(
+        liandian_color.value,
+        payload.row_index,
+        payload.col_index,
+        "available"
+      );
+    } else {
+      ElMessage({
+        message: "Please select a color first",
+        type: "warning",
+      });
+    }
   } else {
     console.log(payload);
     col_clicked.value = payload.col_index;
@@ -147,6 +151,10 @@ const lian = () => {
     // start liandian
     row_clicked.value = -1;
     col_clicked.value = -1;
+    ElMessage({
+      message: "Please select a color first",
+      type: "warning",
+    });
   } else {
     // stop liandian
     liandian_color.value = "";
