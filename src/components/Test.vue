@@ -1,33 +1,55 @@
 <template>
-  <!-- <div class="test"> -->
-  <el-row justify="center" style="margin-top: 7vh">
-    <!-- <div v-if="row_clicked != 0 && col_clicked != 0"> -->
-    <div>
-      <span v-for="(color, index) in prepared_colors">
-        <el-button
-          :style="{ 'background-color': color }"
-          @click="set_color(color, row_clicked, col_clicked, status)"
-        ></el-button>
-      </span>
-    </div>
-  </el-row>
-  <br />
-  <el-row justify="center">
-    <el-button @click="clear_colors"> Clear </el-button>
-  </el-row>
-  <br />
-  <el-row justify="center">
-    <!-- <p>Col:{{ col_clicked }}, Row:{{ row_clicked }} clicked, {{ status }}</p> -->
-  </el-row>
-  <el-row justify="center">
-    <ColorCanvas
-      :colors="colors"
-      :paint="paint"
-      :clear="clear"
-      @select="select"
-    />
-  </el-row>
-  <!-- </div> -->
+  <div class="test">
+    <el-row justify="center">
+      <!-- <p>Col:{{ col_clicked }}, Row:{{ row_clicked }} clicked, {{ status }}</p> -->
+    </el-row>
+    <el-row justify="center">
+      <el-switch
+        v-model="liandian"
+        size="large"
+        active-text="开启连点"
+        inactive-text="非连点"
+        @change="lian"
+      />
+    </el-row>
+    <el-row justify="center">
+      <center v-if="liandian">
+        选择的颜色：
+        <el-button :style="{ 'background-color': liandian_color }"></el-button>
+      </center>
+    </el-row>
+    <el-row justify="center">
+      <ColorCanvas
+        :colors="colors"
+        :paint="paint"
+        :clear="clear"
+        @select="select"
+      />
+    </el-row>
+
+    <el-row justify="center">
+      <!-- <div v-if="row_clicked != 0 && col_clicked != 0"> -->
+      <!-- <span v-for="(color, index) in prepared_colors"> -->
+      <el-col
+        :span="1"
+        justify="space-between"
+        v-for="(color, index) in prepared_colors"
+      >
+        <center>
+          <el-button
+            :style="{ 'background-color': color }"
+            @click="set_color(color, row_clicked, col_clicked, status)"
+          ></el-button>
+        </center>
+      </el-col>
+      <!-- </span> -->
+    </el-row>
+    <br />
+    <el-row justify="center">
+      <el-button @click="clear_colors"> Clear </el-button>
+    </el-row>
+    <br />
+  </div>
 </template>
 
 <script setup>
@@ -43,8 +65,10 @@ const clear_colors = () => {
 };
 
 const index_to_row_col = (index) => {
-  let col_index = (index + 1) % 60;
-  let row_index = (index + 1 - col_index) / 60 + 1;
+  // let col_index = (index + 1) % 60;
+  // let row_index = (index + 1 - col_index) / 60 + 1;
+  let col_index = (index + 1) % 30;
+  let row_index = (index + 1 - col_index) / 30 + 1;
   return { col_index, row_index };
 };
 
@@ -82,12 +106,31 @@ const prepared_colors = [
 // if you want to paint one cell, please change the paint value
 const paint = ref({});
 const select = (payload) => {
-  console.log(payload);
-  col_clicked.value = payload.col_index;
-  row_clicked.value = payload.row_index;
-  status.value = payload.status;
+  if (liandian_color.value) {
+    set_color(
+      liandian_color.value,
+      payload.row_index,
+      payload.col_index,
+      "available"
+    );
+    console.log("!!!!!!!!!!!!");
+    // colors.value[(payload.row_index - 1) * 30 + payload.col_index - 1] =
+    //   liandian_color.value;
+  } else {
+    console.log(payload);
+    col_clicked.value = payload.col_index;
+    row_clicked.value = payload.row_index;
+    status.value = payload.status;
+  }
 };
+
+const liandian_color = ref();
+
 const set_color = (color, row_index, col_index, status) => {
+  if (row_index == -1 && col_index == -1) {
+    liandian_color.value = color;
+    return;
+  }
   if (row_index < 1 || col_index < 1) {
     ElMessage({
       message: "Please select a cell first",
@@ -96,19 +139,35 @@ const set_color = (color, row_index, col_index, status) => {
     return;
   }
   paint.value = { color, row_index, col_index };
-  // }
+};
+
+const liandian = ref(false);
+const lian = () => {
+  if (liandian.value) {
+    // start liandian
+    row_clicked.value = -1;
+    col_clicked.value = -1;
+  } else {
+    // stop liandian
+    liandian_color.value = "";
+  }
 };
 </script>
 
 <style scoped>
-.test {
+/* .test {
   display: inline-flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
-  /* display: block;
-  margin-left: auto;
-  margin-right: auto; */
-}
+} */
+/* .test {
+  background-image: url("@/assets/test_bg.png");
+  background-size: cover;
+  top: 0;
+  background-position: center top;
+} */
+/* .test {
+  opacity: 50;
+} */
 </style>

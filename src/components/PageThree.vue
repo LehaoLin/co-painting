@@ -2,7 +2,7 @@
   <div class="questions">
     <div style="padding: 20px; border-radius: 40px">
       <el-row justify="center">
-        <el-col :span="12" class="text-div">
+        <el-col :span="18" class="text-div">
           <div class="whatText">
             <!-- <h2>What is the "painting together or not" ?</h2> -->
             <center>
@@ -76,7 +76,7 @@ const readmore = () => {
   position: relative;
   /* background-color: #e0e0e0; */
 
-  padding-top: 160px;
+  padding-top: 100px;
 
   /* margin-top: 5vh; */
 
@@ -94,12 +94,29 @@ const readmore = () => {
   vertical-align: middle;
 }
 
+.text-container {
+  border-radius: 10%;
+  background: linear-gradient(
+    to right,
+    #ff6a59,
+    #3e73ff
+  ); /* Gradient background */
+}
+
+.whatText {
+  padding: 20px;
+  border-radius: 30px;
+  /* background-color: #575958; */
+  background-color: #212121;
+  opacity: 0.95;
+  /* background-color: blue; */
+}
 .text-div {
-  background-color: #575958;
-  /* opacity: 0.95; */
+  background: linear-gradient(to right, #ff6a59, #3e73ff);
+  opacity: 0.95;
   display: inline-block;
   vertical-align: middle;
-  color: #dddddd;
+  /* color: #dddddd; */
   /* padding: 10px; */
   padding-top: 20px;
   padding-bottom: 50px;
@@ -107,11 +124,9 @@ const readmore = () => {
   padding-right: 70px;
   line-height: 120%;
   padding: 10px;
-  border-width: 10px;
-  border-style: solid;
-  border-image: linear-gradient(to right, #ff6a59, #3e73ff);
-  border-image-slice: 1;
-  border-radius: 20px;
+  border-radius: 30px;
+  /* border-width: 10px; */
+  /* border-style: solid; */
 }
 
 .qa-div {

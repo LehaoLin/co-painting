@@ -1,14 +1,16 @@
 <template>
-  <div
-    id="container_canvas"
-    ref="target"
-    :style="{
-      width: '100%',
-      height: '100%',
-      transform: `scale(${scale})`,
-      'transform-origin': 'left',
-    }"
-  ></div>
+  <center class="canvas-center">
+    <div
+      id="container_canvas"
+      ref="target"
+      :style="{
+        width: '100%',
+        height: '100%',
+        transform: `scale(${scale})`,
+        'transform-origin': 'center center',
+      }"
+    ></div>
+  </center>
 </template>
 
 <script setup>
@@ -18,6 +20,11 @@ import { onClickOutside } from "@vueuse/core";
 
 import { useWindowSize, useElementSize } from "@vueuse/core";
 const { width, height } = useWindowSize();
+
+import { useRoute } from "vue-router";
+
+const route = useRoute();
+// console.log(route.path);
 
 console.log(width.value);
 
@@ -78,8 +85,11 @@ const layer = ref();
 const selected_cell = ref(null);
 const selected_cell_color = ref(null);
 
+// const to_index = (row_index, col_index) => {
+//   return (row_index - 1) * 60 + col_index - 1;
+// };
 const to_index = (row_index, col_index) => {
-  return (row_index - 1) * 60 + col_index - 1;
+  return (row_index - 1) * 30 + col_index - 1;
 };
 
 const draw = () => {
@@ -87,8 +97,10 @@ const draw = () => {
   Konva.autoDrawEnabled = false;
   stage.value = new Konva.Stage({
     container: "container_canvas",
-    width: 1220,
-    height: 620,
+    // width: 1220,
+    // height: 620,
+    width: 1240,
+    height: 680,
   });
   var uu = 0;
   //   while (uu < 1800) {
@@ -102,14 +114,16 @@ const draw = () => {
   // calculate the size of each cell
   // var cellWidth = stage.value.width() / 60;
   // var cellHeight = stage.value.height() / 30;
-  var cellWidth = 20;
-  var cellHeight = 20;
+  var cellWidth = 40;
+  var cellHeight = 40;
 
   // loop through each row and column to create the cells
-  for (var row = 0; row < 30; row++) {
-    for (var col = 0; col < 60; col++) {
+  // for (var row = 0; row < 30; row++) {
+  //   for (var col = 0; col < 60; col++) {
+  for (var row = 0; row < 16; row++) {
+    for (var col = 0; col < 30; col++) {
       // calculate the color index based on the row and column
-      var colorIndex = row * 60 + col;
+      var colorIndex = row * 30 + col;
       colors.value[colorIndex] ??= "#ffffff";
       var color = "";
       var color = colors.value[colorIndex];
@@ -129,8 +143,8 @@ const draw = () => {
         strokeWidth: 1,
       });
       rect.on("click", async function (evt) {
-        let col_index = (this.attrs.x + 20) / 20;
-        let row_index = (this.attrs.y + 20) / 20;
+        let col_index = (this.attrs.x + 40) / 40;
+        let row_index = (this.attrs.y + 40) / 40;
         // console.log("Cell clicked:", col_index, row_index);
         let temp_color = colors.value[to_index(row_index, col_index)];
 
@@ -138,6 +152,7 @@ const draw = () => {
           selected_cell_color.value ||
           selected_cell_color.value == "#ffffff"
         ) {
+          // console.log("gogogo", selected_cell.value, selected_cell_color.value);
           if (selected_cell.value) {
             colors.value[selected_cell.value] = selected_cell_color.value;
             paint_cell(selected_cell_color.value, selected_cell.value);
@@ -156,6 +171,8 @@ const draw = () => {
         }
         selected_cell.value = to_index(row_index, col_index);
         colors.value[to_index(row_index, col_index)] = "#808080";
+
+        // console.log("temp_color", temp_color);
         if (temp_color == "#ffffff") {
           emit("select", { col_index, row_index, status: "available" });
           selected_cell_color.value = "#ffffff";
@@ -173,8 +190,8 @@ const draw = () => {
       });
       rect.on("mouseout", function (evt) {
         var box = evt.target;
-        let col_index = (this.attrs.x + 20) / 20;
-        let row_index = (this.attrs.y + 20) / 20;
+        let col_index = (this.attrs.x + 40) / 40;
+        let row_index = (this.attrs.y + 40) / 40;
         let temp_color = colors.value[to_index(row_index, col_index)];
         box.fill(temp_color);
         document.body.style.cursor = "default";
@@ -191,29 +208,56 @@ const draw = () => {
 const layer_axis = ref(null);
 
 const add_axis = (row_index, col_index) => {
-  let fake_row_index = 30 - row_index + 1;
+  console.log("!!!<", row_index, col_index);
+  // let fake_row_index = 30 - row_index + 1;
+  let fake_row_index = 16 - row_index + 1;
   let fake_col_index = col_index;
+  // console.log("sdfsd", fake_row_index, fake_col_index);
   // index all from 1
   // add row axis
   // var cellWidth = stage.value.width() / 60;
   // var cellHeight = stage.value.height() / 30;
-  var cellWidth = 20;
-  var cellHeight = 20;
-  var colText = new Konva.Text({
-    x: (fake_col_index - 1) * cellWidth + 5,
-    y: 30 * cellHeight + 5,
-    text: fake_col_index.toString(),
-    fontSize: 14,
-    fill: "#000000",
-  });
+  // var cellWidth = 20;
+  // var cellHeight = 20;
+  var cellWidth = 40;
+  var cellHeight = 40;
 
-  var rowText = new Konva.Text({
-    x: 60 * cellWidth + 5,
-    y: (row_index - 1) * cellHeight + 5,
-    text: fake_row_index.toString(),
-    fontSize: 14,
-    fill: "#000000",
-  });
+  var colText;
+  var rowText;
+  if (route.path == "/test") {
+    colText = new Konva.Text({
+      x: (fake_col_index - 1) * cellWidth + 10,
+      y: 16 * cellHeight + 10,
+      text: fake_col_index.toString(),
+      fontSize: 14,
+      fill: "#ffffff",
+    });
+    rowText = new Konva.Text({
+      // x: 60 * cellWidth + 5,
+      x: 30 * cellWidth + 10,
+      y: (row_index - 1) * cellHeight + 10,
+      text: fake_row_index.toString(),
+      fontSize: 14,
+      fill: "#ffffff",
+    });
+  } else {
+    colText = new Konva.Text({
+      x: (fake_col_index - 1) * cellWidth + 10,
+      y: 16 * cellHeight + 10,
+      text: fake_col_index.toString(),
+      fontSize: 14,
+      fill: "#000000",
+    });
+    rowText = new Konva.Text({
+      // x: 60 * cellWidth + 5,
+      x: 30 * cellWidth + 10,
+      y: (row_index - 1) * cellHeight + 10,
+      text: fake_row_index.toString(),
+      fontSize: 14,
+      fill: "#000000",
+    });
+  }
+
   try {
     layer_axis.value.destroy();
   } catch {
@@ -231,10 +275,15 @@ const paint_cell = (color, index) => {
   //   let color = paint.value.color;
   //   let row_index = paint.value.row_index;
   //   let col_index = paint.value.col_index;
+  console.log("paint cell");
   let cell = layer.value.children[index];
   cell.fill(color);
   cell.draw();
   colors.value[index] = color;
+  console.log(colors.value[index]);
+
+  selected_cell_color.value = color;
+  selected_cell.value = index;
 };
 
 onMounted(() => {
@@ -244,6 +293,7 @@ onMounted(() => {
 watch(
   paint,
   (newVal, oldVal) => {
+    console.log(newVal);
     if (newVal) {
       paint_cell(newVal.color, to_index(newVal.row_index, newVal.col_index));
     }
@@ -275,4 +325,8 @@ watch(clear, (newVal, oldVal) => {
 // );
 </script>
 
-<style scoped></style>
+<style scoped>
+.canvas-center {
+  height: 600px;
+}
+</style>

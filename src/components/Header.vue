@@ -6,23 +6,26 @@
     :ellipsis="false"
     @select="handleSelect"
     style="border-bottom: white"
+    active-text-color="#FC5E5E"
   >
     <div class="flex-grow" />
-    <el-menu-item index="0">Home</el-menu-item>
-    <el-menu-item index="9">Pre-creation</el-menu-item>
-    <el-menu-item index="1" @click="toDiscord">Discord</el-menu-item>
-    <el-menu-item index="2">How to Paint</el-menu-item>
+    <el-menu-item index="0">主页</el-menu-item>
+    <el-menu-item index="9">预创作</el-menu-item>
     <el-menu-item index="3" :disabled="store.auction_open() ?? false"
-      >Auction</el-menu-item
+      >拍卖行</el-menu-item
     >
+    <el-menu-item index="2">规则详解</el-menu-item>
+    <el-menu-item index="1" @click="toDiscord">Discord社区</el-menu-item>
     <el-menu-item index="4" @click="toScan">PolygonScan</el-menu-item>
-    <el-menu-item index="6"></el-menu-item>
   </el-menu>
 </template>
 
 <script setup>
 import { ref, watch, computed } from "vue";
 import { useStore } from "@/store/index";
+import { useRouter, useRoute } from "vue-router";
+
+const router = useRouter();
 
 const store = useStore();
 
@@ -54,16 +57,25 @@ const toNotion = () => {
 
 const handleSelect = (key, keyPath) => {
   if (key == "0") {
-    store.router = "home";
+    // store.router = "home";
+    router.push("/");
+    // router.push({ path: "/" });
   }
   if (key == "2") {
-    store.router = "about";
+    // store.router = "about";
+    // router.push("/about");
+    window.open(
+      "https://www.notion.so/e1c7fdd4b7804784874c7505099fa07f?pvs=4",
+      "_blank"
+    );
   }
   if (key == "3") {
     store.router = "game";
   }
   if (key == "9") {
-    store.router = "test";
+    // store.router = "test";
+    console.log("test");
+    router.push("/test");
   }
   // console.log(key, keyPath);
 };
@@ -89,8 +101,12 @@ watch(router_name, (new_value, old_value) => {
 </script>
 
 <style>
+.el-menu {
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+}
 .flex-grow {
-  flex-grow: 1;
+  /* flex-grow: 1; */
 }
 .el-menu-item {
   font-size: 18px !important;

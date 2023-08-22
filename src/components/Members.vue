@@ -98,7 +98,7 @@ members.value = [
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 9vh;
+  margin-top: 5vh;
 }
 .member-row {
   display: flex;

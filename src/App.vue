@@ -1,5 +1,17 @@
 <template>
-  <div class="first-page">
+  <div id="app" :class="bg">
+    <header>
+      <Header />
+    </header>
+
+    <main>
+      <router-view></router-view>
+    </main>
+    <footer>
+      <Footer />
+    </footer>
+  </div>
+  <!-- <div class="first-page">
     <Header />
     <div class="video-container">
       <video
@@ -19,7 +31,7 @@
     <Game v-if="store.router == 'game'" />
     <Test v-if="store.router == 'test'" />
     <Footer />
-  </div>
+  </div> -->
 </template>
 
 <script setup>
@@ -32,8 +44,19 @@ import Test from "./components/Test.vue";
 import Footer from "./components/Footer.vue";
 
 import { useStore } from "@/store";
+import { useRoute } from "vue-router";
 
 const store = useStore();
+
+const route = useRoute();
+
+const bg = computed(() => {
+  if (route.path == "/test") {
+    return "other_bg";
+  } else {
+    return;
+  }
+});
 </script>
 
 <style scoped>
@@ -50,6 +73,15 @@ video {
 .first-page {
   width: 100%;
 }
+
+.other_bg {
+  background-image: url("@/assets/test_bg.png");
+  background-size: cover;
+  top: 0;
+  background-position: center top;
+  z-index: 100;
+}
+
 /* .first-page {
   background-image: url("./assets/background.mp4");
   background-size: cover;
