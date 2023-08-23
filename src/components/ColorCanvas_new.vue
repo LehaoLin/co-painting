@@ -334,6 +334,6 @@ watch(clear, (newVal, oldVal) => {
 
 <style scoped>
 .canvas-center {
-  height: 600px;
+  height: 60vh;
 }
 </style>

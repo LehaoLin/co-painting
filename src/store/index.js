@@ -254,6 +254,7 @@ export const useStore = defineStore("store", {
       return list;
     },
     // server
+    async get_canvas() {},
 
     async connectWallet() {
       this.loadingInstance = ElLoading.service({ fullscreen: true });
