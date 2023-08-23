@@ -1,18 +1,20 @@
 <template>
-  <div id="app" :class="bg">
-    <!-- <v-scale-screen width="1920" height="1080"> -->
-    <header>
-      <Header />
-    </header>
+  <v-scale-screen width="1512" height="3125">
+    <div id="app" :class="bg">
+      <!-- <v-scale-screen width="1920" height="1080"> -->
+      <header>
+        <Header />
+      </header>
 
-    <main>
-      <router-view></router-view>
-    </main>
-    <footer>
-      <Footer />
-    </footer>
-    <!-- </v-scale-screen> -->
-  </div>
+      <main>
+        <router-view></router-view>
+      </main>
+      <footer v-if="footer">
+        <Footer />
+      </footer>
+      <!-- </v-scale-screen> -->
+    </div>
+  </v-scale-screen>
 </template>
 
 <script setup>
@@ -30,6 +32,14 @@ import { useRoute } from "vue-router";
 const store = useStore();
 
 const route = useRoute();
+
+const footer = computed(() => {
+  if (route.path == "/test") {
+    return false;
+  } else {
+    return true;
+  }
+});
 
 const bg = computed(() => {
   if (route.path == "/test") {
@@ -58,6 +68,8 @@ video {
 .other_bg {
   background-image: url("@/assets/test_bg.png");
   background-size: cover;
+  height: 100vh;
+  /* background-repeat: repeat-x; */
   top: 0;
   background-position: center top;
   z-index: 100;

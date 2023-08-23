@@ -86,6 +86,7 @@ const router_name = computed(() => {
 });
 
 watch(router_name, (new_value, old_value) => {
+  console.log(router_name);
   if (new_value == "home") {
     activeIndex.value = "0";
   }
@@ -96,7 +97,7 @@ watch(router_name, (new_value, old_value) => {
     activeIndex.value = "3";
   }
   if (new_value == "test") {
-    activeIndex.value = "5";
+    activeIndex.value = "9";
   }
 });
 </script>

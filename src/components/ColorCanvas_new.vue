@@ -34,7 +34,11 @@ const target = ref(null);
 const scale = computed(() => {
   // return width.value / 2048;
   if (route.path == "/test") {
-    return 0.9;
+    // if (width.value < 1800) {
+    //   return 0.6;
+    // } else {
+    return 0.85;
+    // }
   } else {
     return 1;
   }

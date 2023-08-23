@@ -27,7 +27,7 @@
       />
     </el-row>
 
-    <el-row justify="center">
+    <el-row justify="center" class="color-rect">
       <!-- <div v-if="row_clicked != 0 && col_clicked != 0"> -->
       <!-- <span v-for="(color, index) in prepared_colors"> -->
       <el-col
@@ -50,6 +50,7 @@
     </el-row>
     <br />
   </div>
+  <Footer style="position: fixed" />
 </template>
 
 <script setup>
@@ -57,6 +58,11 @@ import ColorCanvas from "./ColorCanvas_new.vue";
 import { ref, onMounted } from "vue";
 import { useStorage } from "@vueuse/core";
 import { ElMessage } from "element-plus";
+import Footer from "@/components/Footer.vue";
+
+import { useStore } from "@/store";
+
+const store = useStore();
 
 const colors = useStorage("colors", {});
 const clear_colors = () => {
@@ -73,6 +79,7 @@ const index_to_row_col = (index) => {
 };
 
 onMounted(() => {
+  store.router = "test";
   for (let [key, cell] of Object.entries(colors.value)) {
     if (cell == "#808080") {
       paint.value = {
@@ -178,4 +185,10 @@ const lian = () => {
 /* .test {
   opacity: 50;
 } */
+.test {
+  height: 100vh;
+}
+.color-rect {
+  margin-top: -5vh;
+}
 </style>
