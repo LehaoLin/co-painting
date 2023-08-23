@@ -6,7 +6,7 @@
       :style="{
         width: '100%',
         height: '100%',
-        // transform: `scale(${scale})`,
+        transform: `scale(${scale})`,
         'transform-origin': 'center center',
       }"
     ></div>
@@ -32,12 +32,12 @@ const target = ref(null);
 // 1220
 
 const scale = computed(() => {
-  return width.value / 2048;
-  // if (width.value > 1600) {
-  //   return 1;
-  // } else {
-  //   return 1;
-  // }
+  // return width.value / 2048;
+  if (route.path == "/test") {
+    return 0.9;
+  } else {
+    return 1;
+  }
 });
 
 watch(width, () => {
