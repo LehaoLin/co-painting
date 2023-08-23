@@ -1,17 +1,31 @@
 import { defineStore } from "pinia";
-import { abi as abi_painting } from "../abi/paint.js";
-import { abi as abi_market } from "../abi/market.js";
+import { abi as abi_painting } from "@/abi/paint.js";
+import { abi as abi_market } from "@/abi/market.js";
 import Web3 from "web3";
 
 import { ElLoading } from "element-plus";
 
-//real
-const contractAddress_painting = "0x3cf00e16DC4039D2c1Daa295E326524fe9D8650C";
-const contractAddress_market = "0x409E500D725601Ff5402317443C66343F3E6Bf6B";
+// import WalletConnectProvider from "@maticnetwork/walletconnect-provider";
 
-//test
-// const contractAddress_painting = "0xbe790Eb8761ac3CDF59CDEB64039d49750CC7675";
-// const contractAddress_market = "0x9B63B3231963D38c74d85B717e2eFf71a7aC26c5";
+//real
+// const contractAddress_painting = "0x3cf00e16DC4039D2c1Daa295E326524fe9D8650C";
+// const contractAddress_market = "0x409E500D725601Ff5402317443C66343F3E6Bf6B";
+
+const contractAddress_painting = "0xa7036F79d259ea1d17dcc4F720315406c2Ca0b06";
+const contractAddress_market = "0xa27215a1e367484ABC5Ab6A216C9e016A9524Fed";
+
+const color_mapping = {
+  R1: "#d24430",
+  R2: "#da6959",
+  R3: "#e58c84",
+  R4: "#ebb4ad",
+  R5: "#f5d9d6",
+  B1: "#4574e6",
+  B2: "#688fea",
+  B3: "#8da9f2",
+  B4: "#b3c3f4",
+  B5: "#d4ddfa",
+};
 
 export const useStore = defineStore("store", {
   state: () => ({
@@ -57,14 +71,196 @@ export const useStore = defineStore("store", {
 
     uploadPrice: 0,
     loadingInstance: null,
+
+    contract: null,
+    contract_market: null,
+    player_addr: "",
   }),
   getters: {},
   actions: {
+    // contract
+    async check_length() {
+      let length = await this.contract.methods.checklength().call();
+      return length;
+    },
+    async check_owner(tokenid) {
+      let owner = await this.contract.methods.checkowner(tokenid).call();
+      return owner;
+    },
+    async get_color(tokenid) {
+      let color = await this.contract.methods.getcolor(tokenid).call();
+      let color_str = color[1] + color[2];
+      return color_mapping[color_str];
+    },
+    async check_right() {
+      let right = await this.contract.methods.right(this.player_addr).call();
+      return right;
+    },
+    async check_color() {
+      let red = await this.contract.methods.redcolor(this.player_addr).call();
+      let blue = await this.contract.methods.bluecolor(this.player_addr).call();
+      if (red) {
+        if (red == 1) {
+          return "#d24430";
+        } else if (red == 2) {
+          return "#da6959";
+        } else if (red == 3) {
+          return "#e58c84";
+        } else if (red == 4) {
+          return "#ebb4ad";
+        } else if (red == 5) {
+          return "#f5d9d6";
+        }
+      }
+      if (blue) {
+        if (blue == 1) {
+          return "#4574e6";
+        } else if (blue == 2) {
+          return "#688fea";
+        } else if (blue == 3) {
+          return "#8da9f2";
+        } else if (blue == 4) {
+          return "#b3c3f4";
+        } else if (blue == 5) {
+          return "#d4ddfa";
+        }
+      }
+    },
+    async swap_color(token1, token2) {
+      await this.contract.methods
+        .swap_color(token1, token2)
+        .send({ from: this.player_addr });
+    },
+    async transfer_color(addr) {
+      await this.contract.methods
+        .transfer_painter(addr)
+        .send({ from: this.player_addr });
+    },
+    async check_coordinatexy(x, y) {
+      let output = await this.contract.methods
+        .checkCoordinatexy(x, y)
+        .send({ from: this.player_addr });
+      if (output == 2) {
+        return "该像素刚被抢先了";
+      } else {
+        // 动机选择
+      }
+    },
+    async check_vote_result() {
+      let result = await this.contract.methods
+        .checkvoteresult(this.player_addr)
+        .call();
+      return result;
+    },
+    async check_vote() {
+      let result = await this.contract.methods
+        .checkvote(this.player_addr)
+        .call();
+      return result;
+    },
+    async vote_to_mint_final() {
+      let output = await this.contract.methods
+        .votetomintfinal()
+        .send({ from: this.player_addr });
+    },
+    async serve_compare() {
+      let output = await this.contract.methods.serve_compare().call();
+      return output;
+    },
+
+    async check_approve_market() {
+      let output = await this.contract.methods.check_approve_market().call();
+      if (output == false) {
+        // 需要授权
+        await this.approve_market();
+      } else {
+        // 已授权
+      }
+    },
+    async approve_market() {
+      let output = await this.contract.methods
+        .approve_market()
+        .send({ from: this.player_addr });
+    },
+    async check_state() {
+      let output = await this.contract.methods.checkstate().call();
+      if (output) {
+      } else {
+      }
+    },
+    async cancel_listing() {
+      let output = await this.contract.methods
+        .cancelListing()
+        .send({ from: this.player_addr });
+    },
+    async upload_price() {
+      let output = await this.contract.methods
+        .upload_price()
+        .send({ from: this.player_addr });
+    },
+    async check_preseller() {
+      let output = await this.contract.methods.checkpreseller().call();
+      if (output) {
+        return output;
+      } else {
+        // 路人
+      }
+    },
+    async benefit() {
+      let output = await this.contract.methods
+        .benefit()
+        .send({ from: this.player_addr });
+    },
+    async check_state() {
+      let output = await this.contract.methods.checkstate().call();
+      return output;
+    },
+    async buy_item() {
+      let output = await this.contract.methods
+        .buyItem()
+        .send({ from: this.player_addr });
+    },
+    async check_dividen() {
+      let output = await this.contract.methods.checkdividen().call();
+      return output;
+    },
+    async divide_final_art() {
+      let output = await this.contract.methods
+        .dividefinalart()
+        .send({ from: this.player_addr });
+    },
+    async check_contract_balance() {
+      let output = await this.contract.methods.checkcontractbalance().call();
+      return output;
+    },
+    async check_price() {
+      let output = await this.contract.methods.checkprice().call();
+    },
+    async check_owner(tokenid) {
+      let output = await this.contract.methods.checkowner(tokenid).call();
+      return output;
+    },
+    async checknum_sell() {
+      let output = await this.contract.methods.checknum_sell().call();
+      return output;
+    },
+    async check_sell_list() {
+      let num = await this.checknum_sell();
+      let list = [];
+      for (let i = 1; i <= num; i++) {
+        let output = await this.contract.methods.check_selllist().call();
+        list.push(output);
+      }
+      return list;
+    },
+    // server
+
     async connectWallet() {
       this.loadingInstance = ElLoading.service({ fullscreen: true });
       this.own_colors = [];
       this.own_coordinates = [];
       let ethereum = window.ethereum;
+
       if (ethereum) {
         ethereum.request({ method: "eth_requestAccounts" }).then((res) => {
           this.connected = true;
@@ -72,17 +268,18 @@ export const useStore = defineStore("store", {
         });
       }
       let web3 = new Web3(window.ethereum);
-      let contract = new web3.eth.Contract(
+
+      this.contract = new web3.eth.Contract(
         abi_painting,
         contractAddress_painting
       );
 
-      let contract_market = new web3.eth.Contract(
+      this.contract_market = new web3.eth.Contract(
         abi_market,
         contractAddress_market
       );
 
-      var player_addr = web3.currentProvider.selectedAddress; //目前网页链接的钱包地址，返回的是string
+      this.player_addr = web3.currentProvider.selectedAddress; //目前网页链接的钱包地址，返回的是string
 
       //   contract.methods.register().send({from: player_addr});
       const color_convert = new Map();
@@ -96,12 +293,14 @@ export const useStore = defineStore("store", {
       color_convert.set("B60", "#8da9f2");
       color_convert.set("B40", "#b3c3f4");
       color_convert.set("B20", "#d4ddfa");
-      for (var i = 0; i < 60; i++) {
-        for (var j = 0; j < 30; j++) {
+      // for (var i = 0; i < 60; i++) {
+      //   for (var j = 0; j < 30; j++) {
+      for (var i = 0; i < 30; i++) {
+        for (var j = 0; j < 16; j++) {
           this.colors.push("#ffffff");
         }
       }
-      let result = await contract.methods.right(player_addr).call();
+      let result = await this.contract.methods.right(player_addr).call();
       this.paint_right = result;
       console.log("paint_right: ", this.paint_right);
       if (this.paint_right == 2) {

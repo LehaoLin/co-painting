@@ -22,7 +22,7 @@
 
 <style scoped>
 .footer {
-  height: 8vh;
+  height: 70px;
   vertical-align: center;
   padding: 0px;
   /* display: flex; */

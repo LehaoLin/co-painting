@@ -89,7 +89,7 @@ members.value = [
 .member {
   border-radius: 25px;
   position: relative;
-  height: 40vh;
+  height: 350px;
   width: 18vw;
   text-align: center;
   /* background-color: #252528; */

@@ -70,7 +70,8 @@ const handleSelect = (key, keyPath) => {
     );
   }
   if (key == "3") {
-    store.router = "game";
+    // store.router = "game";
+    router.push("/market");
   }
   if (key == "9") {
     // store.router = "test";

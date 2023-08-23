@@ -23,7 +23,7 @@ import ColorOp from "./ColorOp.vue";
 
 const store = useStore();
 const select = (payload) => {
-  console.log(payload);
+  console.log("payload", payload);
   store.have_click_canvas = true;
   store.col_clicked = payload.col_index;
   store.row_clicked = payload.row_index;

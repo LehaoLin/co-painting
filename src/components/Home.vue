@@ -8,11 +8,11 @@
         poster="@/assets/background_new.jpg"
         id="bgvid"
       >
-        <source src="@/assets/background 2.mp4" type="video/mp4" />
+        <source src="@/assets/background_2.mp4" type="video/mp4" />
       </video>
     </div>
     <Wallet />
-    <PaintNew />
+    <PaintNew style="box-shadow: inset 0 0 60px #545353" />
 
     <!-- <Paint /> -->
     <div class="big">

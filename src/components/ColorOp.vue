@@ -125,7 +125,7 @@
               width: 10vw;
             "
           >
-            ({{ store.col_clicked }}.{{ 17 - store.row_clicked }})
+            ({{ store.col_clicked }},{{ 17 - store.row_clicked }})
           </button>
           <button
             class="color1"
