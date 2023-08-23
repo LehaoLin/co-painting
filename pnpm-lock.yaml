@@ -17,6 +17,9 @@ dependencies:
   pinia:
     specifier: ^2.0.33
     version: 2.0.33(vue@3.2.47)
+  v-scale-screen:
+    specifier: ^2.2.0
+    version: 2.2.0(vue@3.2.47)
   vue:
     specifier: ^3.2.47
     version: 3.2.47
@@ -2597,6 +2600,14 @@ packages:
   /uuid@9.0.0:
     resolution: {integrity: sha512-MXcSTerfPa4uqyzStbRoTgt5XIe3x5+42+q1sDuy3R5MDk66URdLMOZe5aPX/SQd+kuYAh0FdP/pO28IkQyTeg==}
     hasBin: true
+    dev: false
+
+  /v-scale-screen@2.2.0(vue@3.2.47):
+    resolution: {integrity: sha512-GHzwRYQwj5MTiYWxtdxI5S6DgEzFjSSMxg53TLddRgXjNSe/dG++Q+6AgrYS3HKDcWzccs19agF6UFcckxn1yA==}
+    peerDependencies:
+      vue: ^3.2.37
+    dependencies:
+      vue: 3.2.47
     dev: false
 
   /varint@5.0.2:

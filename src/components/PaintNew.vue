@@ -1,7 +1,6 @@
 <template>
-  <!-- <el-row justify="center" class="piantnew"> -->
   <div class="paint-container">
-    <center>
+    <center class="center-paint">
       <ColorCanvas
         :colors="store.colors"
         :paint="store.paint"
@@ -9,10 +8,9 @@
         @select="select"
         class="paintnew"
       />
-      <ColorOp />
+      <ColorOp class="shit" />
     </center>
   </div>
-  <!-- </el-row> -->
 </template>
 
 <script setup>
@@ -57,5 +55,9 @@ const select = (payload) => {
 }
 .paintnew {
   left: 50%;
+  margin-top: 10vh;
+}
+.center-paint {
+  width: 100vw;
 }
 </style>

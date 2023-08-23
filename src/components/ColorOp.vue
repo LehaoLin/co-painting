@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <el-row>
+    <el-row justify="center">
       <el-col :span="6">
         <el-row justify="center">
           <button
@@ -235,6 +235,9 @@ const select = (payload) => {
 
 <style scoped>
 .container {
+  /* width: 80vw; */
+  /* width: 1200px; */
+  width: 90%;
   background-image: url("@/assets/op.png");
   background-size: cover;
   background-repeat: no-repeat;

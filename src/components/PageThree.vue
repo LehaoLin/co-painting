@@ -76,7 +76,7 @@ const readmore = () => {
   position: relative;
   /* background-color: #e0e0e0; */
 
-  padding-top: 100px;
+  padding-top: 23vh;
 
   /* margin-top: 5vh; */
 

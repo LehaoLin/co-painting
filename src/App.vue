@@ -1,5 +1,6 @@
 <template>
   <div id="app" :class="bg">
+    <!-- <v-scale-screen width="1920" height="1080"> -->
     <header>
       <Header />
     </header>
@@ -10,28 +11,8 @@
     <footer>
       <Footer />
     </footer>
+    <!-- </v-scale-screen> -->
   </div>
-  <!-- <div class="first-page">
-    <Header />
-    <div class="video-container">
-      <video
-        autoplay
-        muted
-        loop
-        poster="./assets/background_new.jpg"
-        id="bgvid"
-        v-if="store.router == 'home' || store.router == 'game'"
-      >
-        <source src="./assets/background 2.mp4" type="video/mp4" />
-      </video>
-    </div>
-
-    <Home v-if="store.router == 'home'" />
-    <About v-if="store.router == 'about'" />
-    <Game v-if="store.router == 'game'" />
-    <Test v-if="store.router == 'test'" />
-    <Footer />
-  </div> -->
 </template>
 
 <script setup>

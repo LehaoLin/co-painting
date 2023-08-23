@@ -6,7 +6,7 @@
       :style="{
         width: '100%',
         height: '100%',
-        transform: `scale(${scale})`,
+        // transform: `scale(${scale})`,
         'transform-origin': 'center center',
       }"
     ></div>
@@ -334,6 +334,6 @@ watch(clear, (newVal, oldVal) => {
 
 <style scoped>
 .canvas-center {
-  height: 60vh;
+  /* height: 70vh; */
 }
 </style>

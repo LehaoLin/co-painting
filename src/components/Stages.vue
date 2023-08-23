@@ -121,7 +121,7 @@
   /* background-color: rgb(0, 0, 0, 0.5); */
   /* background-color: #e0e0e0; */
   padding: 30px;
-  padding-top: 35px;
+  padding-top: 20vh;
 }
 
 .stage-text {
