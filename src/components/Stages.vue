@@ -88,7 +88,7 @@ onMounted(() => {
 });
 </script>
 
-<style scoped lang="scss">
+<style scoped>
 .stage {
   width: 250px !important;
   height: 250px !important;
