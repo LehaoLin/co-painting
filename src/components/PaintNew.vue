@@ -76,7 +76,7 @@ const select = (payload) => {
 }
 .paintnew {
   left: 50%;
-  margin-top: 10vh;
+  margin-top: 4.5vh;
 }
 .center-paint {
   width: 100vw;

@@ -18,7 +18,7 @@
         <el-button :style="{ 'background-color': liandian_color }"></el-button>
       </center>
     </el-row>
-    <el-row justify="center">
+    <el-row justify="center" class="color-canvas">
       <ColorCanvas
         :colors="colors"
         :paint="paint"
@@ -30,11 +30,7 @@
     <el-row justify="center" class="color-rect">
       <!-- <div v-if="row_clicked != 0 && col_clicked != 0"> -->
       <!-- <span v-for="(color, index) in prepared_colors"> -->
-      <el-col
-        :span="1"
-        justify="space-between"
-        v-for="(color, index) in prepared_colors"
-      >
+      <el-col :span="1" v-for="(color, index) in prepared_colors">
         <center>
           <el-button
             :style="{ 'background-color': color }"
@@ -189,6 +185,9 @@ const lian = () => {
   height: 100vh;
 }
 .color-rect {
-  margin-top: -5vh;
+  margin-top: -7vh;
+}
+.color-canvas {
+  margin-top: -2vh;
 }
 </style>

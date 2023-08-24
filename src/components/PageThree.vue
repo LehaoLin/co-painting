@@ -2,12 +2,12 @@
   <div class="questions">
     <div style="padding: 20px; border-radius: 40px">
       <el-row justify="center">
-        <el-col :span="18" class="text-div">
+        <el-col :span="14" class="text-div">
           <div class="whatText">
             <!-- <h2>What is the "painting together or not" ?</h2> -->
             <center>
               <div style="margin-top: -5px; font-size: 12px">
-                <h3>共画与非 概述</h3>
+                <h2 style="margin-bottom: 30px">共画与非 概述</h2>
                 共画与非是一个研究向、纯链上 (polygon) 的红蓝双色共绘项目。<br />
                 该项目将作为SeeDao常驻公共设施存在，期望为大家提供新的社群团建渠道，同时拉入新的小伙伴们。<br />
                 <br />
@@ -45,6 +45,10 @@
                   >获得新的颜色(原颜色-20%纯度)</span
                 >以及<span style="color: #789dff">新的绘画权限</span>。<br />
               </div>
+              <br />
+              <el-button type="success" style="margin-top: 10px"
+                >详细规则</el-button
+              >
             </center>
           </div>
         </el-col>
@@ -75,8 +79,7 @@ const readmore = () => {
   height: 100%;
   position: relative;
   /* background-color: #e0e0e0; */
-
-  padding-top: 23vh;
+  padding-top: 10vh;
 
   /* margin-top: 5vh; */
 
@@ -104,7 +107,7 @@ const readmore = () => {
 }
 
 .whatText {
-  padding: 20px;
+  padding: 50px;
   border-radius: 30px;
   /* background-color: #575958; */
   background-color: #212121;
@@ -120,7 +123,7 @@ const readmore = () => {
   /* padding: 10px; */
   padding-top: 20px;
   padding-bottom: 50px;
-  padding-left: 70px;
+  padding-left: 8070px;
   padding-right: 70px;
   line-height: 120%;
   padding: 10px;

@@ -22,7 +22,6 @@
 
 <style scoped>
 .footer {
-  height: 70px;
   vertical-align: center;
   padding: 0px;
   /* display: flex; */
@@ -30,22 +29,22 @@
   align-items: center;
   bottom: 0px;
   width: 100%;
-  padding-bottom: 0px;
   /* position: fixed; */
   /* background: linear-gradient(to right, #fc5e5e, #4f75d8); */
   background-image: url("@/assets/footer.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center top;
-  width: 100%;
 }
 .footer-inside {
   width: 100%;
-  height: 100%;
-  padding-top: 10px;
+  height: inherit;
+  padding: 10px;
   vertical-align: center;
   justify-content: center;
   align-items: center;
   background: rgba(0, 0, 0, 0.55);
+  font-size: 13px;
+  font-weight: lighter;
 }
 </style>

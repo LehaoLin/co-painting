@@ -1,8 +1,8 @@
 <template>
   <el-row justify="space-evenly" class="stages">
-    <el-col :span="2"></el-col>
+    <el-col :span="3"></el-col>
     <el-col :span="5" class="stage-col">
-      <div class="stage stage-now">
+      <div class="stage stage-now" ref="el">
         <!-- <div class="stage-title" style="color: #ff736b">Now</div> -->
         <!-- <el-divider class="divider" style="border-color: #ff736b"></el-divider> -->
         <div class="stage-text" style="color: black">
@@ -13,7 +13,7 @@
       </div>
     </el-col>
     <el-col
-      :span="2"
+      :span="1"
       style="
         display: flex;
         justify-content: center;
@@ -27,7 +27,7 @@
       ></el-divider> -->
     </el-col>
     <el-col :span="5" class="stage-col">
-      <div class="stage stage-2">
+      <div class="stage stage-2" ref="el">
         <!-- <div class="stage-title" style="color: black">Stage 2</div> -->
         <!-- <el-divider class="divider"></el-divider> -->
         <div style="color: #e9e9e9" class="stage-text">
@@ -38,7 +38,7 @@
       </div>
     </el-col>
     <el-col
-      :span="2"
+      :span="1"
       style="
         display: flex;
         justify-content: center;
@@ -52,7 +52,7 @@
       ></el-divider> -->
     </el-col>
     <el-col :span="5" class="stage-col">
-      <div class="stage stage-3">
+      <div class="stage stage-3" ref="el">
         <!-- <div class="stage-title" style="color: black">Stage 3</div> -->
         <!-- <el-divider class="divider"></el-divider> -->
         <div style="color: #e9e9e9" class="stage-text">
@@ -61,15 +61,41 @@
         </div>
       </div>
     </el-col>
-    <el-col :span="2"></el-col>
+    <el-col :span="3"></el-col>
   </el-row>
 </template>
-<script setup></script>
+<script setup>
+import { ref, onMounted } from "vue";
+import { useElementSize } from "@vueuse/core";
+const el = ref(null);
+const { width, height } = useElementSize(el);
 
-<style scoped>
+// const dynamicStyle = ref({
+//   width: "250px !important",
+//   height: "250px !important",
+//   "border-radius": "50%",
+//   border: "1px solid #ffffff",
+//   display: "flex",
+//   "flex-direction": "column",
+//   "justify-content": "center",
+//   "align-items": "center",
+//   "text-align": "center",
+//   "background-color": "rgba(0, 0, 0, 0.5)",
+// });
+onMounted(() => {
+  // this.dynamicStyle.height = width.value;
+  console.log(width);
+});
+</script>
+
+<style scoped lang="scss">
 .stage {
   width: 250px !important;
   height: 250px !important;
+  /* width: 100%;
+  height: 100%; */
+  /* max-height: 100%;
+  max-width: 100%; */
   border-radius: 50%;
   border: 1px solid #ffffff;
   display: flex;
@@ -121,10 +147,12 @@
   /* background-color: rgb(0, 0, 0, 0.5); */
   /* background-color: #e0e0e0; */
   padding: 30px;
-  padding-top: 20vh;
+  padding-top: 12vh;
+  /* width: 80vw; */
 }
 
 .stage-text {
   margin-top: -20px;
+  font-size: 14px;
 }
 </style>

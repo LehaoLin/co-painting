@@ -112,6 +112,7 @@ members.value = [
 
 .member-title {
   color: #ebebf599;
+  margin-top: -10px;
 }
 
 .member img {

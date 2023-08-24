@@ -12,7 +12,7 @@
       </video>
     </div>
     <Wallet />
-    <PaintNew style="box-shadow: inset 0 0 60px #545353" />
+    <PaintNew style="box-shadow: inset 0 20px 15px #545353" />
 
     <!-- <Paint /> -->
     <div class="big">
@@ -37,7 +37,7 @@ const router = useRouter();
 
 <style scoped>
 .big {
-  background-image: url("@/assets/bg2.png");
+  background-image: url("@/assets/bg3.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center top;

@@ -14,16 +14,20 @@
         <p>请切换网络至Polygon</p>
       </div>
     </div>
-    <center>
+    <center class="all-text">
       <p class="gradient-text">
         共画与非是一个研究向、纯链上、红蓝双色共绘项目
+        <br />
+        该项目由SeeDao与香港中文大学（深圳）加密社群实验室组织
+        <br />
+        本项目不会以任何方式向参与者收费，相关参与费用仅有Polygon运行成本gas fee
       </p>
-      <p class="gradient-text">
+      <!-- <p class="gradient-text">
         该项目由SeeDao与香港中文大学（深圳）加密社群实验室组织
       </p>
       <p class="gradient-text">
         本项目不会以任何方式向参与者收费，相关参与费用仅有Polygon运行成本gas fee
-      </p>
+      </p> -->
     </center>
   </div>
 
@@ -212,24 +216,26 @@ const rule = () => {
 <style scoped>
 .page-one {
   width: 100%;
-  padding-top: 3vh;
+  height: 80vh;
+  padding-top: 7vh;
 }
 .bigRedButton {
   border-radius: 50px !important;
   font-size: 24px;
-  width: 270px;
+  width: 220px;
   height: 62px;
   display: block;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 52vh;
+  margin-top: 45vh;
 }
 
 .slogan {
   margin-left: auto;
   margin-right: auto;
-  padding-top: 2vh;
+  padding-top: 0.7vh;
   text-align: center;
+  font-size: 14px;
 }
 
 .pixelPick {
@@ -308,5 +314,7 @@ const rule = () => {
   background: linear-gradient(to right, #ff8181, #aaceff);
   -webkit-background-clip: text;
   color: transparent;
+  font-size: 14px;
+  line-height: 170%;
 }
 </style>
