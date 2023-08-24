@@ -217,7 +217,7 @@ const rule = () => {
 .page-one {
   width: 100%;
   height: 80vh;
-  padding-top: 7vh;
+  padding-top: 4vh;
 }
 .bigRedButton {
   border-radius: 50px !important;
