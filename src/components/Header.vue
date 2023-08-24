@@ -11,9 +11,10 @@
     <div class="flex-grow" />
     <el-menu-item index="0">主页</el-menu-item>
     <el-menu-item index="9">预创作</el-menu-item>
-    <el-menu-item index="3" :disabled="store.auction_open() ?? false"
+    <!-- <el-menu-item index="3" :disabled="store.auction_open() ?? false"
       >拍卖行</el-menu-item
-    >
+    > -->
+    <el-menu-item index="3" disabled>拍卖行</el-menu-item>
     <el-menu-item index="2">规则详解</el-menu-item>
     <el-menu-item index="1" @click="toDiscord">Discord社区</el-menu-item>
     <el-menu-item index="4" @click="toScan">PolygonScan</el-menu-item>

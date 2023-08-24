@@ -4,8 +4,9 @@
       class="bigRedButton"
       type="danger"
       round
-      @click="store.connectWallet()"
+      @click="store.connect_wallet()"
       v-if="!store.connected"
+      disabled
       >连接钱包</el-button
     >
     <div class="slogan" v-if="!store.connected">
@@ -27,7 +28,10 @@
   </div>
 
   <div class="pixelPick" v-if="store.connected">
-    <h7 class="account_title">Your Account</h7>
+    <div class="account_title">
+      账户详情<span class="buy_nft">购买像素NFT</span>
+    </div>
+
     <hr
       style="width: 855px; border-color: rgb(219 219 219); position: relative"
     />
@@ -47,13 +51,13 @@
         }"
       >
         <button
-          v-for="n in store.own_coordinates.length"
+          v-for="n in own_colors.length"
           :key="n"
           :style="{
             width: '86px',
             height: '86px',
             flex: '0 0 auto',
-            'background-color': store.own_colors[n - 1],
+            'background-color': own_colors[n - 1].color,
             'flex-direction': 'row',
             'align-items': 'center',
             'overflow-x': 'auto',
@@ -64,7 +68,13 @@
           }"
           @click="store.chooseExchangeColor"
         >
-          {{ store.own_coordinates[n - 1] }}
+          {{
+            `${own_colors[n - 1].coordinate.x},${
+              own_colors[n - 1].coordinate.y
+            }`
+          }}
+          <br />
+          id: {{ own_colors[n - 1].tokenid }}
         </button>
       </div>
     </div>
@@ -74,7 +84,7 @@
       <el-col :span="8">
         <p
           class="msg-info"
-          v-if="store.paint_right == 2"
+          v-if="right == 2"
           :style="{
             width: '300px',
             height: '30px',
@@ -83,18 +93,13 @@
             'line-height': '30px',
           }"
         >
-          you have a pixel to paint
+          当前账户 拥有绘画权限<br />
+          可绘画颜色：<span
+            :style="{ 'background-color': wallet_color }"
+          ></span>
         </p>
         <p
-          v-if="store.paint_right == 0 && store.own_colors.length == 0"
-          style="color: red"
-        >
-          You haven't entered our project!<br />
-          Join our discord to gain access.
-        </p>
-
-        <p
-          v-if="store.paint_right == 3"
+          v-else-if="right == 3"
           style="
             color: #ff0000;
             font-size: 18px;
@@ -104,8 +109,15 @@
             height: 56px;
           "
         >
-          Please transfer color to others, in order to gain the new drawing
-          permission!
+          当前账户 未拥有绘画权限<br />
+          向未参与地址传递颜色<span
+            :style="{ 'background-color': wallet_color }"
+          ></span
+          >重新获得绘画权限
+        </p>
+        <p v-else style="color: black">
+          此账户没有绘画权限或分享颜色权限<br />
+          加入<a href="" target="_blank">Discord</a>获得权限
         </p>
       </el-col>
       <el-col
@@ -150,6 +162,33 @@ watch(coordinate, (newVal) => {
 
 onMounted(() => {
   rule();
+  check_own();
+});
+
+const own_colors = ref([]); // [{color, coordinate, tokenid}]
+
+const check_own = async () => {
+  let length = await store.check_length();
+  for (let tokenid = 2; tokenid <= length; tokenid++) {
+    let owner = await store.check_owner(tokenid);
+    let temp = {};
+    if (owner == store.player_addr) {
+      temp.color = await store.get_color(tokenid);
+      temp.tokenid = tokenid;
+      temp.coordinate = await store.get_coordinate(tokenid);
+      own_colors.value.push(temp);
+    }
+  }
+};
+
+const right = computed(async () => {
+  let right = await store.check_right();
+  return right;
+});
+
+const wallet_color = computed(async () => {
+  let color = await store.check_painter();
+  return color;
 });
 
 const overflow = ref("");
@@ -215,6 +254,21 @@ const rule = () => {
   color: black;
   text-align: center;
   font-size: 25px;
+  width: 50%;
+}
+
+.buy_nft {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 22px;
+  color: #0047ff;
+  border-style: solid;
+  border-color: #0047ff;
+  border-width: 1px;
+  text-align: center;
+  font-size: 1px;
+  position: absolute;
+  margin-left: 1vw;
 }
 
 .container2 {

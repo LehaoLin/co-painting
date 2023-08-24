@@ -18,7 +18,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed, onMounted } from "vue";
 import Home from "./components/Home.vue";
 import Header from "./components/Header.vue";
 import About from "./components/About.vue";
@@ -32,6 +32,10 @@ import { useRoute } from "vue-router";
 const store = useStore();
 
 const route = useRoute();
+
+onMounted(() => {
+  store.init();
+});
 
 const footer = computed(() => {
   if (route.path == "/test") {

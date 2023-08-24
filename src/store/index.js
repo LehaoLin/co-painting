@@ -14,6 +14,8 @@ import { ElLoading } from "element-plus";
 const contractAddress_painting = "0xa7036F79d259ea1d17dcc4F720315406c2Ca0b06";
 const contractAddress_market = "0xa27215a1e367484ABC5Ab6A216C9e016A9524Fed";
 
+const url = "";
+
 const color_mapping = {
   R1: "#d24430",
   R2: "#da6959",
@@ -72,6 +74,7 @@ export const useStore = defineStore("store", {
     uploadPrice: 0,
     loadingInstance: null,
 
+    web3: null,
     contract: null,
     contract_market: null,
     player_addr: "",
@@ -79,6 +82,34 @@ export const useStore = defineStore("store", {
   getters: {},
   actions: {
     // contract
+    async init() {
+      this.web3 = new Web3(window.ethereum);
+      this.contract = new this.web3.eth.Contract(
+        abi_painting,
+        contractAddress_painting
+      );
+      this.contract_market = new this.web3.eth.Contract(
+        abi_market,
+        contractAddress_market
+      );
+      console.log("connected");
+      // let canvas = await this.get_canvas();
+      // if (canvas) {
+      //   return canvas;
+      // } else {
+      //   return;
+      // }
+    },
+    async connect_wallet() {
+      if (ethereum) {
+        ethereum.request({ method: "eth_requestAccounts" }).then((res) => {
+          this.connected = true;
+          console.log("当前钱包地址:" + res[0]);
+          this.player_addr = res[0];
+          this.connected = true;
+        });
+      }
+    },
     async check_length() {
       let length = await this.contract.methods.checklength().call();
       return length;
@@ -92,11 +123,19 @@ export const useStore = defineStore("store", {
       let color_str = color[1] + color[2];
       return color_mapping[color_str];
     },
+    async get_coordinate(tokenid) {
+      let coordinate = await this.contract.methods
+        .getcoordinate(tokenid)
+        .call();
+      let x = parseInt(coordinate.split("-")[0]);
+      let y = parseInt(coordinate.split("-")[1]);
+      return { x, y };
+    },
     async check_right() {
       let right = await this.contract.methods.right(this.player_addr).call();
       return right;
     },
-    async check_color() {
+    async check_painter() {
       let red = await this.contract.methods.redcolor(this.player_addr).call();
       let blue = await this.contract.methods.bluecolor(this.player_addr).call();
       if (red) {
@@ -254,7 +293,27 @@ export const useStore = defineStore("store", {
       return list;
     },
     // server
-    async get_canvas() {},
+    async get_canvas() {
+      let res = await fetch(url + "/canvas");
+      let output = res.json();
+      if (output) {
+        return false;
+      }
+      return output;
+    },
+    async record_motivation() {
+      let data = {};
+      let res = await fetch(url + "/motivation", {
+        method: "POST",
+        mode: "cors",
+        cache: "no-cache",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      let output = res.json();
+    },
 
     async connectWallet() {
       this.loadingInstance = ElLoading.service({ fullscreen: true });

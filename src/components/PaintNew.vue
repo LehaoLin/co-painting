@@ -8,18 +8,39 @@
         @select="select"
         class="paintnew"
       />
-      <ColorOp class="shit" />
+      <ColorOp class="shit" v-if="own_colors.length != 0" />
     </center>
   </div>
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed, onMounted } from "vue";
 import { useStore } from "@/store";
 import ColorCanvas from "./ColorCanvas_new.vue";
 import ColorOp from "./ColorOp.vue";
 
 const store = useStore();
+
+onMounted(() => {
+  check_own();
+});
+
+const own_colors = ref([]);
+
+const check_own = async () => {
+  let length = await store.check_length();
+  for (let tokenid = 2; tokenid <= length; tokenid++) {
+    let owner = await store.check_owner(tokenid);
+    let temp = {};
+    if (owner == store.player_addr) {
+      temp.color = await store.get_color(tokenid);
+      temp.tokenid = tokenid;
+      temp.coordinate = await store.get_coordinate(tokenid);
+      own_colors.value.push(temp);
+    }
+  }
+};
+
 const select = (payload) => {
   console.log("payload", payload);
   store.have_click_canvas = true;
