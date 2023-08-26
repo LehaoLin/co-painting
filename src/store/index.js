@@ -78,6 +78,8 @@ export const useStore = defineStore("store", {
     contract: null,
     contract_market: null,
     player_addr: "",
+    own_colors: [], // [{color, coordinate, tokenid}]
+    selected_color: [],
   }),
   getters: {},
   actions: {
@@ -99,6 +101,21 @@ export const useStore = defineStore("store", {
       // } else {
       //   return;
       // }
+    },
+
+    async check_own() {
+      this.own_colors = [];
+      let length = await this.check_length();
+      for (let tokenid = 2; tokenid <= length; tokenid++) {
+        let owner = await this.check_owner(tokenid);
+        let temp = {};
+        if (owner == this.player_addr) {
+          temp.color = await this.get_color(tokenid);
+          temp.tokenid = tokenid;
+          temp.coordinate = await this.get_coordinate(tokenid);
+          this.own_colors.push(temp);
+        }
+      }
     },
     async connect_wallet() {
       if (ethereum) {
@@ -127,8 +144,9 @@ export const useStore = defineStore("store", {
       let coordinate = await this.contract.methods
         .getcoordinate(tokenid)
         .call();
+      console.log("coordinate", coordinate);
       let x = parseInt(coordinate.split("-")[0]);
-      let y = parseInt(coordinate.split("-")[1]);
+      let y = parseInt(coordinate.split("_")[1]);
       return { x, y };
     },
     async check_right() {
@@ -184,6 +202,9 @@ export const useStore = defineStore("store", {
       } else {
         // 动机选择
       }
+    },
+    async paint(x, y) {
+      await this.contract.methods.paint(x, y).send({ from: this.player_addr });
     },
     async check_vote_result() {
       let result = await this.contract.methods
@@ -593,7 +614,8 @@ export const useStore = defineStore("store", {
     },
 
     chooseExchangeColor(event) {
-      let buttonText = event.target.innerText;
+      console.log(event.target.innerText.split("id:"));
+      let buttonText = event.target.innerText.split("id:")[0].split("\n")[0];
       console.log("buttonText: ", buttonText);
       if (
         this.first_exchange == 0 &&

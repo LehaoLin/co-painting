@@ -1,12 +1,11 @@
 <template>
-  <div class="page-one">
+  <div class="page-one" v-if="!store.connected">
     <el-button
       class="bigRedButton"
       type="danger"
       round
-      @click="store.connect_wallet()"
+      @click="connect"
       v-if="!store.connected"
-      disabled
       >连接钱包</el-button
     >
     <div class="slogan" v-if="!store.connected">
@@ -14,7 +13,7 @@
         <p>请切换网络至Polygon</p>
       </div>
     </div>
-    <center class="all-text">
+    <center class="all-text" v-if="!store.connected">
       <p class="gradient-text">
         共画与非是一个研究向、纯链上、红蓝双色共绘项目
         <br />
@@ -55,13 +54,13 @@
         }"
       >
         <button
-          v-for="n in own_colors.length"
+          v-for="n in store.own_colors.length"
           :key="n"
           :style="{
             width: '86px',
             height: '86px',
             flex: '0 0 auto',
-            'background-color': own_colors[n - 1].color,
+            'background-color': store.own_colors[n - 1].color,
             'flex-direction': 'row',
             'align-items': 'center',
             'overflow-x': 'auto',
@@ -69,16 +68,18 @@
             'justify-content': 'center',
             // margin: 'auto',
             'margin-right': '10px',
+            'border-color': store.own_colors[n - 1].color,
           }"
           @click="store.chooseExchangeColor"
         >
           {{
-            `${own_colors[n - 1].coordinate.x},${
-              own_colors[n - 1].coordinate.y
-            }`
+            `(${store.own_colors[n - 1].coordinate.x},${
+              store.own_colors[n - 1].coordinate.y
+            })`
           }}
           <br />
-          id: {{ own_colors[n - 1].tokenid }}
+          <br />
+          id: {{ store.own_colors[n - 1].tokenid }}
         </button>
       </div>
     </div>
@@ -88,43 +89,56 @@
       <el-col :span="8">
         <p
           class="msg-info"
-          v-if="right == 2"
+          v-if="right == '2'"
           :style="{
             width: '300px',
             height: '30px',
-            'background-color': store.paint_color,
+            color: 'black',
             'text-align': 'center',
             'line-height': '30px',
+            'font-size': '15px',
           }"
         >
           当前账户 拥有绘画权限<br />
           可绘画颜色：<span
-            :style="{ 'background-color': wallet_color }"
+            :style="{
+              'background-color': wallet_color,
+              display: 'inline-block',
+              width: '20px',
+              height: '20px',
+              'border-radius': '50%',
+            }"
           ></span>
         </p>
         <p
-          v-else-if="right == 3"
+          v-else-if="right == '3'"
           style="
-            color: #ff0000;
-            font-size: 18px;
+            color: black;
+            font-size: 15px;
             font-family: Arial;
             line-height: 1.2;
-            width: 337px;
             height: 56px;
           "
         >
           当前账户 未拥有绘画权限<br />
           向未参与地址传递颜色<span
-            :style="{ 'background-color': wallet_color }"
+            :style="{
+              'background-color': wallet_color,
+              display: 'inline-block',
+              width: '20px',
+              height: '20px',
+              'border-radius': '50%',
+            }"
           ></span
           >重新获得绘画权限
         </p>
-        <p v-else style="color: black">
+        <p v-else style="color: black; font-size: 15px">
           此账户没有绘画权限或分享颜色权限<br />
-          加入<a href="" target="_blank">Discord</a>获得权限
+          加入<a href="https://discord.gg/seedao" target="_blank">Discord</a
+          >获得权限
         </p>
       </el-col>
-      <el-col
+      <!-- <el-col
         :span="8"
         style="
           position: relative;
@@ -143,15 +157,17 @@
           @click="store.divideForFinal"
           >Dividen</el-button
         >
-      </el-col>
+      </el-col> -->
     </el-row>
   </div>
 </template>
 
 <script setup>
 import { ref, computed, onMounted, watch } from "vue";
+import { computedAsync } from "@vueuse/core";
 
 import { useStore } from "@/store";
+
 const store = useStore();
 
 const cube = ref(null);
@@ -169,29 +185,41 @@ onMounted(() => {
   check_own();
 });
 
-const own_colors = ref([]); // [{color, coordinate, tokenid}]
+const connect = async () => {
+  await store.connect_wallet();
+  console.log(store.player_addr);
+  await check_own();
+  rule();
+};
 
 const check_own = async () => {
+  store.own_colors = [];
   let length = await store.check_length();
-  for (let tokenid = 2; tokenid <= length; tokenid++) {
+  console.log("length", length);
+  for (let tokenid = 2; tokenid <= length + 1; tokenid++) {
     let owner = await store.check_owner(tokenid);
+    console.log("owner", owner);
     let temp = {};
-    if (owner == store.player_addr) {
+    if (owner.toLowerCase() == store.player_addr.toLowerCase()) {
       temp.color = await store.get_color(tokenid);
       temp.tokenid = tokenid;
       temp.coordinate = await store.get_coordinate(tokenid);
-      own_colors.value.push(temp);
+      console.log("temp", temp);
+      store.own_colors.push(temp);
     }
   }
+  console.log(store.own_colors);
 };
 
-const right = computed(async () => {
+const right = computedAsync(async () => {
   let right = await store.check_right();
+  console.log("right", right, typeof right);
   return right;
 });
 
-const wallet_color = computed(async () => {
+const wallet_color = computedAsync(async () => {
   let color = await store.check_painter();
+  console.log("color", color);
   return color;
 });
 
@@ -247,7 +275,7 @@ const rule = () => {
   height: 280px;
   width: 940px;
   position: relative;
-  margin-top: 60vh;
+  margin-top: 68vh;
   left: 50%;
   transform: translate(-50%, -50%);
 }

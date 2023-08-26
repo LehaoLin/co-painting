@@ -58,7 +58,15 @@
         >
         <br />
         <el-row justify="center">
-          <el-button type="success">互换颜色</el-button>
+          <el-button
+            type="success"
+            :disabled="
+              store.first_exchange_color == ' ' ||
+              store.second_exchange_color == ' '
+            "
+            @click="swap_color()"
+            >互换颜色</el-button
+          >
         </el-row>
         <br />
         <el-row justify="center">
@@ -74,6 +82,7 @@
             style="width: 100%"
             textareaStyle="color: black"
             input-style=""
+            :disabled="right == 2"
           />
         </el-row>
         <br />
@@ -154,8 +163,13 @@
         <el-row justify="center">
           <el-button
             type="success"
-            v-if="store.paint_right == 2 && paint_able == true"
-            @click="store.PaintColor"
+            v-if="right == 2"
+            @click="
+              store.paint(
+                parseInt(store.col_clicked),
+                17 - parseInt(store.row_clicked)
+              )
+            "
             >绘画</el-button
           >
           <el-button type="info" v-else disabled>绘画</el-button>
@@ -189,8 +203,45 @@
 import { ref, computed } from "vue";
 import { useStore } from "@/store";
 import { ElMessage } from "element-plus";
+import { computedAsync } from "@vueuse/core";
 
 const store = useStore();
+
+const right = computedAsync(async () => {
+  let right = await store.check_right();
+  console.log("right", right, typeof right);
+  return right;
+});
+
+const swap_color = async () => {
+  let first_x = parseInt(
+    store.first_exchange_color.split(",")[0].split("(")[1]
+  );
+  let second_x = parseInt(
+    store.second_exchange_color.split(",")[0].split("(")[1]
+  );
+  let first_y = parseInt(
+    store.first_exchange_color.split(",")[1].split(")")[0]
+  );
+  let second_y = parseInt(
+    store.second_exchange_color.split(",")[1].split(")")[0]
+  );
+  console.log(first_x, first_x);
+  console.log(second_x, second_y);
+  let token1 = store.own_colors.filter((i) => {
+    // console.log(i.coordinate.x);
+    if (i.coordinate.x == first_x && i.coordinate.y == first_y) {
+      return i;
+    }
+  })[0].tokenid;
+  let token2 = store.own_colors.filter((i) => {
+    if (i.coordinate.x == second_x && i.coordinate.y == second_y) {
+      return i;
+    }
+  })[0].tokenid;
+  console.log(token1, token2);
+  await store.swap_color(token1, token2);
+};
 
 const transferColor = () => {
   if (!store.friend_addr) {

@@ -2,7 +2,7 @@
   <el-row justify="space-evenly" class="stages">
     <el-col :span="3"></el-col>
     <el-col :span="5" class="stage-col">
-      <div class="stage stage-now" ref="el">
+      <div class="stage stage-now">
         <!-- <div class="stage-title" style="color: #ff736b">Now</div> -->
         <!-- <el-divider class="divider" style="border-color: #ff736b"></el-divider> -->
         <div class="stage-text" style="color: black">
@@ -27,7 +27,7 @@
       ></el-divider> -->
     </el-col>
     <el-col :span="5" class="stage-col">
-      <div class="stage stage-2" ref="el">
+      <div class="stage stage-2">
         <!-- <div class="stage-title" style="color: black">Stage 2</div> -->
         <!-- <el-divider class="divider"></el-divider> -->
         <div style="color: #e9e9e9" class="stage-text">
@@ -52,7 +52,7 @@
       ></el-divider> -->
     </el-col>
     <el-col :span="5" class="stage-col">
-      <div class="stage stage-3" ref="el">
+      <div class="stage stage-3">
         <!-- <div class="stage-title" style="color: black">Stage 3</div> -->
         <!-- <el-divider class="divider"></el-divider> -->
         <div style="color: #e9e9e9" class="stage-text">
@@ -67,8 +67,6 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { useElementSize } from "@vueuse/core";
-const el = ref(null);
-const { width, height } = useElementSize(el);
 
 // const dynamicStyle = ref({
 //   width: "250px !important",
@@ -84,7 +82,6 @@ const { width, height } = useElementSize(el);
 // });
 onMounted(() => {
   // this.dynamicStyle.height = width.value;
-  console.log(width);
 });
 </script>
 
