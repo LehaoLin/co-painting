@@ -33,14 +33,15 @@ const store = useStore();
 const activeIndex = ref("0");
 
 const toDiscord = () => {
-  window.open("https://discord.gg/uXcmFN7fXx", "_blank");
+  // window.open("https://discord.gg/uXcmFN7fXx", "_blank");
+  window.open("https://discord.gg/seedao", "_blank");
   activeIndex.value = "0";
   store.router = "home";
 };
 
 const toScan = () => {
   window.open(
-    "https://sepolia.etherscan.io/address/0x3cf00e16dc4039d2c1daa295e326524fe9d8650c",
+    "https://polygonscan.com/address/0x5754a723f05958c628f9100669551f42e984D871",
     "_blank"
   );
   activeIndex.value = "0";
