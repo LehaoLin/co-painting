@@ -46,7 +46,10 @@
                 >以及<span style="color: #789dff">新的绘画权限</span>。<br />
               </div>
               <br />
-              <el-button type="success" style="margin-top: 10px"
+              <el-button
+                type="success"
+                style="margin-top: 10px"
+                @click="readmore"
                 >详细规则</el-button
               >
             </center>
