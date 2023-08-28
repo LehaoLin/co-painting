@@ -68,7 +68,11 @@
             'justify-content': 'center',
             // margin: 'auto',
             'margin-right': '10px',
-            'border-color': store.own_colors[n - 1].color,
+            border: `5px solid${
+              store.own_colors[n - 1].tokenid in selected
+                ? 'black'
+                : store.own_colors[n - 1].color
+            }`,
           }"
           @click="store.chooseExchangeColor"
         >
@@ -183,6 +187,7 @@ watch(coordinate, (newVal) => {
 onMounted(() => {
   rule();
   check_own();
+  rule();
 });
 
 const connect = async () => {
@@ -221,6 +226,46 @@ const wallet_color = computedAsync(async () => {
   let color = await store.check_painter();
   console.log("color", color);
   return color;
+});
+
+const selected = computed(() => {
+  try {
+    let temp = [];
+    if (store.first_exchange_color != " ") {
+      let first_x = parseInt(
+        store.first_exchange_color.split(",")[0].split("(")[1]
+      );
+      let first_y = parseInt(
+        store.first_exchange_color.split(",")[1].split(")")[0]
+      );
+      let token1 = store.own_colors.filter((i) => {
+        // console.log(i.coordinate.x);
+        if (i.coordinate.x == first_x && i.coordinate.y == first_y) {
+          return i;
+        }
+      })[0].tokenid;
+      temp.push(token1);
+    }
+    if (store.second_exchange_color != " ") {
+      let second_x = parseInt(
+        store.second_exchange_color.split(",")[0].split("(")[1]
+      );
+      let second_y = parseInt(
+        store.second_exchange_color.split(",")[1].split(")")[0]
+      );
+      let token2 = store.own_colors.filter((i) => {
+        if (i.coordinate.x == second_x && i.coordinate.y == second_y) {
+          return i;
+        }
+      })[0].tokenid;
+      temp.push(token2);
+    }
+    console.log(temp);
+    return temp;
+  } catch (e) {
+    console.log(e);
+    return [];
+  }
 });
 
 const overflow = ref("");

@@ -89,18 +89,16 @@
         <el-row justify="center">
           <el-button
             type="success"
-            v-if="store.paint_right == 3"
+            v-if="right == 3 && store.friend_addr"
             @click="transferColor"
             >传递颜色</el-button
           >
-          <el-button type="info" v-if="store.paint_right != 3" disabled
-            >传递颜色</el-button
-          >
+          <el-button type="info" v-else disabled>传递颜色</el-button>
           <br />
         </el-row>
         <br />
         <el-row justify="center">
-          <el-text class="mx-1" type="danger" v-if="store.paint_right != 3"
+          <el-text class="mx-1" type="danger" v-if="right != 3"
             >绘画两次后开启传递功能
           </el-text>
         </el-row>
@@ -161,24 +159,14 @@
         </el-row>
         <br />
         <el-row justify="center">
-          <el-button
-            type="success"
-            v-if="right == 2"
-            @click="
-              store.paint(
-                parseInt(store.col_clicked),
-                17 - parseInt(store.row_clicked)
-              )
-            "
+          <el-button type="success" v-if="right == 2" @click="paint()"
             >绘画</el-button
           >
           <el-button type="info" v-else disabled>绘画</el-button>
         </el-row>
         <br />
         <el-row justify="center">
-          <el-text class="mx-1" type="danger" v-if="store.paint_right != 2"
-            >选择画布中的空白像素
-          </el-text>
+          <el-text class="mx-1" type="danger">选择画布中的空白像素 </el-text>
         </el-row>
       </el-col>
 
@@ -206,6 +194,21 @@ import { ElMessage } from "element-plus";
 import { computedAsync } from "@vueuse/core";
 
 const store = useStore();
+
+// const friend_addr = ref("");
+
+const paint = async () => {
+  let x = parseInt(store.col_clicked);
+  let y = 17 - parseInt(store.row_clicked);
+  let output = store.check_coordinatexy(x, y);
+  if (output == 2) {
+    await store.update();
+    await store.get_canvas();
+  } else {
+    store.motivation = true;
+    store.trigger_buffer = `await store.paint(parseInt(store.col_clicked),17 - parseInt(store.row_clicked));`;
+  }
+};
 
 const right = computedAsync(async () => {
   let right = await store.check_right();
@@ -239,8 +242,11 @@ const swap_color = async () => {
       return i;
     }
   })[0].tokenid;
-  console.log(token1, token2);
-  await store.swap_color(token1, token2);
+  store.swap_token1id = token1;
+  store.swap_token2id = token2;
+  //   console.log(token1, token2);
+  store.motivation = true;
+  store.trigger_buffer = `await store.swap_color(store.swap_token1id, store.swap_token2id);`;
 };
 
 const transferColor = () => {
@@ -250,7 +256,9 @@ const transferColor = () => {
       type: "warning",
     });
   } else {
-    store.transferColor();
+    // store.transferColor();
+    store.motivation = true;
+    store.trigger_buffer = `await store.transfer_color(store.friend_addr);`;
   }
 };
 

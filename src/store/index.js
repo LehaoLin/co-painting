@@ -14,7 +14,7 @@ import { ElLoading } from "element-plus";
 const contractAddress_painting = "0xa7036F79d259ea1d17dcc4F720315406c2Ca0b06";
 const contractAddress_market = "0xa27215a1e367484ABC5Ab6A216C9e016A9524Fed";
 
-const url = "";
+const url = "http://localhost:3000"; // test
 
 const color_mapping = {
   R1: "#d24430",
@@ -80,6 +80,15 @@ export const useStore = defineStore("store", {
     player_addr: "",
     own_colors: [], // [{color, coordinate, tokenid}]
     selected_color: [],
+
+    non_eco: 0,
+    eco: 0,
+    motivation: false, // paint, transfer, vote, swap
+
+    swap_token1id: null,
+    swap_token2id: null,
+
+    trigger_buffer: "",
   }),
   getters: {},
   actions: {
@@ -102,7 +111,6 @@ export const useStore = defineStore("store", {
       //   return;
       // }
     },
-
     async check_own() {
       this.own_colors = [];
       let length = await this.check_length();
@@ -184,27 +192,34 @@ export const useStore = defineStore("store", {
       }
     },
     async swap_color(token1, token2) {
-      await this.contract.methods
+      let receipt = await this.contract.methods
         .swap_color(token1, token2)
         .send({ from: this.player_addr });
+      if (receipt.status == 1) {
+        this.motivation("swap");
+      }
     },
     async transfer_color(addr) {
-      await this.contract.methods
+      let receipt = await this.contract.methods
         .transfer_painter(addr)
         .send({ from: this.player_addr });
+      if (receipt.status == 1) {
+        this.motivation("transfer");
+      }
     },
     async check_coordinatexy(x, y) {
       let output = await this.contract.methods
         .checkCoordinatexy(x, y)
         .send({ from: this.player_addr });
-      if (output == 2) {
-        return "该像素刚被抢先了";
-      } else {
-        // 动机选择
-      }
+      return output;
     },
     async paint(x, y) {
-      await this.contract.methods.paint(x, y).send({ from: this.player_addr });
+      let receipt = await this.contract.methods
+        .paint(x, y)
+        .send({ from: this.player_addr });
+      if (receipt.status == 1) {
+        this.motivation("paint");
+      }
     },
     async check_vote_result() {
       let result = await this.contract.methods
@@ -219,9 +234,12 @@ export const useStore = defineStore("store", {
       return result;
     },
     async vote_to_mint_final() {
-      let output = await this.contract.methods
+      let receipt = await this.contract.methods
         .votetomintfinal()
         .send({ from: this.player_addr });
+      if (receipt.status == 1) {
+        this.motivation("vote");
+      }
     },
     async serve_compare() {
       let output = await this.contract.methods.serve_compare().call();
@@ -317,13 +335,31 @@ export const useStore = defineStore("store", {
     async get_canvas() {
       let res = await fetch(url + "/canvas");
       let output = res.json();
-      if (output) {
-        return false;
+      for (let i of output) {
+        // i[output.tokenid]
+        store.colors[(16 - i.coordinate.x) * 30 + i.coordinate.y - 1] = i.color;
       }
-      return output;
     },
-    async record_motivation() {
-      let data = {};
+    async update() {
+      let res = await fetch(url + "/update", {
+        method: "POST",
+        mode: "cors",
+        cache: "no-cache",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      let out = res.json();
+      this.get_canvas();
+    },
+    async record_motivation(method) {
+      let data = {
+        adress: this.player_addr,
+        eco: store.eco,
+        non_eco: store.non_eco,
+        method: method,
+      };
       let res = await fetch(url + "/motivation", {
         method: "POST",
         mode: "cors",

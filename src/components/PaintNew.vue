@@ -18,7 +18,7 @@
         <h2>非经济动机</h2>
         <div>
           <el-button
-            :type="non_eco == 1 ? 'success' : 'info'"
+            :type="store.non_eco == 1 ? 'success' : 'info'"
             class="mech"
             @click="select_non_eco(1)"
             >提升社区内个人声誉</el-button
@@ -26,7 +26,7 @@
         </div>
         <div>
           <el-button
-            :type="non_eco == 2 ? 'success' : 'info'"
+            :type="store.non_eco == 2 ? 'success' : 'info'"
             class="mech"
             @click="select_non_eco(2)"
             >促进社区发展</el-button
@@ -34,7 +34,7 @@
         </div>
         <div>
           <el-button
-            :type="non_eco == 3 ? 'success' : 'info'"
+            :type="store.non_eco == 3 ? 'success' : 'info'"
             class="mech"
             @click="select_non_eco(3)"
             >享受一起协作</el-button
@@ -42,7 +42,7 @@
         </div>
         <div>
           <el-button
-            :type="non_eco == 4 ? 'success' : 'info'"
+            :type="store.non_eco == 4 ? 'success' : 'info'"
             type="info"
             class="mech"
             @click="select_non_eco(4)"
@@ -51,7 +51,7 @@
         </div>
         <div>
           <el-button
-            :type="non_eco == 5 ? 'success' : 'info'"
+            :type="store.non_eco == 5 ? 'success' : 'info'"
             type="info"
             class="mech"
             @click="select_non_eco(5)"
@@ -63,7 +63,7 @@
         <h2>经济动机</h2>
         <div>
           <el-button
-            :type="eco == 1 ? 'success' : 'info'"
+            :type="store.eco == 1 ? 'success' : 'info'"
             class="mech"
             @click="select_eco(1)"
             >长期收益-分红画布NFT</el-button
@@ -71,7 +71,7 @@
         </div>
         <div>
           <el-button
-            :type="eco == 2 ? 'success' : 'info'"
+            :type="store.eco == 2 ? 'success' : 'info'"
             class="mech"
             @click="select_eco(2)"
             >短期收益-售卖像素NFT</el-button
@@ -79,7 +79,7 @@
         </div>
         <div>
           <el-button
-            :type="eco == 3 ? 'success' : 'info'"
+            :type="store.eco == 3 ? 'success' : 'info'"
             class="mech"
             @click="select_eco(3)"
             >收藏-不卖NFT只是收藏</el-button
@@ -100,13 +100,13 @@
       </div>
     </div>
   </div>
-  <button type="success" @click="showMessageBox()">
+  <!-- <button type="success" @click="showMessageBox()">
     Show Custom Message Box
-  </button>
+  </button> -->
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from "vue";
+import { ref, computed, onMounted, watch } from "vue";
 import { useStore } from "@/store";
 import ColorCanvas from "./ColorCanvas_new.vue";
 import ColorOp from "./ColorOp.vue";
@@ -114,16 +114,28 @@ import { ElMessage } from "element-plus";
 
 const store = useStore();
 
-const non_eco = ref(0);
-const eco = ref(0);
+// const non_eco = ref(0);
+// const eco = ref(0);
 
 const select_non_eco = (choice) => {
-  non_eco.value = choice;
+  // non_eco.value = choice;
+  store.non_eco = choice;
 };
 
 const select_eco = (choice) => {
-  eco.value = choice;
+  // eco.value = choice;
+  store.eco = choice;
 };
+
+const motivation = computed(() => {
+  return store.motivation;
+});
+
+watch(motivation, (newVal, oldVal) => {
+  if (motivation) {
+    showMessageBox();
+  }
+});
 
 onMounted(() => {
   store.check_own();
@@ -156,18 +168,23 @@ const select = (payload) => {
 const showMessageBox = () => {
   const overlay = document.getElementById("overlay");
   overlay.style.display = "flex";
+  document.body.style.overflow = "hidden";
 };
 
-const submit = () => {
-  if (non_eco.value == 0 || eco.value == 0) {
+const submit = async () => {
+  if (store.non_eco == 0 || store.eco == 0) {
     ElMessage({
       showClose: true,
       message: "请选择动机后点击确认按钮",
       type: "error",
     });
   } else {
+    eval(store.trigger_buffer);
     const overlay = document.getElementById("overlay");
     overlay.style.display = "none";
+    document.body.style.overflow = "auto";
+    store.motivation = false;
+    store.trigger_buffer = ``;
   }
 };
 </script>
