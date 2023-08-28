@@ -41,7 +41,7 @@ const toDiscord = () => {
 
 const toScan = () => {
   window.open(
-    "https://polygonscan.com/address/0x5754a723f05958c628f9100669551f42e984D871",
+    "https://polygonscan.com/address/0x8bfb171fff63dc8b19d63e5dcceb0096b2fe326b",
     "_blank"
   );
   activeIndex.value = "0";
