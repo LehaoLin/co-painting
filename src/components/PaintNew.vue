@@ -185,6 +185,8 @@ const submit = async () => {
     document.body.style.overflow = "auto";
     store.motivation = false;
     store.trigger_buffer = ``;
+    store.non_eco = 0;
+    store.eco = 0;
   }
 };
 </script>
