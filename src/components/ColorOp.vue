@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" v-if="store.own_colors.length != 0">
     <el-row justify="center">
       <el-col :span="6">
         <el-row justify="center">
@@ -87,10 +87,7 @@
         </el-row>
         <br />
         <el-row justify="center">
-          <el-button
-            type="success"
-            v-if="right == 3 && store.friend_addr"
-            @click="transferColor"
+          <el-button type="success" v-if="right == 3" @click="transferColor"
             >传递颜色</el-button
           >
           <el-button type="info" v-else disabled>传递颜色</el-button>
@@ -98,7 +95,10 @@
         </el-row>
         <br />
         <el-row justify="center">
-          <el-text class="mx-1" type="danger" v-if="right != 3"
+          <el-text class="mx-1" type="danger" v-if="other_right == 'already'"
+            >该地址已参与
+          </el-text>
+          <el-text class="mx-1" type="danger" v-else
             >绘画两次后开启传递功能
           </el-text>
         </el-row>
@@ -166,21 +166,56 @@
         </el-row>
         <br />
         <el-row justify="center">
-          <el-text class="mx-1" type="danger">选择画布中的空白像素 </el-text>
+          <el-text class="mx-1" type="danger" v-if="prior == 'already'"
+            >该像素刚被抢先了
+          </el-text>
+          <el-text class="mx-1" type="danger" v-else
+            >选择画布中的空白像素
+          </el-text>
         </el-row>
       </el-col>
 
       <el-col :span="6">
         <el-row justify="center">
-          <el-text class="mx-1" style="font-size: 27px">100/480</el-text>
+          <el-text class="mx-1" style="font-size: 27px" v-if="length <= 320"
+            >100/480</el-text
+          >
+          <el-text
+            class="mx-1"
+            style="font-size: 27px"
+            v-if="length > 320 && vote_result == false"
+            >{{ vote_num }}/{{ length }}</el-text
+          >
+          <el-text
+            class="mx-1"
+            style="font-size: 27px"
+            v-if="length > 320 && vote_result == true"
+            >0/0</el-text
+          >
         </el-row>
         <br />
         <el-row justify="center">
-          <el-button type="success" disabled>投票铸造画布NFT</el-button>
+          <el-button
+            type="success"
+            :disabled="length <= 320 || vote_result == true"
+            >投票铸造画布NFT</el-button
+          >
         </el-row>
         <br />
         <el-row justify="center">
           <el-text class="mx-1" type="danger">超过2/3像素被画后开启</el-text>
+          <el-text
+            class="mx-1"
+            type="danger"
+            v-if="store.own_colors.length == 0 && vote_result == false"
+            >没有权限</el-text
+          >
+          <el-text
+            class="mx-1"
+            type="danger"
+            v-if="store.own_colors.length > 0 && vote_result == false"
+            >一个像素NFT只能投一次</el-text
+          >
         </el-row>
       </el-col>
     </el-row>
@@ -188,7 +223,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed, watch, onMounted } from "vue";
 import { useStore } from "@/store";
 import { ElMessage } from "element-plus";
 import { computedAsync } from "@vueuse/core";
@@ -197,6 +232,8 @@ const store = useStore();
 
 // const friend_addr = ref("");
 
+const prior = ref("");
+
 const paint = async () => {
   let x = parseInt(store.col_clicked);
   let y = 17 - parseInt(store.row_clicked);
@@ -204,6 +241,7 @@ const paint = async () => {
   if (output == 2) {
     await store.update();
     await store.get_canvas();
+    prior.value = "already";
   } else {
     store.motivation = true;
     store.trigger_buffer = `await store.paint(parseInt(store.col_clicked),17 - parseInt(store.row_clicked));`;
@@ -215,6 +253,17 @@ const right = computedAsync(async () => {
   console.log("right", right, typeof right);
   return right;
 });
+
+const other_right = ref("");
+
+const check_other_right = async () => {
+  let right = await store.contract.methods.right(store.friend_addr).call();
+  if (right != 0) {
+    other_right.value = "already";
+  } else {
+    other_right.value = "";
+  }
+};
 
 const swap_color = async () => {
   let first_x = parseInt(
@@ -249,18 +298,47 @@ const swap_color = async () => {
   store.trigger_buffer = `await store.swap_color(store.swap_token1id, store.swap_token2id);`;
 };
 
-const transferColor = () => {
+const transferColor = async () => {
   if (!store.friend_addr) {
     ElMessage({
       message: "You should input the address name.",
       type: "warning",
     });
   } else {
-    // store.transferColor();
-    store.motivation = true;
-    store.trigger_buffer = `await store.transfer_color(store.friend_addr);`;
+    await check_other_right();
+    if ((other_right.value = "")) {
+      store.motivation = true;
+      store.trigger_buffer = `await store.transfer_color(store.friend_addr);`;
+    }
   }
 };
+
+onMounted(async () => {
+  await check_vote();
+});
+
+const length = ref(0);
+const vote_num = ref(0);
+const vote_result = ref(false);
+
+const check_vote = async () => {
+  length.value = await store.check_length();
+  if (length.value > 320) {
+    vote_result.value = await store.check_vote_result();
+    if (vote_result.value == false) {
+      // 阶段二
+      vote_num.value = await store.check_vote();
+    } else {
+      // 阶段三
+    }
+  }
+};
+
+// watch(length, async (newVal, oldVal) => {
+//   if (newVal > 320) {
+//     let output = await store.check_vote_result();
+//   }
+// });
 
 const paint_able = computed(() => {
   if (store.status == "available") {

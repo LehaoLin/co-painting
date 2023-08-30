@@ -5,6 +5,7 @@
         :colors="store.colors"
         :paint="store.paint"
         :clear="store.clear"
+        :disabled="false"
         @select="select"
         class="paintnew"
       />
@@ -132,7 +133,7 @@ const motivation = computed(() => {
 });
 
 watch(motivation, (newVal, oldVal) => {
-  if (motivation) {
+  if (newVal) {
     showMessageBox();
   }
 });
@@ -187,6 +188,10 @@ const submit = async () => {
     store.trigger_buffer = ``;
     store.non_eco = 0;
     store.eco = 0;
+
+    await store.check_right();
+    await store.check_painter();
+    await store.check_own();
   }
 };
 </script>

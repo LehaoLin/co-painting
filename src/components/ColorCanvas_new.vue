@@ -31,6 +31,8 @@ console.log(width.value);
 const target = ref(null);
 // 1220
 
+const size = ref(40);
+
 const scale = computed(() => {
   // return width.value / 2048;
   if (route.path == "/test") {
@@ -39,6 +41,9 @@ const scale = computed(() => {
     // } else {
     return 0.85;
     // }
+  } else if (route.path == "/market") {
+    size.value = 12;
+    return 1;
   } else {
     return 1;
   }
@@ -75,14 +80,16 @@ const props = defineProps({
   colors: Object,
   paint: Object,
   clear: Number,
+  disabled: Boolean,
   // fresh: Number,
 });
 
-// colors {0-1799: color}
+// colors {0-480: color}
 
 const colors = toRef(props, "colors");
 const paint = toRef(props, "paint");
 const clear = toRef(props, "clear");
+const disabled = toRef(props, "disabled");
 const emit = defineEmits(["select"]);
 const stage = ref();
 const layer = ref();
@@ -103,8 +110,8 @@ const draw = () => {
     container: "container_canvas",
     // width: 1220,
     // height: 620,
-    width: 1240,
-    height: 680,
+    width: 30 * size.value + size.value,
+    height: 16 * size.value + size.value,
   });
   var uu = 0;
   //   while (uu < 1800) {
@@ -118,8 +125,8 @@ const draw = () => {
   // calculate the size of each cell
   // var cellWidth = stage.value.width() / 60;
   // var cellHeight = stage.value.height() / 30;
-  var cellWidth = 40;
-  var cellHeight = 40;
+  var cellWidth = size.value;
+  var cellHeight = size.value;
 
   // loop through each row and column to create the cells
   // for (var row = 0; row < 30; row++) {
@@ -146,68 +153,71 @@ const draw = () => {
         stroke: "#838181",
         strokeWidth: 1,
       });
-      rect.on("click", async function (evt) {
-        let col_index = (this.attrs.x + 40) / 40;
-        let row_index = (this.attrs.y + 40) / 40;
-        console.log("Cell clicked:", col_index, row_index);
-        let temp_color = colors.value[to_index(row_index, col_index)];
 
-        // to recover the color
-        if (
-          selected_cell_color.value ||
-          selected_cell_color.value == "#ffffff"
-        ) {
+      if (!disabled.value) {
+        rect.on("click", async function (evt) {
+          let col_index = (this.attrs.x + 40) / 40;
+          let row_index = (this.attrs.y + 40) / 40;
+          console.log("Cell clicked:", col_index, row_index);
+          let temp_color = colors.value[to_index(row_index, col_index)];
+
+          // to recover the color
+          if (
+            selected_cell_color.value ||
+            selected_cell_color.value == "#ffffff"
+          ) {
+            if (selected_cell.value || selected_cell.value == 0) {
+              colors.value[selected_cell.value] = selected_cell_color.value;
+              paint_cell(selected_cell_color.value, selected_cell.value);
+            }
+          }
+          var box = evt.target;
+          box.fill("gray");
+          box.draw();
+
           if (selected_cell.value || selected_cell.value == 0) {
-            colors.value[selected_cell.value] = selected_cell_color.value;
-            paint_cell(selected_cell_color.value, selected_cell.value);
+            console.log(selected_cell.value);
+            if (colors.value[selected_cell.value] == "#808080") {
+              colors.value[selected_cell.value] = "#ffffff";
+              paint_cell("#ffffff", selected_cell.value);
+              paint_cell("#808080", to_index(row_index, col_index));
+            }
           }
-        }
-        var box = evt.target;
-        box.fill("gray");
-        box.draw();
+          selected_cell.value = to_index(row_index, col_index);
+          colors.value[to_index(row_index, col_index)] = "#808080";
 
-        if (selected_cell.value || selected_cell.value == 0) {
-          console.log(selected_cell.value);
-          if (colors.value[selected_cell.value] == "#808080") {
-            colors.value[selected_cell.value] = "#ffffff";
-            paint_cell("#ffffff", selected_cell.value);
-            paint_cell("#808080", to_index(row_index, col_index));
+          // console.log("temp_color", temp_color);
+          if (temp_color == "#ffffff") {
+            // if the color is white
+            emit("select", { col_index, row_index, status: "available" });
+            selected_cell_color.value = "#ffffff";
+          } else {
+            // not white
+            console.log("-----------------------------");
+            console.log(temp_color);
+            selected_cell_color.value = temp_color;
+            emit("select", { col_index, row_index, status: "unavailable" });
           }
-        }
-        selected_cell.value = to_index(row_index, col_index);
-        colors.value[to_index(row_index, col_index)] = "#808080";
+          add_axis(row_index, col_index);
+        });
 
-        // console.log("temp_color", temp_color);
-        if (temp_color == "#ffffff") {
-          // if the color is white
-          emit("select", { col_index, row_index, status: "available" });
-          selected_cell_color.value = "#ffffff";
-        } else {
-          // not white
-          console.log("-----------------------------");
-          console.log(temp_color);
-          selected_cell_color.value = temp_color;
-          emit("select", { col_index, row_index, status: "unavailable" });
-        }
-        add_axis(row_index, col_index);
-      });
+        rect.on("mouseover", function (evt) {
+          var box = evt.target;
+          box.fill("gray");
+          document.body.style.cursor = "pointer";
+          box.draw();
+        });
 
-      rect.on("mouseover", function (evt) {
-        var box = evt.target;
-        box.fill("gray");
-        document.body.style.cursor = "pointer";
-        box.draw();
-      });
-
-      rect.on("mouseout", function (evt) {
-        var box = evt.target;
-        let col_index = (this.attrs.x + 40) / 40;
-        let row_index = (this.attrs.y + 40) / 40;
-        let temp_color = colors.value[to_index(row_index, col_index)];
-        box.fill(temp_color);
-        document.body.style.cursor = "default";
-        box.draw();
-      });
+        rect.on("mouseout", function (evt) {
+          var box = evt.target;
+          let col_index = (this.attrs.x + 40) / 40;
+          let row_index = (this.attrs.y + 40) / 40;
+          let temp_color = colors.value[to_index(row_index, col_index)];
+          box.fill(temp_color);
+          document.body.style.cursor = "default";
+          box.draw();
+        });
+      }
       // add the rectangle to the layer
       layer.value.add(rect);
     }

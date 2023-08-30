@@ -14,7 +14,8 @@ import { ElLoading } from "element-plus";
 const contractAddress_painting = "0xa7036F79d259ea1d17dcc4F720315406c2Ca0b06";
 const contractAddress_market = "0xa27215a1e367484ABC5Ab6A216C9e016A9524Fed";
 
-const url = "http://localhost:3000"; // test
+// const url = "http://localhost:3000"; // test
+const url = "http://8.222.146.181:3000"; // test
 
 const color_mapping = {
   R1: "#d24430",
@@ -69,7 +70,7 @@ export const useStore = defineStore("store", {
     transfer_address_name: "",
     clear: 0,
 
-    router: "home", // home, about, game
+    router: "home", // home, about, game, market
 
     uploadPrice: 0,
     loadingInstance: null,
@@ -197,6 +198,8 @@ export const useStore = defineStore("store", {
         .send({ from: this.player_addr });
       if (receipt.status == 1) {
         this.motivation("swap");
+        this.update();
+        this.get_canvas();
       }
     },
     async transfer_color(addr) {
@@ -248,12 +251,7 @@ export const useStore = defineStore("store", {
 
     async check_approve_market() {
       let output = await this.contract.methods.check_approve_market().call();
-      if (output == false) {
-        // 需要授权
-        await this.approve_market();
-      } else {
-        // 已授权
-      }
+      return output;
     },
     async approve_market() {
       let output = await this.contract.methods
@@ -262,27 +260,22 @@ export const useStore = defineStore("store", {
     },
     async check_state() {
       let output = await this.contract.methods.checkstate().call();
-      if (output) {
-      } else {
-      }
+      return output;
     },
     async cancel_listing() {
       let output = await this.contract.methods
         .cancelListing()
         .send({ from: this.player_addr });
     },
-    async upload_price() {
+    async upload_price(price) {
+      let price_new = price * 10 ** 18;
       let output = await this.contract.methods
-        .upload_price()
+        .upload_price(price_new)
         .send({ from: this.player_addr });
     },
     async check_preseller() {
       let output = await this.contract.methods.checkpreseller().call();
-      if (output) {
-        return output;
-      } else {
-        // 路人
-      }
+      return output;
     },
     async benefit() {
       let output = await this.contract.methods

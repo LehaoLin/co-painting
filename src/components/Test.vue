@@ -23,6 +23,7 @@
         :colors="colors"
         :paint="paint"
         :clear="clear"
+        :disabled="false"
         @select="select"
       />
     </el-row>
