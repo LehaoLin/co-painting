@@ -33,9 +33,9 @@ const store = useStore();
 
 const route = useRoute();
 
-onMounted(() => {
-  store.init();
-  store.get_canvas();
+onMounted(async () => {
+  await store.init();
+  await store.get_canvas();
 });
 
 const footer = computed(() => {

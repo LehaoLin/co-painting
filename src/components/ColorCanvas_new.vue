@@ -22,6 +22,9 @@ import { useWindowSize, useElementSize } from "@vueuse/core";
 const { width, height } = useWindowSize();
 
 import { useRoute } from "vue-router";
+import { storeToRefs } from "pinia";
+
+import { useStore } from "@/store";
 
 const route = useRoute();
 // console.log(route.path);
@@ -144,6 +147,10 @@ const draw = () => {
       //     color = "#ffffff";
       //   }
       // create a rectangle shape for each cell with the specified color
+      // console.log(color);
+      // if (color != "#ffffff") {
+      //   console.log(color);
+      // }
       var rect = new Konva.Rect({
         x: col * cellWidth,
         y: row * cellHeight,
@@ -229,7 +236,7 @@ const draw = () => {
 const layer_axis = ref(null);
 
 const add_axis = (row_index, col_index) => {
-  console.log("!!!<", row_index, col_index);
+  // console.log("!!!<", row_index, col_index);
   // let fake_row_index = 30 - row_index + 1;
   let fake_row_index = 16 - row_index + 1;
   let fake_col_index = col_index;
@@ -309,6 +316,9 @@ const paint_cell = (color, index) => {
 
 onMounted(() => {
   draw();
+  setTimeout(() => {
+    draw();
+  }, 1000);
 });
 
 watch(
@@ -329,21 +339,21 @@ watch(clear, (newVal, oldVal) => {
   }
 });
 
-// watch(fresh, (newVal, oldVal) => {
-//   if (newVal > 0) {
-//     draw();
-//   }
+// onMounted(() => {
+//   console.log("colors", colors.value);
+//   draw();
 // });
 
-// watch(
-//   colors,
-//   (newVal, oldVal) => {
-//     if (newVal) {
-//       draw();
-//     }
-//   },
-//   { deep: true }
-// );
+// const store = useStore();
+
+// const colors_ = computed(() => {
+//   return store.colors;
+// });
+
+// watch(colors_, (newVal, oldVal) => {
+//   console.log("newVal", newVal);
+//   draw();
+// });
 </script>
 
 <style scoped>

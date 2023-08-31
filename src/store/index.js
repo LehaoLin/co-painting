@@ -5,6 +5,8 @@ import Web3 from "web3";
 
 import { ElLoading } from "element-plus";
 
+import axios from "axios";
+
 // import WalletConnectProvider from "@maticnetwork/walletconnect-provider";
 
 //real
@@ -15,7 +17,7 @@ const contractAddress_painting = "0xa7036F79d259ea1d17dcc4F720315406c2Ca0b06";
 const contractAddress_market = "0xa27215a1e367484ABC5Ab6A216C9e016A9524Fed";
 
 // const url = "http://localhost:3000"; // test
-const url = "http://8.222.146.181:3000"; // test
+const url = "http://8.222.146.181"; // test
 
 const color_mapping = {
   R1: "#d24430",
@@ -326,24 +328,42 @@ export const useStore = defineStore("store", {
     },
     // server
     async get_canvas() {
-      let res = await fetch(url + "/canvas");
-      let output = res.json();
-      for (let i of output) {
-        // i[output.tokenid]
-        store.colors[(16 - i.coordinate.x) * 30 + i.coordinate.y - 1] = i.color;
+      console.log("backend get canvas");
+      let res = await axios({
+        method: "post",
+        url: url + "/canvas",
+        mode: "no-cors",
+        headers: {
+          "Content-Type": "application/json",
+          // Add any other headers required by the API
+        },
+        responseType: "json",
+      });
+
+      console.log("res", res.data, typeof res.data);
+      if (res.data) {
+        for (let i of res.data) {
+          // i[output.tokenid]
+          console.log(i);
+          this.colors[(16 - i.coordinate.x) * 30 + i.coordinate.y - 1] =
+            i.color;
+        }
       }
     },
     async update() {
-      let res = await fetch(url + "/update", {
-        method: "POST",
-        mode: "cors",
-        cache: "no-cache",
+      console.log("backend update");
+      let res = await axios({
+        method: "post",
+        url: url + "/update",
+        mode: "no-cors",
         headers: {
           "Content-Type": "application/json",
+          // Add any other headers required by the API
         },
-        body: JSON.stringify(data),
+        responseType: "json",
       });
-      let out = res.json();
+
+      // let out = res.json();
       this.get_canvas();
     },
     async record_motivation(method) {

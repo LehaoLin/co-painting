@@ -69,7 +69,7 @@
             <el-row>
               <el-button
                 type="success"
-                @click="upload_price()"
+                @click="cancel_listing()"
                 style="align-self: center; background-color: #fc5e5e"
                 >下架</el-button
               >
@@ -258,57 +258,16 @@ const divide_final_art = async () => {
   await run();
 };
 
+const cancel_listing = async () => {
+  await store.cancel_listing();
+  await run();
+};
+
 const input_price = ref("");
 
 const upload_price = async () => {
   await upload_price(input_price.value);
 };
-
-// const check_dividen = async () => {
-//   let output = await store.check_dividen();
-//   if (output) {
-//     // 分红按钮开启
-//   } else {
-//     //
-//   }
-// };
-
-// const fresh_data = async () => {
-//   //   store.loadingInstance = ElLoading.service({ fullscreen: true });
-
-//   identity.value = await store.identity();
-//   shangjia.value = await store.shangjia();
-//   price.value = await store.nft_price();
-//   auth.value = await store.nft_auth();
-//   recent_seller.value = await store.check_recent_seller();
-//   svg.value = await store.check_svg();
-//   console.log(identity.value, shangjia.value, price.value, auth.value);
-
-//   console.log(svg.value);
-
-//   let history = await store.get_sell_history();
-//   tableData.value = [];
-//   let web3 = new Web3(window.ethereum);
-//   for (let item of history) {
-//     let date = new Date(parseInt(item.time) * 1000);
-//     let date_str = `${date.getFullYear()}-${
-//       date.getMonth() + 1
-//     }-${date.getDate()} ${date.getHours()}:${date.getMinutes()}`;
-//     tableData.value.push({
-//       from: item.from,
-//       to: item.to,
-//       price: `${web3.utils.fromWei(item.price, "ether")} ETH`,
-//       time: date_str,
-//     });
-//     tableData.value.reverse();
-//     // nextTick(() => {
-//     //   // Loading should be closed asynchronously
-//     //   store.loadingInstance.close();
-//     // });
-//   }
-
-//   console.log("history", history);
-// };
 
 const price = ref(0);
 const owner = ref("");
