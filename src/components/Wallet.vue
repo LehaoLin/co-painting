@@ -11,7 +11,7 @@
     >
     <div class="slogan" v-if="!store.connected">
       <div>
-        <p>请切换网络至Polygon</p>
+        <p>预创作阶段 不开放钱包</p>
       </div>
     </div>
     <center class="all-text">

@@ -24,7 +24,7 @@ dependencies:
     specifier: ^3.2.47
     version: 3.2.47
   vue-router:
-    specifier: '4'
+    specifier: ^4.0.3
     version: 4.2.4(vue@3.2.47)
   web3:
     specifier: ^1.9.0
