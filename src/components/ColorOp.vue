@@ -248,11 +248,11 @@ const paint = async () => {
   }
 };
 
-const right = computedAsync(async () => {
-  let right = await store.check_right();
-  console.log("right", right, typeof right);
-  return right;
-});
+// const right = computedAsync(async () => {
+//   let right = await store.check_right();
+//   console.log("right", right, typeof right);
+//   return right;
+// });
 
 const other_right = ref("");
 
@@ -314,8 +314,21 @@ const transferColor = async () => {
   }
 };
 
+const right = ref();
+
 onMounted(async () => {
   await check_vote();
+  right.value = await store.check_right();
+});
+
+const trigger = computed(() => {
+  return store.trigger_buffer;
+});
+
+watch(trigger, async (newVal, oldVal) => {
+  if (newVal == "") {
+    right.value = await store.check_right();
+  }
 });
 
 const length = ref(0);
