@@ -87,7 +87,7 @@ export const useStore = defineStore("store", {
 
     non_eco: 0,
     eco: 0,
-    motivation: false, // paint, transfer, vote, swap
+    motivation: false,
 
     swap_token1id: null,
     swap_token2id: null,
@@ -200,7 +200,7 @@ export const useStore = defineStore("store", {
         .swap_color(token1, token2)
         .send({ from: this.player_addr });
       if (receipt.status == 1) {
-        this.motivation("swap");
+        this.record_motivation("swap");
         this.update();
         this.get_canvas();
       }
@@ -210,7 +210,7 @@ export const useStore = defineStore("store", {
         .transfer_painter(addr)
         .send({ from: this.player_addr });
       if (receipt.status == 1) {
-        this.motivation("transfer");
+        this.record_motivation("transfer");
       }
     },
     async check_coordinatexy(x, y) {
@@ -222,7 +222,7 @@ export const useStore = defineStore("store", {
         .paint(x, y)
         .send({ from: this.player_addr });
       if (receipt.status == 1) {
-        this.motivation("paint");
+        this.record_motivation("paint");
       }
     },
     async check_vote_result() {
@@ -242,7 +242,7 @@ export const useStore = defineStore("store", {
         .votetomintfinal()
         .send({ from: this.player_addr });
       if (receipt.status == 1) {
-        this.motivation("vote");
+        this.record_motivation("vote");
       }
     },
     async serve_compare() {
