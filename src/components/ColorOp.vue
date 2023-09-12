@@ -244,7 +244,7 @@ const paint = async () => {
     prior.value = "already";
   } else {
     store.motivation = true;
-    store.trigger_buffer = `await store.paint(parseInt(store.col_clicked),17 - parseInt(store.row_clicked));`;
+    store.trigger_buffer = `store.paint(parseInt(store.col_clicked),17 - parseInt(store.row_clicked));`;
   }
 };
 
@@ -295,10 +295,11 @@ const swap_color = async () => {
   store.swap_token2id = token2;
   //   console.log(token1, token2);
   store.motivation = true;
-  store.trigger_buffer = `await store.swap_color(store.swap_token1id, store.swap_token2id);`;
+  store.trigger_buffer = `store.swap_color(store.swap_token1id, store.swap_token2id);`;
 };
 
 const transferColor = async () => {
+  console.log(store.friend_addr);
   if (!store.friend_addr) {
     ElMessage({
       message: "You should input the address name.",
@@ -306,9 +307,9 @@ const transferColor = async () => {
     });
   } else {
     await check_other_right();
-    if ((other_right.value = "")) {
+    if (other_right.value == "") {
       store.motivation = true;
-      store.trigger_buffer = `await store.transfer_color(store.friend_addr);`;
+      store.trigger_buffer = `store.transfer_color(store.friend_addr);`;
     }
   }
 };
