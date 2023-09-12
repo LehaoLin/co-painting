@@ -214,9 +214,7 @@ export const useStore = defineStore("store", {
       }
     },
     async check_coordinatexy(x, y) {
-      let output = await this.contract.methods
-        .checkCoordinatexy(x, y)
-        .send({ from: this.player_addr });
+      let output = await this.contract.methods.checkCoordinatexy(x, y).call();
       return output;
     },
     async paint(x, y) {
