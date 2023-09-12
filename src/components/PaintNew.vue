@@ -182,7 +182,7 @@ const submit = async () => {
       type: "error",
     });
   } else {
-    eval(store.trigger_buffer);
+    await eval(store.trigger_buffer);
     const overlay = document.getElementById("overlay");
     overlay.style.display = "none";
     document.body.style.overflow = "auto";

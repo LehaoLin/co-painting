@@ -202,7 +202,6 @@ export const useStore = defineStore("store", {
       if (receipt.status == 1) {
         this.record_motivation("swap");
         this.update();
-        this.get_canvas();
       }
     },
     async transfer_color(addr) {
@@ -211,6 +210,7 @@ export const useStore = defineStore("store", {
         .send({ from: this.player_addr });
       if (receipt.status == 1) {
         this.record_motivation("transfer");
+        this.update();
       }
     },
     async check_coordinatexy(x, y) {
@@ -223,6 +223,7 @@ export const useStore = defineStore("store", {
         .send({ from: this.player_addr });
       if (receipt.status == 1) {
         this.record_motivation("paint");
+        this.update();
       }
     },
     async check_vote_result() {
@@ -243,6 +244,7 @@ export const useStore = defineStore("store", {
         .send({ from: this.player_addr });
       if (receipt.status == 1) {
         this.record_motivation("vote");
+        this.update();
       }
     },
     async serve_compare() {
