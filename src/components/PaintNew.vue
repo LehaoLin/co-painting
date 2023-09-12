@@ -142,6 +142,8 @@ onMounted(() => {
   store.check_own();
 });
 
+// test
+
 const select = (payload) => {
   console.log("payload", payload);
   store.have_click_canvas = true;
