@@ -184,6 +184,17 @@ watch(coordinate, (newVal) => {
   rule();
 });
 
+const trigger = computed(() => {
+  return store.trigger_buffer;
+});
+
+watch(trigger, (newVal) => {
+  if (newVal == "") {
+    check_own();
+    rule();
+  }
+});
+
 onMounted(() => {
   rule();
   check_own();
