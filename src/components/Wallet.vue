@@ -204,6 +204,7 @@ onMounted(() => {
 const connect = async () => {
   await store.connect_wallet();
   console.log(store.player_addr);
+  store.update();
   await check_own();
   rule();
 };
