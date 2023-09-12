@@ -362,8 +362,6 @@ export const useStore = defineStore("store", {
         },
         responseType: "json",
       });
-
-      // let out = res.json();
       this.get_canvas();
     },
     async record_motivation(method) {

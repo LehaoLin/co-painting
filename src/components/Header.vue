@@ -81,7 +81,7 @@ const handleSelect = (key, keyPath) => {
   }
   if (key == "9") {
     // store.router = "test";
-    console.log("test");
+    // console.log("test");
     router.push("/test");
   }
   // console.log(key, keyPath);
