@@ -17,7 +17,8 @@ const contractAddress_painting = "0xa7036F79d259ea1d17dcc4F720315406c2Ca0b06";
 const contractAddress_market = "0xa27215a1e367484ABC5Ab6A216C9e016A9524Fed";
 
 // const url = "http://localhost:3000"; // test
-const url = "http://8.222.146.181"; // test
+// const url = "http://8.222.146.181"; // test
+const url = "https://api.copainting.art"; // test
 
 const color_mapping = {
   R1: "#d24430",
