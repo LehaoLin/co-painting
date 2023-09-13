@@ -194,7 +194,7 @@
       <el-col :span="6">
         <el-row justify="center">
           <el-text class="mx-1" style="font-size: 27px" v-if="length <= 320"
-            >100/480</el-text
+            >{{ length }}/320</el-text
           >
           <el-text
             class="mx-1"
