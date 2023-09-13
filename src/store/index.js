@@ -346,7 +346,7 @@ export const useStore = defineStore("store", {
         for (let i of res.data) {
           // i[output.tokenid]
           console.log(i);
-          this.colors[(16 - i.coordinate.x) * 30 + i.coordinate.y - 1] =
+          this.colors[(16 - i.coordinate.y) * 30 + i.coordinate.x - 1] =
             i.color;
         }
       }
