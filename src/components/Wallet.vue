@@ -196,17 +196,17 @@ watch(trigger, (newVal) => {
 });
 
 onMounted(() => {
-  rule();
-  check_own();
-  rule();
+  // rule();
+  // check_own();
+  // rule();
 });
 
 const connect = async () => {
   await store.connect_wallet();
   console.log(store.player_addr);
-  store.update();
+  await store.update();
   await check_own();
-  rule();
+  await rule();
 };
 
 const check_own = async () => {
@@ -281,7 +281,7 @@ const selected = computed(() => {
 });
 
 const overflow = ref("");
-const rule = () => {
+const rule = async () => {
   try {
     // get scrollWidth of the cube
     let scrollWidth = cube.value.scrollWidth;
