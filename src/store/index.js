@@ -33,6 +33,12 @@ const color_mapping = {
   B5: "#d4ddfa",
 };
 
+function delay(ms) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}
+
 export const useStore = defineStore("store", {
   state: () => ({
     first_exchange: 0,
@@ -223,6 +229,7 @@ export const useStore = defineStore("store", {
         .send({ from: this.player_addr });
       if (receipt.status == 1) {
         this.record_motivation("paint");
+        // await delay(5000);
         this.update();
       }
     },

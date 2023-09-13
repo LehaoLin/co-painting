@@ -95,12 +95,19 @@
         </el-row>
         <br />
         <el-row justify="center">
-          <el-text class="mx-1" type="danger" v-if="other_right == 'already'"
+          <el-text class="mx-1" type="danger" v-if="right == 2"
+            >绘画两次后开启传递功能
+          </el-text>
+          <el-text class="mx-1" type="danger" v-else-if="right == 3"
+            >输入一个未参与地址
+          </el-text>
+          <el-text class="mx-1" type="danger" v-else>无权限 </el-text>
+          <!-- <el-text class="mx-1" type="danger" v-if="other_right == 'already'"
             >该地址已参与
           </el-text>
           <el-text class="mx-1" type="danger" v-else
             >绘画两次后开启传递功能
-          </el-text>
+          </el-text> -->
         </el-row>
       </el-col>
 
@@ -166,12 +173,21 @@
         </el-row>
         <br />
         <el-row justify="center">
-          <el-text class="mx-1" type="danger" v-if="prior == 'already'"
+          <el-text class="mx-1" type="danger" v-if="right == 2"
+            >选择画布中的空白像素
+          </el-text>
+          <el-text class="mx-1" type="danger" v-if="right == 3"
+            >传递 重新获得绘画权限
+          </el-text>
+          <el-text class="mx-1" type="danger" v-if="right != 2 && right != 3"
+            >无权限
+          </el-text>
+          <!-- <el-text class="mx-1" type="danger" v-if="prior == 'already'"
             >该像素刚被抢先了
           </el-text>
           <el-text class="mx-1" type="danger" v-else
             >选择画布中的空白像素
-          </el-text>
+          </el-text> -->
         </el-row>
       </el-col>
 
@@ -235,6 +251,9 @@ const store = useStore();
 const prior = ref("");
 
 const paint = async () => {
+  let color = await store.check_painter();
+  store.colors[(store.row_clicked - 1) * 30 + store.col_clicked - 1] = color;
+
   let x = parseInt(store.col_clicked);
   let y = 17 - parseInt(store.row_clicked);
   let output = store.check_coordinatexy(x, y);
