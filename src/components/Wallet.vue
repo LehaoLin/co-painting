@@ -188,17 +188,19 @@ const trigger = computed(() => {
   return store.trigger_buffer;
 });
 
-watch(trigger, (newVal) => {
+watch(trigger, async (newVal) => {
   if (newVal == "") {
-    check_own();
-    rule();
+    // check_own();
+    await check_right();
+    await rule();
   }
 });
 
-onMounted(() => {
+onMounted(async () => {
   // rule();
   // check_own();
-  // rule();
+  await rule();
+  await check_right();
 });
 
 const connect = async () => {
@@ -209,30 +211,36 @@ const connect = async () => {
   await rule();
 };
 
-const check_own = async () => {
-  store.own_colors = [];
-  let length = await store.check_length();
-  console.log("length", length);
-  for (let tokenid = 2; tokenid <= length + 1; tokenid++) {
-    let owner = await store.check_owner(tokenid);
-    console.log("owner", owner);
-    let temp = {};
-    if (owner.toLowerCase() == store.player_addr.toLowerCase()) {
-      temp.color = await store.get_color(tokenid);
-      temp.tokenid = tokenid;
-      temp.coordinate = await store.get_coordinate(tokenid);
-      console.log("temp", temp);
-      store.own_colors.push(temp);
-    }
-  }
-  console.log(store.own_colors);
+// const check_own = async () => {
+//   store.own_colors = [];
+//   let length = await store.check_length();
+//   console.log("length", length);
+//   for (let tokenid = 2; tokenid <= length + 1; tokenid++) {
+//     let owner = await store.check_owner(tokenid);
+//     console.log("owner", owner);
+//     let temp = {};
+//     if (owner.toLowerCase() == store.player_addr.toLowerCase()) {
+//       temp.color = await store.get_color(tokenid);
+//       temp.tokenid = tokenid;
+//       temp.coordinate = await store.get_coordinate(tokenid);
+//       console.log("temp", temp);
+//       store.own_colors.push(temp);
+//     }
+//   }
+//   console.log(store.own_colors);
+// };
+
+const right = ref();
+
+const check_right = async () => {
+  right.value = await store.check_right();
 };
 
-const right = computedAsync(async () => {
-  let right = await store.check_right();
-  console.log("right", right, typeof right);
-  return right;
-});
+// const right = computedAsync(async () => {
+//   let right = await store.check_right();
+//   console.log("right", right, typeof right);
+//   return right;
+// });
 
 const wallet_color = computedAsync(async () => {
   let color = await store.check_painter();
