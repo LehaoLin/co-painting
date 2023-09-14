@@ -190,8 +190,8 @@ const trigger = computed(() => {
 
 watch(trigger, async (newVal) => {
   if (newVal == "") {
-    await store.check_painter();
-    await store.check_right();
+    // await store.check_painter();
+    // await store.check_right();
     // await store.check_own();
     await rule();
   }
@@ -206,10 +206,8 @@ onMounted(async () => {
 const connect = async () => {
   await store.connect_wallet();
   console.log(store.player_addr);
-  await store.check_painter();
-  await store.check_right();
-  await store.check_own();
-  await store.update();
+
+  await store.fresh();
 
   await rule();
 };

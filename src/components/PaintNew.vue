@@ -222,17 +222,7 @@ const submit = async () => {
 
     await store.loadingInstance.close();
 
-    await store.check_right();
-    await store.check_painter();
-    await store.check_length();
-    await store.check_own();
-    await store.update();
-
-    // await delay(1000);
-    // nextTick(() => {
-    //   // Loading should be closed asynchronously
-    //   store.loadingInstance.close();
-    // });
+    await store.fresh();
   }
 };
 </script>

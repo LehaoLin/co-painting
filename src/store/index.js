@@ -109,6 +109,13 @@ export const useStore = defineStore("store", {
   getters: {},
   actions: {
     // contract
+    async fresh() {
+      this.check_right();
+      this.check_painter();
+      this.check_own();
+      this.update();
+    },
+
     async init() {
       this.web3 = new Web3(window.ethereum);
       this.contract = new this.web3.eth.Contract(
@@ -120,19 +127,13 @@ export const useStore = defineStore("store", {
         contractAddress_market
       );
       console.log("connected");
-      // let canvas = await this.get_canvas();
-      // if (canvas) {
-      //   return canvas;
-      // } else {
-      //   return;
-      // }
     },
     async check_own() {
       this.own_colors = [];
       let length = await this.check_length();
       for (let tokenid = 2; tokenid <= length + 1; tokenid++) {
         let owner = await this.check_owner(tokenid);
-        console.log(owner, this.player_addr, "test");
+        // console.log(owner, this.player_addr, "test");
         let temp = {};
         if (owner.toLowerCase() == this.player_addr.toLowerCase()) {
           temp.color = await this.get_color(tokenid);

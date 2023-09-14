@@ -268,7 +268,6 @@ const paint = async () => {
   let output = store.check_coordinatexy(x, y);
   if (output == 2) {
     await store.update();
-    // await store.get_canvas();
     prior.value = "already";
   } else {
     store.motivation = true;
