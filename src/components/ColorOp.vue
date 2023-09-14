@@ -269,7 +269,8 @@ const paint = async () => {
     prior.value = "already";
   } else {
     store.motivation = true;
-    store.trigger_buffer = `store.paint(parseInt(store.col_clicked),17 - parseInt(store.row_clicked));`;
+    // store.trigger_buffer = `store.paint(parseInt(store.col_clicked),17 - parseInt(store.row_clicked));`;
+    store.trigger_type = "paint";
   }
 };
 
@@ -320,7 +321,8 @@ const swap_color = async () => {
   store.swap_token2id = token2;
   //   console.log(token1, token2);
   store.motivation = true;
-  store.trigger_buffer = `store.swap_color(store.swap_token1id, store.swap_token2id);`;
+  // store.trigger_buffer = `store.swap_color(store.swap_token1id, store.swap_token2id);`;
+  store.trigger_type = "swap";
 };
 
 const transferColor = async () => {
@@ -334,7 +336,8 @@ const transferColor = async () => {
     await check_other_right();
     if (other_right.value == "") {
       store.motivation = true;
-      store.trigger_buffer = `store.transfer_color(store.friend_addr);`;
+      // store.trigger_buffer = `store.transfer_color(store.friend_addr);`;
+      store.trigger_type = "transfer";
     }
   }
 };

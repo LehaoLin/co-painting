@@ -99,6 +99,7 @@ export const useStore = defineStore("store", {
     swap_token2id: null,
 
     trigger_buffer: "",
+    trigger_type: "",
 
     right: null,
   }),
@@ -209,20 +210,16 @@ export const useStore = defineStore("store", {
       if (receipt.status == 1) {
         this.record_motivation("swap");
         this.update();
-        this.swap_token1id = null;
-        this.swap_token2id = null;
-        this.first_exchange_color = " ";
-        this.second_exchange_color = " ";
       }
     },
     async transfer_color(addr) {
       let receipt = await this.contract.methods
         .transfer_painter(addr)
         .send({ from: this.player_addr });
-      if (receipt.status == 1) {
-        this.record_motivation("transfer");
-        this.update();
-      }
+      // if (receipt.status == 1) {
+      //   this.record_motivation("transfer");
+      //   this.update();
+      // }
     },
     async check_coordinatexy(x, y) {
       let output = await this.contract.methods.checkCoordinatexy(x, y).call();
@@ -232,11 +229,11 @@ export const useStore = defineStore("store", {
       let receipt = await this.contract.methods
         .paint(x, y)
         .send({ from: this.player_addr });
-      if (receipt.status == 1) {
-        this.record_motivation("paint");
-        // await delay(5000);
-        this.update();
-      }
+      // if (receipt.status == 1) {
+      //   this.record_motivation("paint");
+      //   // await delay(5000);
+      //   this.update();
+      // }
     },
     async check_vote_result() {
       let result = await this.contract.methods
@@ -254,10 +251,10 @@ export const useStore = defineStore("store", {
       let receipt = await this.contract.methods
         .votetomintfinal()
         .send({ from: this.player_addr });
-      if (receipt.status == 1) {
-        this.record_motivation("vote");
-        this.update();
-      }
+      // if (receipt.status == 1) {
+      //   this.record_motivation("vote");
+      //   this.update();
+      // }
     },
     async serve_compare() {
       let output = await this.contract.methods.serve_compare().call();
@@ -384,16 +381,17 @@ export const useStore = defineStore("store", {
         non_eco: store.non_eco,
         method: method,
       };
-      let res = await fetch(url + "/motivation", {
-        method: "POST",
-        mode: "cors",
-        cache: "no-cache",
+      let res = axios({
+        method: "post",
+        url: url + "/motivation",
+        mode: "no-cors",
         headers: {
           "Content-Type": "application/json",
+          // Add any other headers required by the API
         },
-        body: JSON.stringify(data),
+        responseType: "json",
+        data: data,
       });
-      let output = res.json();
     },
 
     async connectWallet() {

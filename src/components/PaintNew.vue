@@ -176,6 +176,12 @@ const showMessageBox = () => {
   document.body.style.overflow = "hidden";
 };
 
+function delay(ms) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}
+
 const submit = async () => {
   if (store.non_eco == 0 || store.eco == 0) {
     ElMessage({
@@ -185,20 +191,43 @@ const submit = async () => {
     });
   } else {
     store.loadingInstance = ElLoading.service({ fullscreen: true });
-    await eval(store.trigger_buffer);
+    // let trigger_buffer = store.trigger_buffer;
+    // try {
+    //   await eval(trigger_buffer);
+    // } catch {}
+
+    if (store.trigger_type == "paint") {
+      await store.paint(
+        parseInt(store.col_clicked),
+        17 - parseInt(store.row_clicked)
+      );
+    } else if (store.trigger_type == "swap") {
+      await store.swap_color(store.swap_token1id, store.swap_token2id);
+      store.swap_token1id = null;
+      store.swap_token2id = null;
+      store.first_exchange_color = " ";
+      store.second_exchange_color = " ";
+    } else if (store.trigger_type == "transfer") {
+      await store.transfer_color(store.friend_addr);
+    }
+
     const overlay = document.getElementById("overlay");
     overlay.style.display = "none";
     document.body.style.overflow = "auto";
     store.motivation = false;
     store.trigger_buffer = ``;
+    store.trigger_type = "";
     store.non_eco = 0;
     store.eco = 0;
+
+    await store.loadingInstance.close();
 
     await store.check_right();
     await store.check_painter();
     await store.check_own();
     await store.update();
-    await store.loadingInstance.close();
+
+    // await delay(1000);
     // nextTick(() => {
     //   // Loading should be closed asynchronously
     //   store.loadingInstance.close();
