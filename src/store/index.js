@@ -208,6 +208,10 @@ export const useStore = defineStore("store", {
       if (receipt.status == 1) {
         this.record_motivation("swap");
         this.update();
+        this.swap_token1id = null;
+        this.swap_token2id = null;
+        this.first_exchange_color = " ";
+        this.second_exchange_color = " ";
       }
     },
     async transfer_color(addr) {
