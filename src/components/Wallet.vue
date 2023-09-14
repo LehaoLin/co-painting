@@ -197,10 +197,9 @@ watch(trigger, async (newVal) => {
 });
 
 onMounted(async () => {
-  // rule();
-  await store.check_own();
-  await store.check_right();
-  await rule();
+  // await store.check_own();
+  // await store.check_right();
+  // await rule();
 });
 
 const connect = async () => {
