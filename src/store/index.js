@@ -68,7 +68,7 @@ export const useStore = defineStore("store", {
       "#d4ddfa",
     ],
     paint: {},
-    own_colors: [],
+    // own_colors: [],
     own_coordinates: [],
     paint_color: "0",
     can_vote: false,
@@ -99,6 +99,8 @@ export const useStore = defineStore("store", {
     swap_token2id: null,
 
     trigger_buffer: "",
+
+    right: null,
   }),
   getters: {},
   actions: {
@@ -126,8 +128,10 @@ export const useStore = defineStore("store", {
       let length = await this.check_length();
       for (let tokenid = 2; tokenid <= length; tokenid++) {
         let owner = await this.check_owner(tokenid);
+        // console.log(owner, this.player_addr, "test");
         let temp = {};
-        if (owner == this.player_addr) {
+        if (owner.toLowerCase() == this.player_addr.toLowerCase()) {
+          console.log("check_own", tokenid);
           temp.color = await this.get_color(tokenid);
           temp.tokenid = tokenid;
           temp.coordinate = await this.get_coordinate(tokenid);
@@ -136,13 +140,12 @@ export const useStore = defineStore("store", {
       }
     },
     async connect_wallet() {
+      let ethereum = window.ethereum;
       if (ethereum) {
-        ethereum.request({ method: "eth_requestAccounts" }).then((res) => {
-          this.connected = true;
-          console.log("当前钱包地址:" + res[0]);
-          this.player_addr = res[0];
-          this.connected = true;
-        });
+        let res = await ethereum.request({ method: "eth_requestAccounts" });
+        this.connected = true;
+        console.log("当前钱包地址:" + res[0]);
+        this.player_addr = res[0];
       }
     },
     async check_length() {
@@ -168,8 +171,7 @@ export const useStore = defineStore("store", {
       return { x, y };
     },
     async check_right() {
-      let right = await this.contract.methods.right(this.player_addr).call();
-      return right;
+      this.right = await this.contract.methods.right(this.player_addr).call();
     },
     async check_painter() {
       let red = await this.contract.methods.redcolor(this.player_addr).call();

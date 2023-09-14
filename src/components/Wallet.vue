@@ -93,7 +93,7 @@
       <el-col :span="8">
         <p
           class="msg-info"
-          v-if="right == '2'"
+          v-if="store.right == '2'"
           :style="{
             width: '300px',
             height: '30px',
@@ -115,7 +115,7 @@
           ></span>
         </p>
         <p
-          v-else-if="right == '3'"
+          v-else-if="store.right == '3'"
           style="
             color: black;
             font-size: 15px;
@@ -190,24 +190,26 @@ const trigger = computed(() => {
 
 watch(trigger, async (newVal) => {
   if (newVal == "") {
-    // check_own();
-    await check_right();
+    await store.check_own();
+    await store.check_right();
     await rule();
   }
 });
 
 onMounted(async () => {
   // rule();
-  // check_own();
+  await store.check_own();
+  await store.check_right();
   await rule();
-  await check_right();
 });
 
 const connect = async () => {
   await store.connect_wallet();
   console.log(store.player_addr);
   await store.update();
-  await check_own();
+  await store.check_own();
+  await store.check_right();
+
   await rule();
 };
 
@@ -230,11 +232,11 @@ const connect = async () => {
 //   console.log(store.own_colors);
 // };
 
-const right = ref();
+// const right = ref();
 
-const check_right = async () => {
-  right.value = await store.check_right();
-};
+// const check_right = async () => {
+//   right.value = await store.check_right();
+// };
 
 // const right = computedAsync(async () => {
 //   let right = await store.check_right();
