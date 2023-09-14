@@ -126,7 +126,7 @@ export const useStore = defineStore("store", {
     async check_own() {
       this.own_colors = [];
       let length = await this.check_length();
-      for (let tokenid = 2; tokenid <= length; tokenid++) {
+      for (let tokenid = 2; tokenid <= length + 1; tokenid++) {
         let owner = await this.check_owner(tokenid);
         console.log(owner, this.player_addr, "test");
         let temp = {};
