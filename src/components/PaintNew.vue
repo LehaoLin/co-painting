@@ -107,11 +107,13 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, watch } from "vue";
+import { ref, computed, onMounted, watch, nextTick } from "vue";
 import { useStore } from "@/store";
 import ColorCanvas from "./ColorCanvas_new.vue";
 import ColorOp from "./ColorOp.vue";
 import { ElMessage } from "element-plus";
+
+import { ElLoading } from "element-plus";
 
 const store = useStore();
 
@@ -182,6 +184,7 @@ const submit = async () => {
       type: "error",
     });
   } else {
+    store.loadingInstance = ElLoading.service({ fullscreen: true });
     await eval(store.trigger_buffer);
     const overlay = document.getElementById("overlay");
     overlay.style.display = "none";
@@ -195,6 +198,10 @@ const submit = async () => {
     await store.check_painter();
     await store.check_own();
     await store.update();
+    nextTick(() => {
+      // Loading should be closed asynchronously
+      store.loadingInstance.close();
+    });
   }
 };
 </script>
