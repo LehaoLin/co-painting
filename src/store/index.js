@@ -128,7 +128,7 @@ export const useStore = defineStore("store", {
       let length = await this.check_length();
       for (let tokenid = 2; tokenid <= length; tokenid++) {
         let owner = await this.check_owner(tokenid);
-        // console.log(owner, this.player_addr, "test");
+        console.log(owner, this.player_addr, "test");
         let temp = {};
         if (owner.toLowerCase() == this.player_addr.toLowerCase()) {
           temp.color = await this.get_color(tokenid);

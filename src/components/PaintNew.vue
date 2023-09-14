@@ -141,7 +141,7 @@ watch(motivation, (newVal, oldVal) => {
 });
 
 onMounted(() => {
-  store.check_own();
+  // store.check_own();
 });
 
 // test
