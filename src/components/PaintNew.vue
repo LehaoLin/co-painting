@@ -209,6 +209,7 @@ const submit = async () => {
       store.second_exchange_color = " ";
     } else if (store.trigger_type == "transfer") {
       await store.transfer_color(store.friend_addr);
+      store.friend_addr = "";
     }
 
     const overlay = document.getElementById("overlay");
