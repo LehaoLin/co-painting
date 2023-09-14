@@ -106,7 +106,7 @@
           当前账户 拥有绘画权限<br />
           可绘画颜色：<span
             :style="{
-              'background-color': wallet_color,
+              'background-color': store.wallet_color,
               display: 'inline-block',
               width: '20px',
               height: '20px',
@@ -127,7 +127,7 @@
           当前账户 未拥有绘画权限<br />
           向未参与地址传递颜色<span
             :style="{
-              'background-color': wallet_color,
+              'background-color': store.wallet_color,
               display: 'inline-block',
               width: '20px',
               height: '20px',
@@ -185,13 +185,14 @@ watch(coordinate, (newVal) => {
 });
 
 const trigger = computed(() => {
-  return store.trigger_buffer;
+  return store.trigger_type;
 });
 
 watch(trigger, async (newVal) => {
   if (newVal == "") {
     await store.check_own();
     await store.check_right();
+    await store.check_painter();
     await rule();
   }
 });
@@ -208,15 +209,10 @@ const connect = async () => {
   await store.update();
   await store.check_own();
   await store.check_right();
+  await store.check_painter();
 
   await rule();
 };
-
-const wallet_color = computedAsync(async () => {
-  let color = await store.check_painter();
-  console.log("color", color);
-  return color;
-});
 
 const selected = computed(() => {
   try {

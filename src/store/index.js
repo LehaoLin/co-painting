@@ -102,6 +102,8 @@ export const useStore = defineStore("store", {
     trigger_type: "",
 
     right: null,
+
+    wallet_color: null,
   }),
   getters: {},
   actions: {
@@ -178,27 +180,37 @@ export const useStore = defineStore("store", {
       let blue = await this.contract.methods.bluecolor(this.player_addr).call();
       if (red) {
         if (red == 1) {
+          this.wallet_color = "#d24430";
           return "#d24430";
         } else if (red == 2) {
+          this.wallet_color = "#da6959";
           return "#da6959";
         } else if (red == 3) {
+          this.wallet_color = "#e58c84";
           return "#e58c84";
         } else if (red == 4) {
+          this.wallet_color = "#ebb4ad";
           return "#ebb4ad";
         } else if (red == 5) {
+          this.wallet_color = "#f5d9d6";
           return "#f5d9d6";
         }
       }
       if (blue) {
         if (blue == 1) {
+          this.wallet_color = "#4574e6";
           return "#4574e6";
         } else if (blue == 2) {
+          this.wallet_color = "#688fea";
           return "#688fea";
         } else if (blue == 3) {
+          this.wallet_color = "#8da9f2";
           return "#8da9f2";
         } else if (blue == 4) {
+          this.wallet_color = "#b3c3f4";
           return "#b3c3f4";
         } else if (blue == 5) {
+          this.wallet_color = "#d4ddfa";
           return "#d4ddfa";
         }
       }
@@ -207,6 +219,7 @@ export const useStore = defineStore("store", {
       let receipt = await this.contract.methods
         .swap_color(token1, token2)
         .send({ from: this.player_addr });
+      return receipt;
       if (receipt.status == 1) {
         this.record_motivation("swap");
         this.update();
@@ -216,6 +229,8 @@ export const useStore = defineStore("store", {
       let receipt = await this.contract.methods
         .transfer_painter(addr)
         .send({ from: this.player_addr });
+      return receipt;
+
       // if (receipt.status == 1) {
       //   this.record_motivation("transfer");
       //   this.update();
@@ -229,6 +244,8 @@ export const useStore = defineStore("store", {
       let receipt = await this.contract.methods
         .paint(x, y)
         .send({ from: this.player_addr });
+      return receipt;
+
       // if (receipt.status == 1) {
       //   this.record_motivation("paint");
       //   // await delay(5000);
