@@ -198,10 +198,11 @@ const submit = async () => {
     await store.check_painter();
     await store.check_own();
     await store.update();
-    nextTick(() => {
-      // Loading should be closed asynchronously
-      store.loadingInstance.close();
-    });
+    await store.loadingInstance.close();
+    // nextTick(() => {
+    //   // Loading should be closed asynchronously
+    //   store.loadingInstance.close();
+    // });
   }
 };
 </script>
