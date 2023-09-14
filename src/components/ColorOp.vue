@@ -199,19 +199,22 @@
 
       <el-col :span="6">
         <el-row justify="center">
-          <el-text class="mx-1" style="font-size: 27px" v-if="length <= 320"
-            >{{ length }}/320</el-text
+          <el-text
+            class="mx-1"
+            style="font-size: 27px"
+            v-if="store.length <= 320"
+            >{{ store.length }}/320</el-text
           >
           <el-text
             class="mx-1"
             style="font-size: 27px"
-            v-if="length > 320 && vote_result == false"
-            >{{ vote_num }}/{{ length }}</el-text
+            v-if="store.length > 320 && vote_result == false"
+            >{{ vote_num }}/{{ store.length }}</el-text
           >
           <el-text
             class="mx-1"
             style="font-size: 27px"
-            v-if="length > 320 && vote_result == true"
+            v-if="store.length > 320 && vote_result == true"
             >0/0</el-text
           >
         </el-row>
@@ -219,7 +222,7 @@
         <el-row justify="center">
           <el-button
             type="success"
-            :disabled="length <= 320 || vote_result == true"
+            :disabled="store.length <= 320 || vote_result == true"
             >投票铸造画布NFT</el-button
           >
         </el-row>
@@ -361,13 +364,13 @@ watch(trigger, async (newVal, oldVal) => {
   }
 });
 
-const length = ref(0);
+// const length = ref(0);
 const vote_num = ref(0);
 const vote_result = ref(false);
 
 const check_vote = async () => {
-  length.value = await store.check_length();
-  if (length.value > 320) {
+  await store.check_length();
+  if (store.length > 320) {
     vote_result.value = await store.check_vote_result();
     if (vote_result.value == false) {
       // 阶段二

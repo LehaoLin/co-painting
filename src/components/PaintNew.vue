@@ -224,6 +224,7 @@ const submit = async () => {
 
     await store.check_right();
     await store.check_painter();
+    await store.check_length();
     await store.check_own();
     await store.update();
 

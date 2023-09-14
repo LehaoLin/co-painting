@@ -104,6 +104,7 @@ export const useStore = defineStore("store", {
     right: null,
 
     wallet_color: null,
+    length: null,
   }),
   getters: {},
   actions: {
@@ -152,6 +153,7 @@ export const useStore = defineStore("store", {
     },
     async check_length() {
       let length = await this.contract.methods.checklength().call();
+      this.length = length;
       return length;
     },
     async check_owner(tokenid) {

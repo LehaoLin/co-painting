@@ -192,7 +192,7 @@ watch(trigger, async (newVal) => {
   if (newVal == "") {
     await store.check_painter();
     await store.check_right();
-    await store.check_own();
+    // await store.check_own();
     await rule();
   }
 });
