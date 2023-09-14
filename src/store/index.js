@@ -131,7 +131,6 @@ export const useStore = defineStore("store", {
         // console.log(owner, this.player_addr, "test");
         let temp = {};
         if (owner.toLowerCase() == this.player_addr.toLowerCase()) {
-          console.log("check_own", tokenid);
           temp.color = await this.get_color(tokenid);
           temp.tokenid = tokenid;
           temp.coordinate = await this.get_coordinate(tokenid);
@@ -145,7 +144,7 @@ export const useStore = defineStore("store", {
         let res = await ethereum.request({ method: "eth_requestAccounts" });
         this.connected = true;
         console.log("当前钱包地址:" + res[0]);
-        this.player_addr = res[0];
+        this.player_addr = res[0].toLowerCase();
       }
     },
     async check_length() {

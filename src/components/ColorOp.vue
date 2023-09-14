@@ -1,5 +1,5 @@
 <template>
-  <div class="container" v-if="right != 0">
+  <div class="container" v-if="store.right != 0">
     <el-row justify="center">
       <el-col :span="6">
         <el-row justify="center">
@@ -82,12 +82,15 @@
             style="width: 100%"
             textareaStyle="color: black"
             input-style=""
-            :disabled="right == 2"
+            :disabled="store.right == 2"
           />
         </el-row>
         <br />
         <el-row justify="center">
-          <el-button type="success" v-if="right == 3" @click="transferColor"
+          <el-button
+            type="success"
+            v-if="store.right == 3"
+            @click="transferColor"
             >传递颜色</el-button
           >
           <el-button type="info" v-else disabled>传递颜色</el-button>
@@ -95,10 +98,10 @@
         </el-row>
         <br />
         <el-row justify="center">
-          <el-text class="mx-1" type="danger" v-if="right == 2"
+          <el-text class="mx-1" type="danger" v-if="store.right == 2"
             >绘画两次后开启传递功能
           </el-text>
-          <el-text class="mx-1" type="danger" v-else-if="right == 3"
+          <el-text class="mx-1" type="danger" v-else-if="store.right == 3"
             >输入一个未参与地址
           </el-text>
           <el-text class="mx-1" type="danger" v-else>无权限 </el-text>
@@ -166,20 +169,23 @@
         </el-row>
         <br />
         <el-row justify="center">
-          <el-button type="success" v-if="right == 2" @click="paint()"
+          <el-button type="success" v-if="store.right == 2" @click="paint()"
             >绘画</el-button
           >
           <el-button type="info" v-else disabled>绘画</el-button>
         </el-row>
         <br />
         <el-row justify="center">
-          <el-text class="mx-1" type="danger" v-if="right == 2"
+          <el-text class="mx-1" type="danger" v-if="store.right == 2"
             >选择画布中的空白像素
           </el-text>
-          <el-text class="mx-1" type="danger" v-if="right == 3"
+          <el-text class="mx-1" type="danger" v-if="store.right == 3"
             >传递 重新获得绘画权限
           </el-text>
-          <el-text class="mx-1" type="danger" v-if="right != 2 && right != 3"
+          <el-text
+            class="mx-1"
+            type="danger"
+            v-if="store.right != 2 && store.right != 3"
             >无权限
           </el-text>
           <!-- <el-text class="mx-1" type="danger" v-if="prior == 'already'"
@@ -333,11 +339,12 @@ const transferColor = async () => {
   }
 };
 
-const right = ref();
+// const right = ref();
 
 onMounted(async () => {
   await check_vote();
-  right.value = await store.check_right();
+  // right.value = await store.check_right();
+  await store.check_right();
 });
 
 const trigger = computed(() => {
@@ -346,7 +353,8 @@ const trigger = computed(() => {
 
 watch(trigger, async (newVal, oldVal) => {
   if (newVal == "") {
-    right.value = await store.check_right();
+    // right.value = await store.check_right();
+    await store.check_right();
   }
 });
 
