@@ -302,7 +302,7 @@ const approve_market = async () => {
 };
 
 const buy_item = async () => {
-  await store.buy_item();
+  await store.buy_item(price.value);
   await run();
 };
 
