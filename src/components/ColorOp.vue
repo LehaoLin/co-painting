@@ -1,7 +1,7 @@
 <template>
   <div
     class="container"
-    v-if="store.right != 0 && store.own_colors.length != 0"
+    v-if="store.right != 0 || store.own_colors.length != 0"
   >
     <el-row justify="center">
       <el-col :span="6">
@@ -92,11 +92,13 @@
         <el-row justify="center">
           <el-button
             type="success"
-            v-if="store.right == 3"
+            :disabled="
+              !(store.right == 3) ||
+              (store.right == 0 && store.own_colors.length > 0)
+            "
             @click="transferColor"
             >传递颜色</el-button
           >
-          <el-button type="info" v-else disabled>传递颜色</el-button>
           <br />
         </el-row>
         <br />
@@ -172,10 +174,17 @@
         </el-row>
         <br />
         <el-row justify="center">
-          <el-button type="success" v-if="store.right == 2" @click="paint()"
+          <el-button
+            type="success"
+            v-if="store.right == 2"
+            :disabled="
+              !(store.right == 2) ||
+              (store.right == 0 && store.own_colors.length)
+            "
+            @click="paint()"
             >绘画</el-button
           >
-          <el-button type="info" v-else disabled>绘画</el-button>
+          <!-- <el-button type="info" v-else disabled>绘画</el-button> -->
         </el-row>
         <br />
         <el-row justify="center">
