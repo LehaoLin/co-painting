@@ -246,6 +246,7 @@ onMounted(async () => {
 const owner_is_you = ref(false);
 
 const run = async () => {
+  await check_sell_list();
   await check_divide();
   let output_addr = await check_nft();
   console.log("output_addr", output_addr.toLowerCase());
