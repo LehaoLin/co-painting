@@ -202,19 +202,19 @@
           <el-text
             class="mx-1"
             style="font-size: 27px"
-            v-if="store.length <= 320"
+            v-if="store.length <= bar"
             >{{ store.length }}/320</el-text
           >
           <el-text
             class="mx-1"
             style="font-size: 27px"
-            v-if="store.length > 320 && vote_result == false"
+            v-if="store.length > bar && vote_result == false"
             >{{ vote_num }}/{{ store.length }}</el-text
           >
           <el-text
             class="mx-1"
             style="font-size: 27px"
-            v-if="store.length > 320 && vote_result == true"
+            v-if="store.length > bar && vote_result == true"
             >0/0</el-text
           >
         </el-row>
