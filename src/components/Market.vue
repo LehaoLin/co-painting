@@ -312,8 +312,6 @@ const buy_item = async () => {
 const divide_final_art = async () => {
   await store.divide_final_art();
   await run();
-  let balance_ = await store.check_contract_balance();
-  balance.value = balance_ / 10 ** 18;
 };
 
 const cancel_listing = async () => {
