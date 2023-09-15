@@ -300,7 +300,7 @@ const cancel_listing = async () => {
 const input_price = ref("");
 
 const upload_price = async () => {
-  await store.upload_price(input_price.value);
+  await store.upload_price(parseFloat(input_price.value));
 };
 
 const price = ref(0);
