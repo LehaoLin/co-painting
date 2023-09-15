@@ -256,9 +256,7 @@ export const useStore = defineStore("store", {
       // }
     },
     async check_vote_result() {
-      let result = await this.contract.methods
-        .checkvoteresult(this.player_addr)
-        .call();
+      let result = await this.contract.methods.checkvoteresult().call();
       return result;
     },
     async check_vote() {

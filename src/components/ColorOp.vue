@@ -201,19 +201,19 @@
         <el-row justify="center">
           <el-text
             class="mx-1"
-            style="font-size: 27px"
+            style="font-size: 22px"
             v-if="store.length <= bar"
             >{{ store.length }}/320</el-text
           >
           <el-text
             class="mx-1"
-            style="font-size: 27px"
+            style="font-size: 22px"
             v-if="store.length > bar && vote_result == false"
             >{{ vote_num }}/{{ store.length }}</el-text
           >
           <el-text
             class="mx-1"
-            style="font-size: 27px"
+            style="font-size: 22px"
             v-if="store.length > bar && vote_result == true"
             >0/0</el-text
           >
@@ -249,6 +249,12 @@
             type="danger"
             v-if="store.own_colors.length > 0 && vote_result == false"
             >一个像素NFT只能投一次</el-text
+          >
+          <el-text
+            class="mx-1"
+            type="danger"
+            v-if="store.length > bar && vote_result == true"
+            >投票已结束</el-text
           >
         </el-row>
       </el-col>
@@ -382,6 +388,7 @@ const check_vote = async () => {
   await store.check_length();
   if (store.length > bar.value) {
     vote_result.value = await store.check_vote_result();
+    console.log("testtesttest", vote_result.value);
     if (vote_result.value == false) {
       // 阶段二
       vote_num.value = await store.check_vote();
