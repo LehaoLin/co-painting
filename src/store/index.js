@@ -292,7 +292,7 @@ export const useStore = defineStore("store", {
     },
 
     async cancel_listing() {
-      let output = await this.contract.methods
+      let output = await this.contract_market.methods
         .cancelListing()
         .send({ from: this.player_addr });
     },

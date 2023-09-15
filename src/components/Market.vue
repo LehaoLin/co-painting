@@ -245,9 +245,14 @@ const owner_is_you = ref(false);
 
 const run = async () => {
   let output_addr = await check_nft();
+  console.log("output_addr", output_addr.toLowerCase());
+  console.log("player_addr", store.player_addr.toLowerCase());
+
   if (output_addr.toLowerCase() == store.player_addr.toLowerCase()) {
     approve.value = await store.check_approve_market();
     owner_is_you.value = true;
+    console.log("owner_is_you", owner_is_you.value);
+    console.log("approve", approve.value);
     if (approve.value) {
       state.value = await store.check_state();
       if (state.value) {
@@ -262,6 +267,7 @@ const run = async () => {
   } else {
     // 不是拥有者
     preseller.value = await store.check_preseller();
+    price.value = await store.check_price();
     if (preseller.value > 0) {
       // 提钱界面
       // benefit
@@ -301,6 +307,7 @@ const input_price = ref("");
 
 const upload_price = async () => {
   await store.upload_price(parseFloat(input_price.value));
+  await run();
 };
 
 const price = ref(0);
