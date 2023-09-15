@@ -328,7 +328,7 @@ export const useStore = defineStore("store", {
       return output;
     },
     async divide_final_art() {
-      let output = await this.contract_market.methods
+      let output = await this.contract.methods
         .dividefinalart()
         .send({ from: this.player_addr });
     },
