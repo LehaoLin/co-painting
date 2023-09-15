@@ -91,6 +91,37 @@
               align-items: center;
               align-self: center;
             "
+            v-if="preseller > 0 && owner_is_you == false"
+          >
+            <el-row>
+              <el-button
+                type="success"
+                @click="store.benefit()"
+                style="
+                  align-self: center;
+                  background-color: #58e27f;
+                  margin-left: 10px;
+                "
+                >收款</el-button
+              >
+              <p
+                class="font"
+                style="margin-left: 10px; text-align: left; font-size: 10px"
+              >
+                可提取: <br />
+                {{ price }} MATIC
+              </p>
+            </el-row>
+          </el-col>
+
+          <el-col
+            :span="8"
+            style="
+              vertical-align: middle;
+              justify-content: center;
+              align-items: center;
+              align-self: center;
+            "
             v-if="preseller == 0 && owner_is_you == false"
           >
             <el-row v-if="state">
