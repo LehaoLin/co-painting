@@ -96,7 +96,7 @@
             <el-row>
               <el-button
                 type="success"
-                @click="store.benefit()"
+                @click="benefit()"
                 style="
                   align-self: center;
                   background-color: #58e27f;
@@ -315,6 +315,11 @@ const divide_final_art = async () => {
 
 const cancel_listing = async () => {
   await store.cancel_listing();
+  await run();
+};
+
+const benefit = async () => {
+  await store.benefit();
   await run();
 };
 
