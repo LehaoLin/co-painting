@@ -109,7 +109,7 @@
                 style="margin-left: 10px; text-align: left; font-size: 10px"
               >
                 可提取: <br />
-                {{ price }} MATIC
+                {{ preseller / 10 ** 18 }} MATIC
               </p>
             </el-row>
           </el-col>
