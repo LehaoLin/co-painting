@@ -345,9 +345,13 @@ const test = computed(() => {
   return store.colors;
 });
 
-watch(test, (newVal) => {
-  draw();
-});
+watch(
+  test,
+  (newVal) => {
+    draw();
+  },
+  { deep: true }
+);
 
 // onMounted(() => {
 //   console.log("colors", colors.value);
