@@ -386,13 +386,14 @@ onMounted(async () => {
 });
 
 const trigger = computed(() => {
-  return store.trigger_buffer;
+  return store.trigger_type;
 });
 
 watch(trigger, async (newVal, oldVal) => {
   if (newVal == "") {
     // right.value = await store.check_right();
     await store.check_right();
+    await check_vote();
   }
 });
 
@@ -404,7 +405,7 @@ const check_vote = async () => {
   await store.check_length();
   if (store.length > bar.value) {
     vote_result.value = await store.check_vote_result();
-    console.log("testtesttest", vote_result.value);
+    // console.log("testtesttest", vote_result.value);
     if (vote_result.value == false) {
       // 阶段二
       vote_num.value = await store.check_vote();
