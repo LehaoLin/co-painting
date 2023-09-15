@@ -228,7 +228,9 @@
         </el-row>
         <br />
         <el-row justify="center">
-          <el-text class="mx-1" type="danger">超过2/3像素被画后开启</el-text>
+          <el-text class="mx-1" type="danger" v-if="store.length <= bar"
+            >超过2/3像素被画后开启</el-text
+          >
           <el-text
             class="mx-1"
             type="danger"
@@ -378,6 +380,7 @@ const check_vote = async () => {
       vote_num.value = await store.check_vote();
     } else {
       // 阶段三
+      // 分子分母都改成0
     }
   }
 };
