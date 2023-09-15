@@ -222,7 +222,13 @@
         <el-row justify="center">
           <el-button
             type="success"
-            :disabled="!(store.own_colors.length > 0 && vote_result == false)"
+            :disabled="
+              !(
+                store.own_colors.length > 0 &&
+                vote_result == false &&
+                store.length <= bar
+              )
+            "
             @click="vote"
             >投票铸造画布NFT</el-button
           >
