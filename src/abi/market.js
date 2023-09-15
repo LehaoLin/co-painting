@@ -235,7 +235,13 @@ export var abi = JSON.parse(`[
 		"type": "function"
 	},
 	{
-		"inputs": [],
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "wallet",
+				"type": "address"
+			}
+		],
 		"name": "checkpreseller",
 		"outputs": [
 			{

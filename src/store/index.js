@@ -14,7 +14,7 @@ import axios from "axios";
 // const contractAddress_market = "0x409E500D725601Ff5402317443C66343F3E6Bf6B";
 
 const contractAddress_painting = "0xE1648546cCD211CFEb3700B18139c5795e6f9D55";
-const contractAddress_market = "0x4519126fC1F8DBFA6fa284E8108B246b1f18b047";
+const contractAddress_market = "0x6723E18Ec014A45Ed346c22b05D9acB3cC538bC5";
 
 // const url = "http://localhost:3000"; // test
 // const url = "http://8.222.146.181"; // test
@@ -303,7 +303,9 @@ export const useStore = defineStore("store", {
         .send({ from: this.player_addr });
     },
     async check_preseller() {
-      let output = await this.contract_market.methods.checkpreseller().call();
+      let output = await this.contract_market.methods
+        .checkpreseller(this.player_addr)
+        .call();
       return output;
     },
     async benefit() {
