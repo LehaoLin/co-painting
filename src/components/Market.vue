@@ -156,7 +156,7 @@
                   background-color: #58e27f;
                   margin-left: 10px;
                 "
-                :disabled="!divide || store.own_colors.length == 0"
+                :disabled="!(divide && store.own_colors.length > 0)"
                 >分红</el-button
               >
 
