@@ -319,7 +319,7 @@ export const useStore = defineStore("store", {
       let new_price = BigInt(price * 10 ** 18);
       let output = await this.contract_market.methods
         .buyItem(new_price)
-        .send({ from: this.player_addr });
+        .send({ from: this.player_addr, value: new_price });
     },
     async check_dividen() {
       let output = await this.contract_market.methods.checkdividen().call();
