@@ -280,18 +280,17 @@ export const useStore = defineStore("store", {
     },
 
     async check_approve_market() {
-      let output = await this.contract.methods.check_approve_market().call();
+      let output = await this.contract_market.methods
+        .check_approve_market()
+        .call();
       return output;
     },
     async approve_market() {
-      let output = await this.contract.methods
+      let output = await this.contract_market.methods
         .approve_market()
         .send({ from: this.player_addr });
     },
-    async check_state() {
-      let output = await this.contract.methods.checkstate().call();
-      return output;
-    },
+
     async cancel_listing() {
       let output = await this.contract.methods
         .cancelListing()
@@ -299,57 +298,55 @@ export const useStore = defineStore("store", {
     },
     async upload_price(price) {
       let price_new = price * 10 ** 18;
-      let output = await this.contract.methods
+      let output = await this.contract_market.methods
         .upload_price(price_new)
         .send({ from: this.player_addr });
     },
     async check_preseller() {
-      let output = await this.contract.methods.checkpreseller().call();
+      let output = await this.contract_market.methods.checkpreseller().call();
       return output;
     },
     async benefit() {
-      let output = await this.contract.methods
+      let output = await this.contract_market.methods
         .benefit()
         .send({ from: this.player_addr });
     },
     async check_state() {
-      let output = await this.contract.methods.checkstate().call();
+      let output = await this.contract_market.methods.checkstate().call();
       return output;
     },
     async buy_item() {
-      let output = await this.contract.methods
+      let output = await this.contract_market.methods
         .buyItem()
         .send({ from: this.player_addr });
     },
     async check_dividen() {
-      let output = await this.contract.methods.checkdividen().call();
+      let output = await this.contract_market.methods.checkdividen().call();
       return output;
     },
     async divide_final_art() {
-      let output = await this.contract.methods
+      let output = await this.contract_market.methods
         .dividefinalart()
         .send({ from: this.player_addr });
     },
     async check_contract_balance() {
-      let output = await this.contract.methods.checkcontractbalance().call();
+      let output = await this.contract_market.methods
+        .checkcontractbalance()
+        .call();
       return output;
     },
     async check_price() {
-      let output = await this.contract.methods.checkprice().call();
-    },
-    async check_owner(tokenid) {
-      let output = await this.contract.methods.checkowner(tokenid).call();
-      return output;
+      let output = await this.contract_market.methods.checkprice().call();
     },
     async checknum_sell() {
-      let output = await this.contract.methods.checknum_sell().call();
+      let output = await this.contract_market.methods.checknum_sell().call();
       return output;
     },
     async check_sell_list() {
       let num = await this.checknum_sell();
       let list = [];
       for (let i = 1; i <= num; i++) {
-        let output = await this.contract.methods.check_selllist().call();
+        let output = await this.contract_market.methods.check_selllist().call();
         list.push(output);
       }
       return list;

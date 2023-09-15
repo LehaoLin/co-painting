@@ -125,6 +125,7 @@
                   background-color: #58e27f;
                   margin-left: 10px;
                 "
+                :disabled="store.own_colors.length == 0"
                 >分红</el-button
               >
 
@@ -203,8 +204,10 @@ const preseller = ref(false);
 onMounted(async () => {
   //   await fresh_data();
   store.router = "market";
+  console.log(store.player_addr);
   await run();
   await check_sell_list();
+  await store.check_own();
 });
 
 const owner_is_you = ref(false);
