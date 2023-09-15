@@ -211,7 +211,7 @@ const owner_is_you = ref(false);
 
 const run = async () => {
   let output_addr = await check_nft();
-  if (output_addr == store.player_addr) {
+  if (output_addr.toLowerCase() == store.player_addr.toLowerCase()) {
     approve.value = await store.check_approve_market();
     owner_is_you.value = true;
     if (approve.value) {
