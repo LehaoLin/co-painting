@@ -286,7 +286,7 @@ export const useStore = defineStore("store", {
       return output;
     },
     async approve_market() {
-      let output = await this.contract_market.methods
+      let output = await this.contract.methods
         .approve_market()
         .send({ from: this.player_addr });
     },
