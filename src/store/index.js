@@ -299,7 +299,7 @@ export const useStore = defineStore("store", {
     async upload_price(price) {
       let price_new = price * 10 ** 18;
       let output = await this.contract_market.methods
-        .upload_price(price_new)
+        .upload_price(BigInt(price_new))
         .send({ from: this.player_addr });
     },
     async check_preseller() {
