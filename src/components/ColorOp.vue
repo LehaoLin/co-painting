@@ -238,7 +238,7 @@
               !(
                 store.own_colors.length > 0 &&
                 vote_result == false &&
-                store.length <= bar
+                store.length > bar
               )
             "
             @click="vote"
