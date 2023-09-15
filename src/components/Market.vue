@@ -156,7 +156,7 @@
                   background-color: #58e27f;
                   margin-left: 10px;
                 "
-                :disabled="store.own_colors.length == 0"
+                :disabled="!divide"
                 >分红</el-button
               >
 
@@ -215,10 +215,12 @@ const store = useStore();
 
 // const svg = ref();
 
-const balance = computedAsync(async () => {
-  let output = await store.check_contract_balance();
-  return output;
-});
+// const balance = computedAsync(async () => {
+//   let output = await store.check_contract_balance();
+//   return output;
+// });
+
+const balance = ref(0);
 
 const tableData = ref([]);
 
@@ -244,6 +246,7 @@ onMounted(async () => {
 const owner_is_you = ref(false);
 
 const run = async () => {
+  await check_divide();
   let output_addr = await check_nft();
   console.log("output_addr", output_addr.toLowerCase());
   console.log("player_addr", store.player_addr.toLowerCase());
@@ -284,6 +287,15 @@ const run = async () => {
   }
 };
 
+const divide = ref(false);
+const check_divide = async () => {
+  let out = await store.check_dividen();
+  balance.value = await store.check_contract_balance();
+  if (out) {
+    divide.value = true;
+  }
+};
+
 const approve_market = async () => {
   await store.approve_market();
   await run();
@@ -297,6 +309,7 @@ const buy_item = async () => {
 const divide_final_art = async () => {
   await store.divide_final_art();
   await run();
+  balance.value = await store.check_contract_balance();
 };
 
 const cancel_listing = async () => {

@@ -330,9 +330,7 @@ export const useStore = defineStore("store", {
         .send({ from: this.player_addr });
     },
     async check_contract_balance() {
-      let output = await this.contract_market.methods
-        .checkcontractbalance()
-        .call();
+      let output = await this.contract.methods.checkcontractbalance().call();
       return output;
     },
     async check_price() {
