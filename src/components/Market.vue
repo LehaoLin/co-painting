@@ -271,6 +271,7 @@ const run = async () => {
   } else {
     // 不是拥有者
     preseller.value = await store.check_preseller();
+    console.log("preseller", preseller.value);
 
     if (preseller.value > 0) {
       // 提钱界面
