@@ -247,6 +247,7 @@ const run = async () => {
   let output_addr = await check_nft();
   console.log("output_addr", output_addr.toLowerCase());
   console.log("player_addr", store.player_addr.toLowerCase());
+  price.value = await store.check_price();
 
   if (output_addr.toLowerCase() == store.player_addr.toLowerCase()) {
     approve.value = await store.check_approve_market();
@@ -267,7 +268,7 @@ const run = async () => {
   } else {
     // 不是拥有者
     preseller.value = await store.check_preseller();
-    price.value = await store.check_price();
+
     if (preseller.value > 0) {
       // 提钱界面
       // benefit

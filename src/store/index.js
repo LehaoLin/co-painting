@@ -337,6 +337,7 @@ export const useStore = defineStore("store", {
     },
     async check_price() {
       let output = await this.contract_market.methods.checkprice().call();
+      return output / 10 ** 18;
     },
     async checknum_sell() {
       let output = await this.contract_market.methods.checknum_sell().call();
