@@ -341,17 +341,19 @@ watch(clear, (newVal, oldVal) => {
   }
 });
 
-const test = computed(() => {
-  return store.colors;
-});
-
-watch(
-  test,
-  (newVal) => {
-    draw();
-  },
-  { deep: true }
-);
+// const test = computed(() => {
+//   return store.colors;
+// });
+// watch(
+//   test,
+//   (newVal) => {
+//     if (newVal) {
+//       console.log("test");
+//       draw();
+//     }
+//   },
+//   { deep: true }
+// );
 
 // onMounted(() => {
 //   console.log("colors", colors.value);

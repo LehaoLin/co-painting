@@ -259,7 +259,11 @@
           <el-text
             class="mx-1"
             type="danger"
-            v-if="store.own_colors.length > 0 && vote_result == false"
+            v-if="
+              store.own_colors.length > 0 &&
+              vote_result == false &&
+              store.length > bar
+            "
             >一个像素NFT只能投一次</el-text
           >
           <el-text
