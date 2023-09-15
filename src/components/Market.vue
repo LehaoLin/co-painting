@@ -338,7 +338,7 @@ const check_sell_list = async () => {
     tableData.value.push({
       from: item.from,
       to: item.to,
-      price: `${web3.utils.fromWei(item.price, "ether")} MATIC`,
+      price: `${store.web3.utils.fromWei(item.price, "ether")} MATIC`,
       time: date_str,
     });
   }
