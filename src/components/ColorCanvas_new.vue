@@ -26,6 +26,8 @@ import { storeToRefs } from "pinia";
 
 import { useStore } from "@/store";
 
+const store = useStore();
+
 const route = useRoute();
 // console.log(route.path);
 
@@ -337,6 +339,14 @@ watch(clear, (newVal, oldVal) => {
   if (newVal > 0) {
     draw();
   }
+});
+
+const test = computed(() => {
+  return store.colors;
+});
+
+watch(test, (newVal) => {
+  draw();
 });
 
 // onMounted(() => {
