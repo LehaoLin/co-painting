@@ -13,8 +13,8 @@ import axios from "axios";
 // const contractAddress_painting = "0x3cf00e16DC4039D2c1Daa295E326524fe9D8650C";
 // const contractAddress_market = "0x409E500D725601Ff5402317443C66343F3E6Bf6B";
 
-const contractAddress_painting = "0xa7036F79d259ea1d17dcc4F720315406c2Ca0b06";
-const contractAddress_market = "0xa27215a1e367484ABC5Ab6A216C9e016A9524Fed";
+const contractAddress_painting = "0x239Dd896b56559C6582E3a65a43c601f2aa724aF";
+const contractAddress_market = "0x4519126fC1F8DBFA6fa284E8108B246b1f18b047";
 
 // const url = "http://localhost:3000"; // test
 // const url = "http://8.222.146.181"; // test

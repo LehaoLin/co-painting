@@ -933,4 +933,4 @@ export var abi = JSON.parse(`[
 		"stateMutability": "payable",
 		"type": "receive"
 	}
-]`)
+]`);

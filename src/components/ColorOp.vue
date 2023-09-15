@@ -222,7 +222,7 @@
         <el-row justify="center">
           <el-button
             type="success"
-            :disabled="store.length <= 320 || vote_result == true"
+            :disabled="store.length <= bar || vote_result == true"
             >投票铸造画布NFT</el-button
           >
         </el-row>
@@ -283,6 +283,8 @@ const paint = async () => {
 // });
 
 const other_right = ref("");
+
+const bar = ref(2);
 
 const check_other_right = async () => {
   let right = await store.contract.methods.right(store.friend_addr).call();
@@ -369,7 +371,7 @@ const vote_result = ref(false);
 
 const check_vote = async () => {
   await store.check_length();
-  if (store.length > 320) {
+  if (store.length > bar.value) {
     vote_result.value = await store.check_vote_result();
     if (vote_result.value == false) {
       // 阶段二
