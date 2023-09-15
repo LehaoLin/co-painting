@@ -223,7 +223,7 @@
           <el-button
             type="success"
             :disabled="!(store.own_colors.length > 0 && vote_result == false)"
-            @click="store.vote_to_mint_final"
+            @click="vote"
             >投票铸造画布NFT</el-button
           >
         </el-row>
@@ -384,6 +384,12 @@ const check_vote = async () => {
       // 分子分母都改成0
     }
   }
+};
+
+const vote = async () => {
+  store.motivation = true;
+  // store.trigger_buffer = `store.swap_color(store.swap_token1id, store.swap_token2id);`;
+  store.trigger_type = "vote";
 };
 
 // watch(length, async (newVal, oldVal) => {

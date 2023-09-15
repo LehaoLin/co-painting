@@ -210,6 +210,8 @@ const submit = async () => {
     } else if (store.trigger_type == "transfer") {
       await store.transfer_color(store.friend_addr);
       store.friend_addr = "";
+    } else if (store.trigger_type == "vote") {
+      await store.vote_to_mint_final();
     }
 
     const overlay = document.getElementById("overlay");
