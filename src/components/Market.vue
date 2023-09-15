@@ -232,7 +232,7 @@ const check_nft = async () => {
 
 const approve = ref(false);
 const state = ref(false);
-const preseller = ref(false);
+const preseller = ref(0);
 
 onMounted(async () => {
   //   await fresh_data();
