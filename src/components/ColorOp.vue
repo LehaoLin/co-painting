@@ -1,5 +1,8 @@
 <template>
-  <div class="container" v-if="store.right != 0">
+  <div
+    class="container"
+    v-if="store.right != 0 && store.own_colors.length != 0"
+  >
     <el-row justify="center">
       <el-col :span="6">
         <el-row justify="center">
