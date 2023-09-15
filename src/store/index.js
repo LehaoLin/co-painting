@@ -346,7 +346,9 @@ export const useStore = defineStore("store", {
       let num = await this.checknum_sell();
       let list = [];
       for (let i = 1; i <= num; i++) {
-        let output = await this.contract_market.methods.check_selllist().call();
+        let output = await this.contract_market.methods
+          .check_selllist(i)
+          .call();
         list.push(output);
       }
       return list;
