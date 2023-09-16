@@ -20,7 +20,7 @@
               display: 'flex',
               'align-items': 'center',
               'font-size': '16px',
-              color: 'black',
+              color: '#3D3D3D',
               'justify-content': 'center',
               width: '5vw',
             }"
@@ -50,7 +50,7 @@
               'border-radius': '12px',
               'align-items': 'center',
               'font-size': '16px',
-              color: 'black',
+              color: '#3D3D3D',
               'justify-content': 'center',
               width: '5vw',
             }"
@@ -82,23 +82,23 @@
           <input
             v-model="store.friend_addr"
             placeholder="被传递地址"
-            :disabled="store.right == 2"
-            style="
-              height: 24px;
-              background-color: #e3e3e3;
-              border-color: #9d9d9d;
-              border-width: 3px;
-              border-radius: 12px;
-              border-style: solid;
-              text-align: center;
-              display: flex;
-              align-items: center;
-              align-self: center;
-              justify-content: center;
-              font-size: 14px;
-              color: black;
-              width: 15vw;
-            "
+            :disabled="store.right != 3"
+            :style="{
+              height: '24px',
+              'background-color': '#e3e3e3',
+              'border-color': store.right == 3 ? '#58E27F' : '#9d9d9d',
+              'border-width': '3px',
+              'border-radius': '12px',
+              'border-style': 'solid',
+              'text-align': 'center',
+              display: 'flex',
+              'align-items': 'center',
+              'align-self': 'center',
+              'justify-content': 'center',
+              'font-size': '14px',
+              color: '#3d3d3d',
+              width: '13vw',
+            }"
           />
         </el-row>
         <br />
@@ -165,22 +165,22 @@
           <button
             class="color1"
             v-else
-            style="
-              height: 32px;
-              background-color: #e3e3e3;
-              border-color: #9d9d9d;
-              border-width: 3px;
-              border-radius: 12px;
-              border-style: solid;
-              text-align: center;
-              display: flex;
-              align-items: center;
-              align-self: center;
-              justify-content: center;
-              font-size: 14px;
-              color: black;
-              width: 10vw;
-            "
+            :style="{
+              height: '32px',
+              'background-color': '#e3e3e3',
+              'border-color': store.right == 2 ? '#58E27F' : '#9d9d9d',
+              'border-width': '3px',
+              'border-radius': '12px',
+              'border-style': 'solid',
+              'text-align': 'center',
+              display: 'flex',
+              'align-items': 'center',
+              'align-self': 'center',
+              'justify-content': 'center',
+              'font-size': '14px',
+              color: '#3d3d3d',
+              width: '10vw',
+            }"
           >
             坐标
           </button>
@@ -189,7 +189,6 @@
         <el-row justify="center">
           <el-button
             type="success"
-            v-if="store.right == 2"
             :disabled="
               !(store.right == 2) ||
               (store.right == 0 && store.own_colors.length)
@@ -491,6 +490,6 @@ const select = (payload) => {
   width: 100%;
 }
 input::placeholder {
-  color: black;
+  color: #3d3d3d;
 }
 </style>
