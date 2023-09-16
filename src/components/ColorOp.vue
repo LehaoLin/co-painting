@@ -384,15 +384,22 @@ const transferColor = async () => {
   console.log(store.friend_addr);
   if (!store.friend_addr) {
     ElMessage({
-      message: "You should input the address name.",
+      message: "请输入一个未参与的地址",
       type: "warning",
     });
   } else {
     await check_other_right();
+    console.log(other_right.value);
     if (other_right.value == "") {
+      console.log("123213");
       store.motivation = true;
       // store.trigger_buffer = `store.transfer_color(store.friend_addr);`;
       store.trigger_type = "transfer";
+    } else {
+      ElMessage({
+        message: "该地址已参与",
+        type: "warning",
+      });
     }
   }
 };
