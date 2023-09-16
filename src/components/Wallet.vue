@@ -35,10 +35,15 @@
       账户详情<span class="buy_nft">购买像素NFT</span>
     </div>
 
-    <hr
+    <!-- <hr
       style="width: 855px; border-color: rgb(219 219 219); position: relative"
-    />
+    /> -->
+    <div style="display: flex; justify-content: center">
+      <el-slider v-model="value" :max="max" @input="inputSlider" />
+    </div>
+
     <br />
+
     <div class="container2">
       <div
         class="color_cube"
@@ -54,41 +59,43 @@
           'justify-content': overflow,
         }"
       >
-        <button
-          v-for="n in store.own_colors.length"
-          :key="n"
-          :style="{
-            width: '86px',
-            height: '86px',
-            flex: '0 0 auto',
-            'background-color': store.own_colors[n - 1].color,
-            'flex-direction': 'row',
-            'align-items': 'center',
-            'overflow-x': 'auto',
-            'scrollbar-width': 'none',
-            '-ms-overflow-style': 'none',
-            display: 'flex',
-            'justify-content': 'center',
-            // margin: 'auto',
-            // overflow: 'hidden',
-            'margin-right': '10px',
-            border: `5px solid${
-              store.own_colors[n - 1].tokenid in selected
-                ? 'black'
-                : store.own_colors[n - 1].color
-            }`,
-          }"
-          @click="store.chooseExchangeColor"
-        >
-          {{
-            `(${store.own_colors[n - 1].coordinate.x},${
-              store.own_colors[n - 1].coordinate.y
-            })`
-          }}
-          <br />
-          <br />
-          id: {{ store.own_colors[n - 1].tokenid }}
-        </button>
+        <el-scrollbar ref="scrollbarRef" always="false" @scroll="scroll">
+          <button
+            v-for="n in store.own_colors.length"
+            :key="n"
+            :style="{
+              width: '86px',
+              height: '86px',
+              flex: '0 0 auto',
+              'background-color': store.own_colors[n - 1].color,
+              'flex-direction': 'row',
+              'align-items': 'center',
+              'overflow-x': 'auto',
+              'scrollbar-width': 'none',
+              '-ms-overflow-style': 'none',
+              display: 'flex',
+              'justify-content': 'center',
+              // margin: 'auto',
+              // overflow: 'hidden',
+              'margin-right': '10px',
+              border: `5px solid${
+                store.own_colors[n - 1].tokenid in selected
+                  ? 'black'
+                  : store.own_colors[n - 1].color
+              }`,
+            }"
+            @click="store.chooseExchangeColor"
+          >
+            {{
+              `(${store.own_colors[n - 1].coordinate.x},${
+                store.own_colors[n - 1].coordinate.y
+              })`
+            }}
+            <br />
+            <br />
+            id: {{ store.own_colors[n - 1].tokenid }}
+          </button>
+        </el-scrollbar>
       </div>
     </div>
 
@@ -177,6 +184,7 @@
 <script setup>
 import { ref, computed, onMounted, watch } from "vue";
 import { computedAsync } from "@vueuse/core";
+import { ElScrollbar } from "element-plus";
 
 import { useStore } from "@/store";
 
@@ -206,6 +214,7 @@ watch(trigger, async (newVal) => {
 });
 
 onMounted(async () => {
+  max.value = innerRef.value.clientWidth - 380;
   // await store.check_own();
   // await store.check_right();
   // await rule();
@@ -275,6 +284,18 @@ const rule = async () => {
   } catch {
     console.log("error");
   }
+};
+
+const max = ref(0);
+const value = ref(0);
+const innerRef = ref();
+const scrollbarRef = ref();
+
+const inputSlider = (value) => {
+  scrollbarRef.value.setScrollTop(value);
+};
+const scroll = ({ scrollTop }) => {
+  value.value = scrollTop;
 };
 </script>
 
@@ -391,5 +412,10 @@ const rule = async () => {
   color: transparent;
   font-size: 14px;
   line-height: 170%;
+}
+
+.el-slider {
+  width: 80%;
+  height: 20px;
 }
 </style>
