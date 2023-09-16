@@ -12,7 +12,11 @@
               width: '100px',
               height: '32px',
               'background-color': '#E3E3E3',
-              'border-color': '#9D9D9D',
+              'border-color':
+                store.first_exchange_color == ' ' ||
+                store.second_exchange_color == ' '
+                  ? '#9d9d9d'
+                  : '#58E27F',
               'border-width': '3px',
               'border-style': 'solid',
               'border-radius': '12px',
@@ -42,7 +46,11 @@
               width: '100px',
               height: '32px',
               'background-color': '#E3E3E3',
-              'border-color': '#9D9D9D',
+              'border-color':
+                store.first_exchange_color == ' ' ||
+                store.second_exchange_color == ' '
+                  ? '#9d9d9d'
+                  : '#58E27F',
               'border-width': '3px',
               'border-style': 'solid',
               'text-align': 'center',
