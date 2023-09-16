@@ -60,7 +60,7 @@
         }"
       >
         <el-scrollbar ref="scrollbarRef" always="false" @scroll="scroll">
-          <div class="scrollbar-flex-content">
+          <div class="scrollbar-flex-content" ref="innerRef">
             <button
               v-for="n in store.own_colors.length"
               :key="n"
@@ -216,7 +216,7 @@ watch(trigger, async (newVal) => {
 });
 
 onMounted(() => {
-  max.value = innerRef.value.clientWidth;
+  max.value = innerRef.value?.clientWidth;
   // await store.check_own();
   // await store.check_right();
   // await rule();
@@ -294,10 +294,10 @@ const innerRef = ref();
 const scrollbarRef = ref();
 
 const inputSlider = (value) => {
-  scrollbarRef.value.setScrollTop(value);
+  scrollbarRef.value.setScrollLeft(value);
 };
-const scroll = ({ scrollTop }) => {
-  value.value = scrollTop;
+const scroll = ({ scrollLeft }) => {
+  value.value = scrollLeft;
 };
 </script>
 
