@@ -268,8 +268,8 @@ const submit = async () => {
   border-radius: 30px;
   /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); */
   /* max-width: 100%; */
-  width: 60vw;
-  height: 60vh;
+  width: 45vw;
+  height: 80vh;
   text-align: center;
   position: fixed;
   top: 45%;
@@ -282,18 +282,20 @@ const submit = async () => {
   /* background-color: #62120a; */
   background-color: rgba(98, 18, 10, 0.8); /* Transparent 50% */
   width: 50%;
-  padding: 10px;
+  padding: 20px;
   border-top-left-radius: 30px; /* Adjust the radius value as needed */
   border-bottom-left-radius: 30px; /* Adjust the radius value as needed */
   /* border-radius: 30px; */
+  margin: 0 auto;
 }
 
 .right-section {
   background-color: rgba(19, 45, 115, 0.8); /* Transparent 50% */
   width: 50%;
-  padding: 10px;
+  padding: 20px;
   border-top-right-radius: 30px; /* Adjust the radius value as needed */
   border-bottom-right-radius: 30px; /* Adjust the radius value as needed */
+  margin: 0 auto;
 
   /* border-radius: 30px; */
 
@@ -309,8 +311,9 @@ const submit = async () => {
 }
 
 .merge {
+  font-size: 15px;
   position: fixed;
-  padding-top: 100vh;
+  padding-top: 125vh;
   left: 50%;
   transform: translate(-50%, -50%);
 }
