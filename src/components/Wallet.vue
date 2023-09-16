@@ -44,8 +44,9 @@
         class="color_cube"
         ref="cube"
         :style="{
-          width: '100%',
+          width: '80%',
           height: '86px',
+          'padding-left': '10px',
           display: 'inline-flex',
           overflow: 'auto',
           position: 'relative',
@@ -353,6 +354,8 @@ const rule = async () => {
   position: relative;
   width: 100%;
   height: 86px;
+  display: flex;
+  justify-content: center !important;
 }
 
 /* .color_cube {
