@@ -323,7 +323,7 @@ const rule = async () => {
 .buy_nft {
   margin-left: auto;
   margin-right: auto;
-  margin-top: 22px;
+  margin-top: 11px;
   color: #0047ff;
   border-style: solid;
   border-color: #0047ff;
