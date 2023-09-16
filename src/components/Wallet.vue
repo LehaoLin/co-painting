@@ -67,6 +67,7 @@
             display: 'flex',
             'justify-content': 'center',
             // margin: 'auto',
+            overflow: 'hidden',
             'margin-right': '10px',
             border: `5px solid${
               store.own_colors[n - 1].tokenid in selected
@@ -111,6 +112,8 @@
               width: '20px',
               height: '20px',
               'border-radius': '50%',
+              'line-height': 'inherit',
+              'vertical-align': 'middle',
             }"
           ></span>
         </p>
@@ -132,6 +135,8 @@
               width: '20px',
               height: '20px',
               'border-radius': '50%',
+              'line-height': 'inherit',
+              'vertical-align': 'middle',
             }"
           ></span
           >重新获得绘画权限
