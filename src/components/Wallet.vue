@@ -200,11 +200,11 @@ const store = useStore();
 
 const cube = ref(null);
 
-const coordinate = computed(() => {
-  return store.own_coordinates.length;
+const owns = computed(() => {
+  return store.own_colors.length;
 });
 
-watch(coordinate, (newVal) => {
+watch(owns, (newVal) => {
   rule();
 });
 
