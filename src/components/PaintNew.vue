@@ -225,7 +225,6 @@ const submit = async () => {
 
     await store.loadingInstance.close();
 
-    store.colors = [];
     await store.fresh();
   }
 };
@@ -286,7 +285,6 @@ const submit = async () => {
   border-top-left-radius: 30px; /* Adjust the radius value as needed */
   border-bottom-left-radius: 30px; /* Adjust the radius value as needed */
   /* border-radius: 30px; */
-  margin: 0 auto;
 }
 
 .right-section {
@@ -295,7 +293,6 @@ const submit = async () => {
   padding: 20px;
   border-top-right-radius: 30px; /* Adjust the radius value as needed */
   border-bottom-right-radius: 30px; /* Adjust the radius value as needed */
-  margin: 0 auto;
 
   /* border-radius: 30px; */
 
@@ -308,13 +305,16 @@ const submit = async () => {
 .mech {
   margin-top: 20px;
   width: 15vw;
+  z-index: 6;
+  /* background-color: #888888; */
 }
 
 .merge {
   font-size: 15px;
   position: fixed;
-  padding-top: 125vh;
+  bottom: 5vh;
   left: 50%;
   transform: translate(-50%, -50%);
+  z-index: 3;
 }
 </style>
