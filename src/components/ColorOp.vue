@@ -79,13 +79,26 @@
 
       <el-col :span="6">
         <el-row justify="center">
-          <el-input
+          <input
             v-model="store.friend_addr"
             placeholder="被传递地址"
-            style="width: 100%"
-            textareaStyle="color: black"
-            input-style=""
             :disabled="store.right == 2"
+            style="
+              height: 24px;
+              background-color: #e3e3e3;
+              border-color: #9d9d9d;
+              border-width: 3px;
+              border-radius: 12px;
+              border-style: solid;
+              text-align: center;
+              display: flex;
+              align-items: center;
+              align-self: center;
+              justify-content: center;
+              font-size: 14px;
+              color: black;
+              width: 15vw;
+            "
           />
         </el-row>
         <br />
@@ -476,5 +489,8 @@ const select = (payload) => {
 .el-row {
   margin: auto; /* 自动分配垂直外边距来实现垂直居中 */
   width: 100%;
+}
+input::placeholder {
+  color: black;
 }
 </style>

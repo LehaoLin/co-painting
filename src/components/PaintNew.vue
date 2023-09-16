@@ -225,6 +225,7 @@ const submit = async () => {
 
     await store.loadingInstance.close();
 
+    store.colors = [];
     await store.fresh();
   }
 };
