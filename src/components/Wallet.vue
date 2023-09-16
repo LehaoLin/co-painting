@@ -328,7 +328,11 @@ const rule = async () => {
 .buy_nft {
   margin-left: auto;
   margin-right: auto;
-  margin-top: 11px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 4px;
+  line-height: inherit;
+  vertical-align: middle;
   color: #0047ff;
   border-style: solid;
   border-color: #0047ff;
@@ -337,6 +341,7 @@ const rule = async () => {
   font-size: 1px;
   position: absolute;
   margin-left: 1vw;
+  padding: 3px;
 }
 
 .container2 {
