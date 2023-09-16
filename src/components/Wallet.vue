@@ -35,11 +35,17 @@
       账户详情<span class="buy_nft">购买像素NFT</span>
     </div>
 
-    <!-- <hr
-      style="width: 855px; border-color: rgb(219 219 219); position: relative"
-    /> -->
     <div style="display: flex; justify-content: center">
-      <el-slider v-model="value" :max="max" @input="inputSlider" />
+      <el-slider
+        v-model="value"
+        :max="max"
+        @input="inputSlider"
+        v-if="overflow == 'none'"
+      />
+      <hr
+        v-else
+        style="width: 855px; border-color: rgb(219 219 219); position: relative"
+      />
     </div>
 
     <br />
