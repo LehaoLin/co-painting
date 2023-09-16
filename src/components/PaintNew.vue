@@ -205,8 +205,8 @@ const submit = async () => {
       await store.swap_color(store.swap_token1id, store.swap_token2id);
       store.swap_token1id = null;
       store.swap_token2id = null;
-      store.first_exchange_color = " ";
-      store.second_exchange_color = " ";
+      store.throwAwayColor1();
+      store.throwAwayColor2();
     } else if (store.trigger_type == "transfer") {
       await store.transfer_color(store.friend_addr);
       store.friend_addr = "";

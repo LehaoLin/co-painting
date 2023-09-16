@@ -258,7 +258,6 @@ const chooseExchangeColor = (event, index) => {
 };
 
 const check_selected = (index) => {
-  console.log(store.own_colors[index].tokenid);
   if (
     store.own_colors[index].tokenid == selected.value[0] ||
     store.own_colors[index].tokenid == selected.value[1]
