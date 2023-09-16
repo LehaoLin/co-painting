@@ -238,6 +238,7 @@ const submit = async () => {
   display: flex;
   justify-content: center;
   align-items: center;
+  box-shadow: inset 0 15px 15px #545353;
 }
 .paintnew {
   left: 50%;
@@ -262,7 +263,7 @@ const submit = async () => {
 
 /* Styles for the message box content */
 .message-box {
-  background-color: white;
+  /* background-color: white; */
   /* padding: 20px; */
   border-radius: 30px;
   /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); */
@@ -282,6 +283,8 @@ const submit = async () => {
   background-color: rgba(98, 18, 10, 0.8); /* Transparent 50% */
   width: 50%;
   padding: 10px;
+  border-top-left-radius: 30px; /* Adjust the radius value as needed */
+  border-bottom-left-radius: 30px; /* Adjust the radius value as needed */
   /* border-radius: 30px; */
 }
 
@@ -289,6 +292,9 @@ const submit = async () => {
   background-color: rgba(19, 45, 115, 0.8); /* Transparent 50% */
   width: 50%;
   padding: 10px;
+  border-top-right-radius: 30px; /* Adjust the radius value as needed */
+  border-bottom-right-radius: 30px; /* Adjust the radius value as needed */
+
   /* border-radius: 30px; */
 
   /* display: flex;
