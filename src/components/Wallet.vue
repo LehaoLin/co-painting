@@ -128,7 +128,7 @@
           "
         >
           当前账户 未拥有绘画权限<br />
-          向未参与地址传递颜色<span
+          向未参与地址传递颜色&nbsp;<span
             :style="{
               'background-color': store.wallet_color,
               display: 'inline-block',
@@ -139,7 +139,7 @@
               'vertical-align': 'middle',
             }"
           ></span
-          >重新获得绘画权限
+          >&nbsp;重新获得绘画权限
         </p>
         <p v-else style="color: black; font-size: 15px">
           此账户没有绘画权限或分享颜色权限<br />
