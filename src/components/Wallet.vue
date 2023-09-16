@@ -36,14 +36,13 @@
     </div>
 
     <div style="display: flex; justify-content: center">
-      <el-slider
+      <!-- <el-slider
         v-model="value"
         :max="max"
         @input="inputSlider"
         v-if="overflow == 'none'"
-      />
+      /> -->
       <hr
-        v-else
         style="width: 855px; border-color: rgb(219 219 219); position: relative"
       />
     </div>
@@ -66,7 +65,7 @@
         }"
       >
         <el-scrollbar ref="scrollbarRef" always="false" @scroll="scroll">
-          <div class="scrollbar-flex-content" ref="innerRef">
+          <div class="scrollbar-flex-content" ref="innerRef" :key="rerenderKey">
             <button
               v-for="n in store.own_colors.length"
               :key="n"
@@ -85,13 +84,14 @@
                 // margin: 'auto',
                 // overflow: 'hidden',
                 'margin-right': '10px',
-                border: `5px solid${
-                  store.own_colors[n - 1].tokenid in selected
-                    ? 'black'
-                    : store.own_colors[n - 1].color
-                }`,
+                border: `5px solid ${check_selected(n - 1)}`,
+                // border: `5px solid ${
+                //   store.own_colors[n - 1].tokenid in selected
+                //     ? 'black'
+                //     : store.own_colors[n - 1].color
+                // }`,
               }"
-              @click="store.chooseExchangeColor"
+              @click="chooseExchangeColor"
             >
               {{
                 `(${store.own_colors[n - 1].coordinate.x},${
@@ -237,7 +237,27 @@ const connect = async () => {
   await rule();
 };
 
+const rerenderKey = ref(0);
+
+const chooseExchangeColor = (event) => {
+  store.chooseExchangeColor(event);
+  // get_selected();
+  rerenderKey.value += 1;
+};
+
+const check_selected = (index) => {
+  if (
+    store.own_colors[index].tokenid == selected.value[0] ||
+    store.own_colors[index].tokenid == selected.value[1]
+  ) {
+    return "black";
+  } else {
+    return store.own_colors[index].color;
+  }
+};
+
 const selected = computed(() => {
+  console.log("colors", store.own_colors);
   try {
     let temp = [];
     if (store.first_exchange_color != " ") {
@@ -269,7 +289,8 @@ const selected = computed(() => {
       })[0].tokenid;
       temp.push(token2);
     }
-    console.log(temp);
+    console.log("selected", temp);
+    // selected.value = temp;
     return temp;
   } catch (e) {
     console.log(e);
