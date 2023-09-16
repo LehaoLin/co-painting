@@ -17,7 +17,7 @@
     <!-- <Paint /> -->
     <div class="big">
       <!-- <img src="@/assets/vertical.png" /> -->
-      <PageThree style="box-shadow: 0 -20px 15px #545353; z-index: 97" />
+      <PageThree style="box-shadow: 0 -20px 15px #545353; z-index: 2" />
       <Stages />
       <Members />
     </div>
