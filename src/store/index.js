@@ -371,6 +371,7 @@ export const useStore = defineStore("store", {
 
       console.log("res", res.data, typeof res.data);
       if (res.data) {
+        this.colors = [];
         for (let i of res.data) {
           // i[output.tokenid]
           console.log(i);
