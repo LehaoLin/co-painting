@@ -714,6 +714,7 @@ export const useStore = defineStore("store", {
     },
 
     throwAwayColor1() {
+      // console.log("shit", this.first_exchange);
       this.first_exchange_color = " ";
       this.first_exchange = 0;
     },

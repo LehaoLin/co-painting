@@ -91,7 +91,7 @@
                 //     : store.own_colors[n - 1].color
                 // }`,
               }"
-              @click="chooseExchangeColor"
+              @click="chooseExchangeColor($event, n - 1)"
             >
               {{
                 `(${store.own_colors[n - 1].coordinate.x},${
@@ -239,13 +239,26 @@ const connect = async () => {
 
 const rerenderKey = ref(0);
 
-const chooseExchangeColor = (event) => {
-  store.chooseExchangeColor(event);
-  // get_selected();
+const chooseExchangeColor = (event, index) => {
   rerenderKey.value += 1;
+  let cor = `(${store.own_colors[index].coordinate.x},${store.own_colors[index].coordinate.y})`;
+  if (cor == store.first_exchange_color) {
+    store.first_exchange_color = " ";
+    store.first_exchange = 0;
+  } else if (cor == store.second_exchange_color) {
+    store.second_exchange_color = " ";
+    if (store.first_exchange_color.localeCompare(" ") == 0) {
+      store.first_exchange = 0;
+    } else {
+      store.first_exchange = 1;
+    }
+  } else {
+    store.chooseExchangeColor(event);
+  }
 };
 
 const check_selected = (index) => {
+  console.log(store.own_colors[index].tokenid);
   if (
     store.own_colors[index].tokenid == selected.value[0] ||
     store.own_colors[index].tokenid == selected.value[1]
