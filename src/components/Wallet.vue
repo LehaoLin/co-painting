@@ -63,7 +63,7 @@
             'background-color': store.own_colors[n - 1].color,
             'flex-direction': 'row',
             'align-items': 'center',
-            'overflow-x': 'auto',
+            // 'overflow-x': 'auto',
             display: 'flex',
             'justify-content': 'center',
             // margin: 'auto',
@@ -276,6 +276,9 @@ const rule = async () => {
 </script>
 
 <style scoped>
+::-webkit-scrollbar {
+  display: none; /* Chrome Safari */
+}
 .page-one {
   width: 100%;
   height: 80vh;
