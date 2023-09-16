@@ -60,41 +60,43 @@
         }"
       >
         <el-scrollbar ref="scrollbarRef" always="false" @scroll="scroll">
-          <button
-            v-for="n in store.own_colors.length"
-            :key="n"
-            :style="{
-              width: '86px',
-              height: '86px',
-              flex: '0 0 auto',
-              'background-color': store.own_colors[n - 1].color,
-              'flex-direction': 'row',
-              'align-items': 'center',
-              'overflow-x': 'auto',
-              'scrollbar-width': 'none',
-              '-ms-overflow-style': 'none',
-              display: 'flex',
-              'justify-content': 'center',
-              // margin: 'auto',
-              // overflow: 'hidden',
-              'margin-right': '10px',
-              border: `5px solid${
-                store.own_colors[n - 1].tokenid in selected
-                  ? 'black'
-                  : store.own_colors[n - 1].color
-              }`,
-            }"
-            @click="store.chooseExchangeColor"
-          >
-            {{
-              `(${store.own_colors[n - 1].coordinate.x},${
-                store.own_colors[n - 1].coordinate.y
-              })`
-            }}
-            <br />
-            <br />
-            id: {{ store.own_colors[n - 1].tokenid }}
-          </button>
+          <div class="scrollbar-flex-content">
+            <button
+              v-for="n in store.own_colors.length"
+              :key="n"
+              :style="{
+                width: '86px',
+                height: '86px',
+                flex: '0 0 auto',
+                'background-color': store.own_colors[n - 1].color,
+                'flex-direction': 'row',
+                'align-items': 'center',
+                'overflow-x': 'auto',
+                'scrollbar-width': 'none',
+                '-ms-overflow-style': 'none',
+                display: 'flex',
+                'justify-content': 'center',
+                // margin: 'auto',
+                // overflow: 'hidden',
+                'margin-right': '10px',
+                border: `5px solid${
+                  store.own_colors[n - 1].tokenid in selected
+                    ? 'black'
+                    : store.own_colors[n - 1].color
+                }`,
+              }"
+              @click="store.chooseExchangeColor"
+            >
+              {{
+                `(${store.own_colors[n - 1].coordinate.x},${
+                  store.own_colors[n - 1].coordinate.y
+                })`
+              }}
+              <br />
+              <br />
+              id: {{ store.own_colors[n - 1].tokenid }}
+            </button>
+          </div>
         </el-scrollbar>
       </div>
     </div>
@@ -417,5 +419,9 @@ const scroll = ({ scrollTop }) => {
 .el-slider {
   width: 80%;
   height: 20px;
+}
+
+.scrollbar-flex-content {
+  display: flex;
 }
 </style>
