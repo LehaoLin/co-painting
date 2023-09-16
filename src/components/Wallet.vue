@@ -215,8 +215,8 @@ watch(trigger, async (newVal) => {
   }
 });
 
-onMounted(async () => {
-  max.value = innerRef.value.clientWidth - 380;
+onMounted(() => {
+  max.value = innerRef.value.clientWidth;
   // await store.check_own();
   // await store.check_right();
   // await rule();
