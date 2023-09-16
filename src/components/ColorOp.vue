@@ -143,22 +143,22 @@
           <button
             class="color1"
             v-if="store.have_click_canvas"
-            style="
-              height: 32px;
-              background-color: #e3e3e3;
-              border-color: #9d9d9d;
-              border-width: 3px;
-              border-radius: 12px;
-              border-style: solid;
-              text-align: center;
-              display: flex;
-              align-items: center;
-              align-self: center;
-              justify-content: center;
-              font-size: 14px;
-              color: black;
-              width: 10vw;
-            "
+            :style="{
+              height: '32px',
+              'background-color': '#e3e3e3',
+              'border-color': store.right == 2 ? '#58E27F' : '#9d9d9d',
+              'border-width': '3px',
+              'border-radius': '12px',
+              'border-style': 'solid',
+              'text-align': 'center',
+              display: 'flex',
+              'align-items': 'center',
+              'align-self': 'center',
+              'justify-content': 'center',
+              'font-size': '14px',
+              color: '#3d3d3d',
+              width: '10vw',
+            }"
           >
             ({{ store.col_clicked }},{{ 17 - store.row_clicked }})
           </button>
