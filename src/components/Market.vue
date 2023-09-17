@@ -3,7 +3,7 @@
     <div>
       <div>
         <el-row justify="center">
-          <el-col :span="8">
+          <el-col :span="7">
             <!-- <div v-html="svg"></div> -->
             <ColorCanvas :colors="store.colors" :disabled="true" />
           </el-col>
@@ -100,7 +100,7 @@
                 style="
                   align-self: center;
                   background-color: #58e27f;
-                  margin-left: 10px;
+                  /* margin-left: 10px; */
                 "
                 >收款</el-button
               >
@@ -154,7 +154,7 @@
                 style="
                   align-self: center;
                   background-color: #58e27f;
-                  margin-left: 10px;
+                  /* margin-left: 10px; */
                 "
                 :disabled="!(divide && store.own_colors.length > 0)"
                 >分红</el-button
@@ -164,7 +164,7 @@
                 class="font"
                 style="margin-left: 10px; text-align: left; font-size: 10px"
               >
-                合约总余额：{{ balance }} MATIC <br />
+                合约总余额：{{ roundToDecimal(balance, 5) }} MATIC <br />
                 每个像素NFT 每个月只能分红一次
               </p>
             </el-row>
@@ -244,6 +244,11 @@ onMounted(async () => {
 });
 
 const owner_is_you = ref(false);
+
+const roundToDecimal = (number, decimalPlaces) => {
+  var multiplier = Math.pow(10, decimalPlaces);
+  return Math.round(number * multiplier) / multiplier;
+};
 
 const run = async () => {
   await check_sell_list();
