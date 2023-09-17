@@ -141,7 +141,7 @@
           >
             <el-row v-if="state">
               <p class="font" style="">
-                售价：<span style="color: #58e27; font-size: 25px"
+                售价：<span style="color: #58e27f; font-size: 25px"
                   >{{ price }} MATIC</span
                 >
               </p>
