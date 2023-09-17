@@ -132,8 +132,10 @@ export const useStore = defineStore("store", {
       this.own_colors = [];
       let length = await this.check_length();
       for (let tokenid = 2; tokenid <= length + 1; tokenid++) {
+        if (tokenid in this.own_colors.map((i) => i.tokenid)) {
+          continue;
+        }
         let owner = await this.check_owner(tokenid);
-        // console.log(owner, this.player_addr, "test");
         let temp = {};
         if (owner.toLowerCase() == this.player_addr.toLowerCase()) {
           temp.color = await this.get_color(tokenid);
@@ -170,7 +172,7 @@ export const useStore = defineStore("store", {
       let coordinate = await this.contract.methods
         .getcoordinate(tokenid)
         .call();
-      console.log("coordinate", coordinate);
+      // console.log("coordinate", coordinate);
       let x = parseInt(coordinate.split("-")[0]);
       let y = parseInt(coordinate.split("_")[1]);
       return { x, y };
