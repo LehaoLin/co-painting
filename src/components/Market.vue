@@ -48,8 +48,8 @@
             <el-row>
               <el-input
                 v-model="input_price"
-                placeholder="输入金额(MATIC)"
-                style="width: 700px; color: black"
+                placeholder="输入金额"
+                style="width: 400px; color: black"
               >
                 <template #append style="background-color: #58e27f"
                   >MATIC</template
