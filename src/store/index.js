@@ -224,22 +224,22 @@ export const useStore = defineStore("store", {
       let receipt = await this.contract.methods
         .swap_color(token1, token2)
         .send({ from: this.player_addr });
-      return receipt;
-      if (receipt.status == 1) {
-        this.record_motivation("swap");
+      // return receipt;
+      if (receipt.status) {
+        this.record_motivation("swap", receipt.transactionHash);
         this.update();
       }
+      return receipt;
     },
     async transfer_color(addr) {
       let receipt = await this.contract.methods
         .transfer_painter(addr)
         .send({ from: this.player_addr });
+      if (receipt.status) {
+        this.record_motivation("transfer", receipt.transactionHash);
+        this.update();
+      }
       return receipt;
-
-      // if (receipt.status == 1) {
-      //   this.record_motivation("transfer");
-      //   this.update();
-      // }
     },
     async check_coordinatexy(x, y) {
       let output = await this.contract.methods.checkCoordinatexy(x, y).call();
@@ -249,13 +249,12 @@ export const useStore = defineStore("store", {
       let receipt = await this.contract.methods
         .paint(x, y)
         .send({ from: this.player_addr });
+      console.log("receipt", receipt);
+      if (receipt.status) {
+        this.record_motivation("paint", receipt.transactionHash);
+        this.update();
+      }
       return receipt;
-
-      // if (receipt.status == 1) {
-      //   this.record_motivation("paint");
-      //   // await delay(5000);
-      //   this.update();
-      // }
     },
     async check_vote_result() {
       let result = await this.contract.methods.checkvoteresult().call();
@@ -271,10 +270,11 @@ export const useStore = defineStore("store", {
       let receipt = await this.contract.methods
         .votetomintfinal()
         .send({ from: this.player_addr });
-      // if (receipt.status == 1) {
-      //   this.record_motivation("vote");
-      //   this.update();
-      // }
+      if (receipt.status) {
+        this.record_motivation("vote", receipt.transactionHash);
+        this.update();
+      }
+      return receipt;
     },
     async serve_compare() {
       let output = await this.contract.methods.serve_compare().call();
@@ -396,24 +396,31 @@ export const useStore = defineStore("store", {
       });
       this.get_canvas();
     },
-    async record_motivation(method) {
+    async record_motivation(method, hash) {
       let data = {
         adress: this.player_addr,
-        eco: store.eco,
-        non_eco: store.non_eco,
+        eco: this.eco,
+        non_eco: this.non_eco,
         method: method,
+        hash: hash,
       };
-      let res = axios({
-        method: "post",
-        url: url + "/motivation",
-        mode: "no-cors",
-        headers: {
-          "Content-Type": "application/json",
-          // Add any other headers required by the API
-        },
-        responseType: "json",
-        data: data,
-      });
+      try {
+        let res = await axios({
+          method: "post",
+          url: url + "/motivation",
+          mode: "no-cors",
+          headers: {
+            "Content-Type": "application/json",
+            // Add any other headers required by the API
+          },
+          responseType: "json",
+          data: data,
+        });
+      } catch (error) {
+        console.error(error);
+        await delay(1000);
+        await record_motivation(method, hash);
+      }
     },
 
     async connectWallet() {

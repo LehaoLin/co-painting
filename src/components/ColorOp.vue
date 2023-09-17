@@ -320,6 +320,10 @@ const paint = async () => {
   if (output == 2) {
     await store.update();
     prior.value = "already";
+    ElMessage({
+      message: "该像素已被抢险啦",
+      type: "warning",
+    });
   } else {
     store.motivation = true;
     // store.trigger_buffer = `store.paint(parseInt(store.col_clicked),17 - parseInt(store.row_clicked));`;
