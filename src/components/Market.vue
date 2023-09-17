@@ -51,7 +51,9 @@
                 placeholder="输入金额(MATIC)"
                 style="width: 700px; color: black"
               >
-                <template #append>MATIC</template>
+                <template #append style="background-color: #58e27f"
+                  >MATIC</template
+                >
               </el-input>
               <span>
                 <el-button
