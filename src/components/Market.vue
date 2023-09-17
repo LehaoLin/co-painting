@@ -140,7 +140,7 @@
             v-if="preseller == 0 && owner_is_you == false"
           >
             <el-row v-if="state">
-              <p class="font" style="padding: 10px; padding-left: 0">
+              <p class="font" style="padding-left: 0">
                 售价：<span style="color: #58e27f; font-size: 30px"
                   >{{ price }} MATIC</span
                 >
@@ -321,35 +321,47 @@ const check_divide = async () => {
 };
 
 const approve_market = async () => {
+  store.loadingInstance = ElLoading.service({ fullscreen: true });
   await store.approve_market();
   await run();
+  await store.loadingInstance.close();
 };
 
 const buy_item = async () => {
+  store.loadingInstance = ElLoading.service({ fullscreen: true });
   await store.buy_item(price.value);
   await run();
+  await store.loadingInstance.close();
 };
 
 const divide_final_art = async () => {
+  store.loadingInstance = ElLoading.service({ fullscreen: true });
   await store.divide_final_art();
   await run();
+  await store.loadingInstance.close();
 };
 
 const cancel_listing = async () => {
+  store.loadingInstance = ElLoading.service({ fullscreen: true });
   await store.cancel_listing();
   await run();
+  await store.loadingInstance.close();
 };
 
 const benefit = async () => {
+  store.loadingInstance = ElLoading.service({ fullscreen: true });
   await store.benefit();
   await run();
+  await store.loadingInstance.close();
 };
 
 const input_price = ref("");
 
 const upload_price = async () => {
+  store.loadingInstance = ElLoading.service({ fullscreen: true });
   await store.upload_price(parseFloat(input_price.value));
   await run();
+  await store.loadingInstance.close();
 };
 
 const price = ref(0);
