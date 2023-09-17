@@ -50,6 +50,7 @@
                 v-model="input_price"
                 placeholder="输入金额"
                 style="width: 280px; color: black"
+                input-style="color:black;"
               >
                 <template #append style="background-color: #58e27f"
                   >MATIC</template
@@ -415,5 +416,9 @@ svg {
 }
 .el-button {
   box-shadow: 2px 2px 5px gray;
+}
+
+.el-input:focus {
+  border-color: #58e27f;
 }
 </style>
