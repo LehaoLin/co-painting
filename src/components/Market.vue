@@ -140,8 +140,8 @@
             v-if="preseller == 0 && owner_is_you == false"
           >
             <el-row v-if="state">
-              <p class="font" style="padding-left: 0">
-                售价：<span style="color: #58e27f; font-size: 30px"
+              <p class="font" style="">
+                售价：<span style="color: #58e27; font-size: 25px"
                   >{{ price }} MATIC</span
                 >
               </p>
