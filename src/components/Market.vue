@@ -184,6 +184,7 @@
       class="font"
       table-layout="fixed"
       :header-cell-style="{ background: 'white', color: '#7b7b7b' }"
+      max-height="60vh"
     >
       <el-table-column prop="price" label="价格" align="center" />
       <el-table-column prop="from" label="卖家" align="center" />
@@ -392,7 +393,7 @@ svg {
 
 .list {
   background-color: #e9e9e9;
-  height: 40vh;
+  height: 60vh;
 }
 
 .font {

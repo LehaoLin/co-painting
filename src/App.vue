@@ -39,7 +39,7 @@ onMounted(async () => {
 });
 
 const footer = computed(() => {
-  if (route.path == "/test") {
+  if (route.path == "/test" || route.path == "/market") {
     return false;
   } else {
     return true;
