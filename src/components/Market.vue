@@ -46,13 +46,21 @@
             v-if="owner_is_you && approve == true && state == false"
           >
             <el-row>
-              <el-input v-model="input_price" placeholder="Please input" />
-              <el-button
-                type="success"
-                @click="upload_price()"
-                style="align-self: center; background-color: #58e27f"
-                >上架</el-button
+              <el-input
+                v-model="input_price"
+                placeholder="输入金额(MATIC)"
+                style="width: 200px"
               >
+                <template #append>MATIC</template>
+              </el-input>
+              <span>
+                <el-button
+                  type="success"
+                  @click="upload_price()"
+                  style="align-self: center; background-color: #58e27f"
+                  >上架</el-button
+                >
+              </span>
             </el-row>
           </el-col>
 
