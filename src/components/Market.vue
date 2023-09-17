@@ -267,6 +267,8 @@ const roundToDecimal = (number, decimalPlaces) => {
 };
 
 const run = async () => {
+  store.loadingInstance = ElLoading.service({ fullscreen: true });
+
   await check_sell_list();
   await check_divide();
   let output_addr = await check_nft();
@@ -308,6 +310,7 @@ const run = async () => {
       }
     }
   }
+  await store.loadingInstance.close();
 };
 
 const divide = ref(false);
@@ -323,36 +326,36 @@ const check_divide = async () => {
 const approve_market = async () => {
   store.loadingInstance = ElLoading.service({ fullscreen: true });
   await store.approve_market();
-  await run();
   await store.loadingInstance.close();
+  await run();
 };
 
 const buy_item = async () => {
   store.loadingInstance = ElLoading.service({ fullscreen: true });
   await store.buy_item(price.value);
-  await run();
   await store.loadingInstance.close();
+  await run();
 };
 
 const divide_final_art = async () => {
   store.loadingInstance = ElLoading.service({ fullscreen: true });
   await store.divide_final_art();
-  await run();
   await store.loadingInstance.close();
+  await run();
 };
 
 const cancel_listing = async () => {
   store.loadingInstance = ElLoading.service({ fullscreen: true });
   await store.cancel_listing();
-  await run();
   await store.loadingInstance.close();
+  await run();
 };
 
 const benefit = async () => {
   store.loadingInstance = ElLoading.service({ fullscreen: true });
   await store.benefit();
-  await run();
   await store.loadingInstance.close();
+  await run();
 };
 
 const input_price = ref("");
@@ -360,8 +363,8 @@ const input_price = ref("");
 const upload_price = async () => {
   store.loadingInstance = ElLoading.service({ fullscreen: true });
   await store.upload_price(parseFloat(input_price.value));
-  await run();
   await store.loadingInstance.close();
+  await run();
 };
 
 const price = ref(0);
