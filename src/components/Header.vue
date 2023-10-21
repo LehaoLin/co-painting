@@ -40,12 +40,8 @@ const toDiscord = () => {
 };
 
 const toScan = () => {
-  // window.open(
-  //   "https://sepolia.etherscan.io/address/0x3cf00e16dc4039d2c1daa295e326524fe9d8650c",
-  //   "_blank"
-  // );
   window.open(
-    "https://polygonscan.com/address/0xfFFab2a6F62B6E254E1F8821ef93D6A9bF98A9e3",
+    "https://polygonscan.com/address/0xb1f1b5a0026a80c557c1b27e9c0545825dcecfec#code",
     "_blank"
   );
   activeIndex.value = "0";

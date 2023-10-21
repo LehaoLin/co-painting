@@ -318,9 +318,6 @@ const paint_cell = (color, index) => {
 
 onMounted(() => {
   draw();
-  setTimeout(() => {
-    draw();
-  }, 1000);
 });
 
 watch(
@@ -340,6 +337,14 @@ watch(clear, (newVal, oldVal) => {
     draw();
   }
 });
+
+watch(
+  colors,
+  (newVal) => {
+    draw();
+  },
+  { deep: true }
+);
 
 // const test = computed(() => {
 //   return store.colors;

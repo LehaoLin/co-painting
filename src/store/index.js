@@ -10,8 +10,8 @@ import axios from "axios";
 // import WalletConnectProvider from "@maticnetwork/walletconnect-provider";
 
 //real
-// const contractAddress_painting = "0x3cf00e16DC4039D2c1Daa295E326524fe9D8650C";
-// const contractAddress_market = "0x409E500D725601Ff5402317443C66343F3E6Bf6B";
+// const contractAddress_painting = "0xB1F1B5a0026A80c557c1B27e9C0545825DCeCFEc";
+// const contractAddress_market = "0x5fDC14E34d24A8076A78d4038bc30dA5a0177854";
 
 const contractAddress_painting = "0xE1648546cCD211CFEb3700B18139c5795e6f9D55";
 const contractAddress_market = "0x6723E18Ec014A45Ed346c22b05D9acB3cC538bC5";
