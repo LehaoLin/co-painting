@@ -12,8 +12,7 @@ import { createPinia } from "pinia";
 // import Test from "@/components/Test.vue";
 // import About from "@/components/About.vue";
 
-import VScaleScreen from "v-scale-screen";
-
+// import VScaleScreen from "v-scale-screen";
 import router from "@/router";
 
 const pinia = createPinia();
@@ -22,6 +21,6 @@ const app = createApp(App);
 app.use(router);
 app.use(ElementPlus);
 app.use(pinia);
-app.use(VScaleScreen);
+// app.use(VScaleScreen);
 
 app.mount("#app");

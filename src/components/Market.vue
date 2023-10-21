@@ -254,6 +254,7 @@ onMounted(async () => {
   //   await fresh_data();
   store.router = "market";
   console.log(store.player_addr);
+  await store.connect_wallet();
   await run();
   await check_sell_list();
   await store.check_own();

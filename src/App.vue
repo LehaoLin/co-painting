@@ -1,20 +1,20 @@
 <template>
-  <v-scale-screen width="1512" height="3125">
-    <div id="app" :class="bg">
-      <!-- <v-scale-screen width="1920" height="1080"> -->
-      <header>
-        <Header />
-      </header>
+  <!-- <v-scale-screen width="1512" height="3125"> -->
+  <div id="app" :class="bg">
+    <!-- <v-scale-screen width="1920" height="1080"> -->
+    <header>
+      <Header />
+    </header>
 
-      <main>
-        <router-view></router-view>
-      </main>
-      <footer v-if="footer">
-        <Footer />
-      </footer>
-      <!-- </v-scale-screen> -->
-    </div>
-  </v-scale-screen>
+    <main>
+      <router-view></router-view>
+    </main>
+    <footer v-if="footer">
+      <Footer />
+    </footer>
+    <!-- </v-scale-screen> -->
+  </div>
+  <!-- </v-scale-screen> -->
 </template>
 
 <script setup>
