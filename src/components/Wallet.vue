@@ -406,7 +406,7 @@ const scroll = ({ scrollLeft }) => {
   border-color: #0047ff;
   border-width: 1px;
   text-align: center;
-  font-size: 1px;
+  font-size: 13px;
   position: absolute;
   margin-left: 1vw;
   padding: 3px;
