@@ -10,11 +10,11 @@ import axios from "axios";
 // import WalletConnectProvider from "@maticnetwork/walletconnect-provider";
 
 //real
-// const contractAddress_painting = "0xB1F1B5a0026A80c557c1B27e9C0545825DCeCFEc";
-// const contractAddress_market = "0x5fDC14E34d24A8076A78d4038bc30dA5a0177854";
+const contractAddress_painting = "0xB1F1B5a0026A80c557c1B27e9C0545825DCeCFEc";
+const contractAddress_market = "0x5fDC14E34d24A8076A78d4038bc30dA5a0177854";
 
-const contractAddress_painting = "0xE1648546cCD211CFEb3700B18139c5795e6f9D55";
-const contractAddress_market = "0x6723E18Ec014A45Ed346c22b05D9acB3cC538bC5";
+// const contractAddress_painting = "0xE1648546cCD211CFEb3700B18139c5795e6f9D55";
+// const contractAddress_market = "0x6723E18Ec014A45Ed346c22b05D9acB3cC538bC5";
 
 // const url = "http://localhost:3000"; // test
 // const url = "http://8.222.146.181"; // test

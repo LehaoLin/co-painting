@@ -6,11 +6,13 @@
       round
       @click="connect"
       v-if="!store.connected"
+      :disabled="true"
       >连接钱包</el-button
     >
     <div class="slogan" v-if="!store.connected">
       <div>
-        <p>请切换网络至Polygon</p>
+        <!-- <p>请切换网络至Polygon</p> -->
+        <p>尚未到达开放时间</p>
       </div>
     </div>
     <center class="all-text" v-if="!store.connected">

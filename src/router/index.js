@@ -17,7 +17,8 @@ const routes = [
   {
     path: "/market",
     name: "market",
-    component: Market,
+    // component: Market,
+    redirect: "/",
   },
   {
     path: "/about",
