@@ -341,7 +341,11 @@ watch(clear, (newVal, oldVal) => {
 watch(
   colors,
   (newVal) => {
-    draw();
+    if (newVal) {
+      if (!newVal.includes("#808080")) {
+        draw();
+      }
+    }
   },
   { deep: true }
 );
