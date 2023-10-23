@@ -221,6 +221,7 @@ export const useStore = defineStore("store", {
       }
     },
     async swap_color(token1, token2) {
+      this.record_motivation("swap");
       let receipt = await this.contract.methods
         .swap_color(token1, token2)
         .send({ from: this.player_addr });
@@ -232,6 +233,7 @@ export const useStore = defineStore("store", {
       return receipt;
     },
     async transfer_color(addr) {
+      this.record_motivation("transfer");
       let receipt = await this.contract.methods
         .transfer_painter(addr)
         .send({ from: this.player_addr });
@@ -246,6 +248,7 @@ export const useStore = defineStore("store", {
       return output;
     },
     async paint(x, y) {
+      this.record_motivation("paint");
       let receipt = await this.contract.methods
         .paint(x, y)
         .send({ from: this.player_addr });
@@ -267,6 +270,7 @@ export const useStore = defineStore("store", {
       return result;
     },
     async vote_to_mint_final() {
+      this.record_motivation("vote");
       let receipt = await this.contract.methods
         .votetomintfinal()
         .send({ from: this.player_addr });
@@ -396,7 +400,7 @@ export const useStore = defineStore("store", {
       });
       this.get_canvas();
     },
-    async record_motivation(method, hash) {
+    async record_motivation(method, hash = "") {
       let data = {
         adress: this.player_addr,
         eco: this.eco,
