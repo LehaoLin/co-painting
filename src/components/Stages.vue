@@ -2,10 +2,10 @@
   <el-row justify="space-evenly" class="stages">
     <el-col :span="3"></el-col>
     <el-col :span="5" class="stage-col">
-      <div class="stage stage-now">
+      <div class="stage stage-2">
         <!-- <div class="stage-title" style="color: #ff736b">Now</div> -->
         <!-- <el-divider class="divider" style="border-color: #ff736b"></el-divider> -->
-        <div class="stage-text" style="color: black">
+        <div class="stage-text" style="color: #e9e9e9">
           <!-- Beta version: <br />Co-painting <br />
           on Sepolia testnet. -->
           在Discord中<br />讨论共绘目标<br />并提交预创作或地址<br />成为两名初始绘画者之一
@@ -27,10 +27,10 @@
       ></el-divider> -->
     </el-col>
     <el-col :span="5" class="stage-col">
-      <div class="stage stage-2">
+      <div class="stage stage-now">
         <!-- <div class="stage-title" style="color: black">Stage 2</div> -->
         <!-- <el-divider class="divider"></el-divider> -->
-        <div style="color: #e9e9e9" class="stage-text">
+        <div style="color: black" class="stage-text">
           以初始绘画者为起点<br />正式开始共绘<br />当320个像素被画(2/3)<br />开启投票铸造画布整体NFT
           <!-- Offical version: <br />Painting and gaming <br />
           on Etherscan. -->
