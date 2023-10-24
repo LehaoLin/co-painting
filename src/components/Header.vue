@@ -34,7 +34,7 @@ const activeIndex = ref("0");
 
 const toDiscord = () => {
   // window.open("https://discord.gg/uXcmFN7fXx", "_blank");
-  window.open("https://discord.gg/seedao", "_blank");
+  window.open("https://discord.gg/reN6PS7e", "_blank");
   activeIndex.value = "0";
   store.router = "home";
 };
