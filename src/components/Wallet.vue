@@ -33,7 +33,7 @@
 
   <div class="pixelPick" v-if="store.connected">
     <div class="account_title">
-      账户详情<span class="buy_nft">购买像素NFT</span>
+      账户详情<span class="buy_nft" @click="buy_nft">购买像素NFT</span>
     </div>
 
     <div style="display: flex; justify-content: center">
@@ -204,6 +204,13 @@ const cube = ref(null);
 const owns = computed(() => {
   return store.own_colors.length;
 });
+
+const buy_nft = () => {
+  window.open(
+    "https://opensea.io/collection/painting-together-or-not",
+    "_blank"
+  );
+};
 
 watch(owns, (newVal) => {
   rule();
