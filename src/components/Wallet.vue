@@ -162,7 +162,7 @@
         </p>
         <p v-else style="color: black; font-size: 15px">
           此账户没有绘画权限或分享颜色权限<br />
-          加入<a href="https://discord.gg/reN6PS7e" target="_blank">Discord</a
+          加入<a href="https://discord.gg/seedao-xyz" target="_blank">Discord</a
           >获得权限
         </p>
       </el-col>
